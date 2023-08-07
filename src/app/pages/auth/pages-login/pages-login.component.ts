@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   filteredRoles!: LoginAllow[];
 
   constructor(
-    public authService: AuthService, public router: Router,
+ public router: Router,
     private formBuilder: FormBuilder,
     private iamService: IamService, private toastr: ToastrService,
     public http: HttpClient
@@ -44,13 +44,13 @@ export class LoginComponent implements OnInit {
     });
 
 
-    this.logout()
+   // this.logout()
 
     /**
      * initialize functions
      */
-    this._fetchData()
-    this.getIpAddress()
+  //  this._fetchData()
+   // this.getIpAddress()
   }
   /**
    * Asynchronously retrieves the user's IP address using a third-party API.

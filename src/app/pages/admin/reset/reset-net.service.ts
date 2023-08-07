@@ -24,6 +24,32 @@ export class MtlService {
     return this.userRef.doc('mtl').update(data);
   }
 
+  async setup() {
+    const steps = [
+      { name: "Issuer account", pub: environment.testnet.ISSUER_PUB },
+      { name: "Distributor account", pub: environment.testnet.DIST_PUB },
+      { name: "Pool account", pub: environment.testnet.POOL_PUB }
+    ];
+  
+    const result: any = {};
+  
+    for (const step of steps) {
+      try {
+        await axios.get(environment.testnet.BOTURL + "/?addr=" + step.pub);
+        console.log(`${step.name} setup done`);
+        result[step.name] = `${step.name} setup done`;
+      } catch (error: any) {
+        if (error.response.data.status == 400) {
+          console.log(`${step.name} setup done`);
+          result[step.name] = `${step.name} setup done`;
+        } else {
+          console.log(`${step.name} setup failed`);
+        }
+      }
+    }
+  
+    return result;
+  }
   
   
 }
