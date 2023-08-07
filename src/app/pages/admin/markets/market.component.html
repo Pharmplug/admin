@@ -1,0 +1,126 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Market Rates</h1>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title">View and set market rates</h3>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+              <div
+                class="accordion-item"
+                *ngFor="let item of rateList; let i = index"
+              >
+                <h2 class="accordion-header" [id]="'flush-heading' + i">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    [attr.data-bs-toggle]="'collapse'"
+                    [attr.data-bs-target]="'#flush-collapse' + i"
+                    aria-expanded="false"
+                    [attr.aria-controls]="'flush-collapse' + i"
+                  >
+                    {{ item.country }}
+                  </button>
+                </h2>
+                <div
+                  [id]="'flush-collapse' + i"
+                  class="accordion-collapse collapse"
+                  [attr.aria-labelledby]="'flush-heading' + i"
+                  data-bs-parent="#accordionFlushExample"
+                >
+                  <form
+                    [formGroup]="updateRateForm"
+                    class="needs-validation"
+                    (ngSubmit)="update(i)"
+                  >
+                    <div class="accordion-body">
+                      <div class="row mb-3">
+                        <div class="col-form-label col-sm-4 pt-0">
+                          <label class="form-check-label"
+                            >Current Rate
+                          
+<code class="card-title"> {{ item.history[item.history.length - 1].rate }} </code> to 1 USD:
+
+                           
+                          </label>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="input-group mb-3">
+                          <input
+                            type="number"
+                            class="form-control"
+                            placeholder="Change Rate"
+                            aria-label="password"
+                            formControlName="newRate"
+                            aria-describedby="basic-addon2"
+                          />
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <div class="col-sm-10">
+                          <button type="submit" class="btn btn-primary">
+                            Update
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h3 class="card-title"><b>Add Market Rate</b></h3>
+            <form
+              [formGroup]="addRateForm"
+              class="needs-validation"
+              (ngSubmit)="onSubmit()"
+            >
+              <div class="col-6">
+                <label for="inputNanme4" class="form-label">Country</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="country"
+                  id="inputNanme4"
+                />
+              </div>
+              <div class="col-6">
+                <label for="inputRate4" class="form-label">Symbol</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="symbol"
+                  id="inputEmail4"
+                />
+              </div>
+              <div class="col-6">
+                <label for="inputPassword4" class="form-label">Rate</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  formControlName="rate"
+                  id="inputPassword4"
+                />
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

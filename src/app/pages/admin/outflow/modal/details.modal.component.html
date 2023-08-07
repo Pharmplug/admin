@@ -1,0 +1,21 @@
+<div class="modal fade" id="largeModal" tabindex="-1">
+   <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h5 class="modal-title">Transaction Details</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <p  *ngIf="showTransactionType"><strong>Date:</strong> {{selectedTransaction.created_at.toMillis() | date : "yyyy/MM/dd h:mm"}}</p>
+         <p  *ngIf="showTransactionType"><strong>First Name:</strong> {{selectedTransaction.firstName}}</p>
+         <p  *ngIf="showTransactionType"> <strong>Email:</strong> {{selectedTransaction.email}}</p>
+         <p  *ngIf="showTransactionType"><strong>Phone:</strong> {{selectedTransaction.phone}}</p>
+         <p  *ngIf="showTransactionType"><strong>Stellar Address:</strong> {{selectedTransaction.stellar_address}}</p>
+         <p  *ngIf="showTransactionType"><strong>Transaction Amount:</strong> {{selectedTransaction.token_mount}}</p>
+         <p  *ngIf="showTransactionType"><strong>Fee:</strong> {{selectedTransaction.amount_fee}}</p>
+         <p  *ngIf="showTransactionType"><strong>Net Amount:</strong> {{selectedTransaction.amount_net}}</p>
+         <p *ngIf="showTransactionType"><strong>Transaction Type:</strong> {{selectedTransaction.transition_type}}</p>
+       </div>
+     </div>
+   </div>
+ </div>

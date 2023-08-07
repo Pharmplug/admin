@@ -1,0 +1,646 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>IAM</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+          <a>Identity And Access Management</a>
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section profile">
+    <div class="row">
+      <div class="col-xl-4">
+        <div class="card">
+          <div
+            class="card-body profile-card pt-4 d-flex flex-column align-items-center"
+          >
+            <!-- Display image, or a placeholder image if imageUrl is null -->
+            <img [src]="'/assets/img/admin.png'" class="img" />
+            <div>...</div>
+
+            <h2>Super Admin</h2>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-8">
+        <div class="card">
+          <div class="card-body pt-3">
+            <ul class="nav nav-tabs nav-tabs-bordered">
+              <li class="nav-item">
+                <button
+                  class="nav-link active"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-overview"
+                >
+                  Super Admin data Info
+                </button>
+              </li>
+
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-settings"
+                >
+                  Edit/Permissions
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-change-password"
+                >
+                  Add Admins
+                </button>
+              </li>
+              <li class="nav-item">
+                <button
+                  class="nav-link"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-change-edit"
+                >
+                  Remove Users
+                </button>
+              </li>
+            </ul>
+
+            <div class="tab-content pt-2">
+              <!-- Super Admin Data-->
+              <div
+                class="tab-pane fade show active profile-overview"
+                id="profile-overview"
+              >
+                <div style="margin-bottom: 24px"></div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Admin ID</div>
+                  <div class="col-lg-9 col-md-8">{{ admin.uid }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Full Name</div>
+                  <div class="col-lg-9 col-md-8"></div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Country</div>
+                  <div class="col-lg-9 col-md-8"></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Address</div>
+                  <div class="col-lg-9 col-md-8"></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Phone</div>
+                  <div class="col-lg-9 col-md-8"></div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Email</div>
+                  <div class="col-lg-9 col-md-8">{{ admin.email }}</div>
+                </div>
+              </div>
+              <!-- Edit  Admin Info-->
+              <div class="tab-pane fade pt-3" id="profile-edit">
+                <div
+                  class="tab-pane fade show active profile-overview"
+                  id="profile-overview"
+                >
+                  <div style="margin-bottom: 24px"></div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"></h5>
+
+                      <form>
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >First Name</label
+                          >
+                          <div class="col-md-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputText"
+                            />
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Last Name</label
+                          >
+                          <div class="col-md-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputText"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Email</label
+                          >
+                          <div class="col-md-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputText"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Phone</label
+                          >
+                          <div class="col-md-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputText"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Address</label
+                          >
+                          <div class="col-md-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputText"
+                            />
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Country</label
+                          >
+                          <div class="col-md-4">
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="inputText"
+                            />
+                          </div>
+                        </div>
+
+                        <h5 class="card-title">.</h5>
+                        <div class="col-md-6">
+                          <div class="mb-6">
+                            <button type="submit" class="btn btn-primary w-md">
+                              Update
+                            </button>
+
+                            <button
+                              type="button"
+                              style="margin-left: 20px"
+                              class="btn btn-danger w-md"
+                            >
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Set Admins Permissions -->
+              <div class="tab-pane fade pt-3" id="profile-settings">
+                <div
+                  class="tab-pane fade show active profile-overview"
+                  id="profile-overview"
+                >
+                  <div style="margin-bottom: 24px"></div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5>.</h5>
+
+                      <div class="scrollable-list" *ngIf="showUserEdit">
+                        <ul class="list-group">
+                          <li
+                            *ngIf="filteredRoles.length === 0"
+                            class="list-group-item text-center"
+                          >
+                            <i class="bi bi-exclamation-circle"></i> No users
+                            added yet
+                          </li>
+                          <li
+                            class="list-group-item"
+                            *ngFor="let item of filteredRoles; let i = index"
+                          >
+                            <span
+                              (click)="getUserInfo(i)"
+                              style="
+                                cursor: pointer;
+                                color: #455372;
+                                font-weight: 500;
+                              "
+                            >
+                              <i
+                                class="bi bi-person-fill"
+                                style="
+                                  padding-right: 2%;
+                                  font-size: 24px;
+                                  color: #282e3d;
+                                "
+                              ></i
+                              >{{ item.email }}
+                              <span
+                                *ngIf="item.role === '0'"
+                                class="text-secondary"
+                                style="font-size: 10; padding-left: 4%"
+                              >
+                                Admin</span
+                              >
+                              <span
+                                *ngIf="item.role === '1'"
+                                class="text-success"
+                                style="font-size: 10; padding-left: 4%"
+                              >
+                                Marketing</span
+                              >
+                              <span
+                                *ngIf="item.role === '2'"
+                                class="text-danger"
+                                style="font-size: 10; padding-left: 4%"
+                              >
+                                Operations</span
+                              >
+                              <span
+                                *ngIf="item.role === '3'"
+                                class="text-primary"
+                                style="font-size: 10; padding-left: 4%"
+                              >
+                                Super Admin</span
+                              ><i
+                                class="bi bi-chevron-right text-primary"
+                                style="padding-left: 14%; font-size: 14px"
+                              ></i>
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div *ngIf="!showUserEdit">
+                        <div class="card-body">
+                          <div class="row" (click)="close()">
+                            <div class="col-md-4">
+                              <i
+                                class="text-center bi bi-arrow-left"
+                                style="font-size: 24px"
+                              ></i>
+                            </div>
+                            <div class="col-md-6">
+                              <h6 class="card-title">
+                                Update data on
+                                <span>{{ pickedUser.email }}</span>
+                              </h6>
+                            </div>
+                          </div>
+
+                          <form
+                            [formGroup]="updateAdminRoleForm"
+                            class="needs-validation"
+                            (ngSubmit)="update()"
+                          >
+                            <!---ID-->
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label">ID</label>
+                              <div class="col-sm-10">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  value="{{ pickedUser.id }}"
+                                  disabled
+                                />
+                              </div>
+                            </div>
+
+                            <!--Email-->
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label"
+                                >Email</label
+                              >
+                              <div class="col-sm-10">
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  value="{{ pickedUser.email }}"
+                                  disabled
+                                />
+                              </div>
+                            </div>
+                            <!---Name-->
+                            <div class="row mb-3">
+                              <label
+                                for="inputEmail3"
+                                class="col-sm-2 col-form-label"
+                                >First Name</label
+                              >
+                              <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter first Name"
+                                    aria-label="firstName"
+                                    formControlName="firstName"
+                                    aria-describedby="basic-addon2"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <!---SurName-->
+                            <div class="row mb-3">
+                              <label
+                                for="inputEmail3"
+                                class="col-sm-2 col-form-label"
+                                >Last Name</label
+                              >
+                              <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                  <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="Enter last name"
+                                    aria-label="lastName"
+                                    formControlName="lastName"
+                                    aria-describedby="basic-addon2"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <!---Password-->
+                            <div class="row mb-3">
+                              <label
+                                for="inputEmail3"
+                                class="col-sm-2 col-form-label"
+                                >Password</label
+                              >
+                              <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                  <input
+                                  [type]="showPassword ? 'text' : 'password'"
+                                    class="form-control"
+                                    placeholder="Change Password"
+                                    aria-label="password"
+                                    formControlName="password"
+                                    aria-describedby="basic-addon2"
+                                  />
+                                  <i     (click)="showPassword = !showPassword" class="text-success list-group-item bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                            
+                                </div>
+                              </div>
+                            </div>
+                            <!--Roles-->
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label"
+                                >Set new role</label
+                              >
+                              <div class="col-md-4">
+                                <div class="form-floating mb-4">
+                                  <select
+                                    class="form-select"
+                                    id="floatingSelect"
+                                    aria-label="Floating label select example"
+                                    formControlName="role"
+                                  >
+                                    <option selected value="0">Admin</option>
+                                    <option value="1">Marketing</option>
+                                    <option value="2">Operations</option>
+                                    <option value="3">Super Admin</option>
+                                  </select>
+                                  <label for="floatingSelect"
+                                    >Select a role</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+
+                            <h5 class="card-title">.</h5>
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label">.</label>
+                              <div class="col-sm-10">
+                                <div class="text-center">
+                                  <button type="submit" class="btn btn-primary">
+                                    Submit
+                                  </button>
+                                  <button
+                                    type="reset"
+                                    class="btn btn-secondary"
+                                    (click)="close()"
+                                  >
+                                    Cancel
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+             </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Add Admins -->
+              <div class="tab-pane fade pt-3" id="profile-change-password">
+                <div
+                  class="tab-pane fade show active profile-overview"
+                  id="profile-overview"
+                >
+                  <div style="margin-bottom: 24px"></div>
+
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"></h5>
+                      <form
+                        [formGroup]="adminForm"
+                        class="needs-validation"
+                        (ngSubmit)="onSubmit()"
+                      >
+                        <!---Email-->
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Email</label
+                          >
+                          <div class="col-md-6">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="staff name"
+                                aria-label="staff name"
+                                formControlName="username"
+                                aria-describedby="basic-addon2"
+                              />
+                              <span
+                                class="input-group-text"
+                                id="basic-addon2"
+                                >{{ baseURL }}</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+
+                        <!---Password-->
+                        <div class="row mb-3">
+                          <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
+                          <div class="col-md-6">
+                            <div class="input-group mb-3">
+                              <input
+                                [type]="showPassword ? 'text' : 'password'"
+                                class="form-control"
+                                placeholder="create password"
+                                aria-label="create password"
+                                formControlName="password"
+                                aria-describedby="basic-addon2"
+                              />
+                              <i     (click)="showPassword = !showPassword" class="text-success list-group-item bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+                              
+                            </div>
+                          </div>
+                        </div>
+                        
+                        
+
+                        <!--Roles-->
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Roles</label>
+                          <div class="col-md-4">
+                            <div class="form-floating mb-4">
+                              <select
+                                class="form-select"
+                                id="floatingSelect"
+                                aria-label="Floating label select example"
+                                formControlName="role"
+                              >
+                                <option selected value="0">Admin</option>
+                                <option value="1">Marketing</option>
+                                <option value="2">Operations</option>
+                                <option value="3">Super Admin</option>
+                              </select>
+                              <label for="floatingSelect">Select a role</label>
+                            </div>
+                          </div>
+                        </div>
+
+                        <h5 class="card-title">.</h5>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">.</label>
+                          <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">
+                              Add
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Remove Admins -->
+              <div class="tab-pane fade pt-3" id="profile-change-edit">
+                <div
+                  class="tab-pane fade show active profile-overview"
+                  id="profile-overview"
+                >
+                  <div style="margin-bottom: 24px"></div>
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Click to remove a user</h5>
+                      <div class="scrollable-list">
+                        <ul class="list-group">
+                          <li
+                            *ngIf="filteredRoles.length === 0"
+                            class="list-group-item text-center"
+                          >
+                            <i class="bi bi-exclamation-circle"></i> No users
+                            added yet
+                          </li>
+                          <li
+                            class="list-group-item"
+                            *ngFor="let item of filteredRoles; let i = index"
+                          >
+                            <span
+                              (click)="getUserInfo(i)"
+                              data-bs-toggle="modal"
+                              data-bs-target="#verticalycentered"
+                              style="cursor: pointer"
+                            >
+                              <i
+                                class="bi bi-trash-fill text-danger"
+                                style="padding-right: 2%"
+                              ></i
+                              >{{ item.email }}
+                            </span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="card-body">
+  <div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body card-title text-center">Are you sure?</div>
+        <p class="text-center">You will be deleting {{ userEmail }}</p>
+        <div class="text-center" style="padding: 20px">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            style="margin-right: 20px"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="deleteUser()"
+            class="btn btn-danger"
+            data-bs-dismiss="modal"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,271 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <div class="row">
+      <div class="col">
+        <h1>Customers</h1>
+      </div>
+      <div class="col search-trans">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search customers"
+            aria-label="Search customers"
+            (input)="searchUsers()"
+            [(ngModel)]="searchTerm"
+          />
+          <div
+            class="text-center text-primary"
+            style="margin-top: 10px; margin-right: 15px"
+          >
+            <i class="bi bi-search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Filter-->
+  <div class="filter">
+    <a class="icon" href="#" data-bs-toggle="dropdown">
+      <i class="bi bi-funnel-fill"> Filter Transactions</i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      <li class="dropdown-header text-start">
+        <h6>Filter</h6>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="filterTransactionsByDays(30)">
+          Last 30 Days
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="filterTransactionsByDays(60)">
+          Last 60 Days
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="filterTransactionsByDays(90)">
+          Last 90 Days
+        </a>
+      </li>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 0.9rem">
+            Sort by Custom Date
+          </h5>
+
+          <div class="custom-filter">
+            <div
+              class="form-group"
+              style="font-size: 0.8rem; color: #687287; padding: 12"
+            >
+              <label
+                class=""
+                for="start-date"
+                style="font-size: 0.8rem; color: indigo; padding: 12"
+                >Start Date</label
+              >
+              <input
+                style="font-size: 0.8rem; color: black; padding: 12"
+                type="date"
+                class="form-control"
+                id="start-date"
+                [(ngModel)]="startDate"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                for="end-date"
+                style="font-size: 0.8rem; color: #687287; padding: 36"
+                >End Date</label
+              >
+              <input
+                style="font-size: 0.8rem; color: black; padding: 12"
+                type="date"
+                class="form-control"
+                id="end-date"
+                [(ngModel)]="endDate"
+              />
+            </div>
+            <div
+              class="col-sm-10 text-center"
+              style="font-size: 0.8rem; padding-top: 24px"
+            >
+              <button
+                style="font-size: 0.8rem; color: whitesmoke; padding: 12"
+                class="btn btn-primary"
+                (click)="filterTransactionsByCustomDate()"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-0">
+        <div class="row">
+          <div class="col-xxl-8 col-md-5"></div>
+
+          <div class="col-12">
+            <div class="card top-selling overflow-auto">
+              <div class="card-body pb-0">
+                <h5 class="card-title"><span></span></h5>
+                <table class="table table-borderless">
+                  <thead>
+                    <tr style="cursor: pointer">
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        s/n <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Preview
+                      </th>
+
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Registered Date <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th scope="col" class="text-center">First Name</th>
+                      <th scope="col" class="text-center">Last Name</th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Email <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Phone
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Country <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Status <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                        (click)="sortBy('firstName')"
+                      >
+                        Wallet Address
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      style="cursor: pointer"
+                      onclick="viewUser()"
+                      *ngFor="let user of pageOfItems; let i = index"
+                      (click)="showInfo(i)"
+                    >
+                      <td class="table-body text-center">
+                        {{ i + 1 }}
+                      </td>
+                      <td class="user-photo text-center">
+                        <img
+                          class="rounded-circle"
+                          src="assets/img/admin.png"
+                          alt=""
+                        />
+                      </td>
+
+                      <td class="table-body text-center">
+                        {{
+                          user.registration_date.toMillis()
+                            | date : "dd-MMMM-yyyy h:mm:ss a"
+                        }}
+                      </td>
+                      <td class="table-body text-center">
+                        {{ user.firstName }} {{ user.lastName }}
+                      </td>
+                      <td class="table-body text-center">
+                        {{ user.lastName }}
+                      </td>
+                      <td class="table-body text-center">{{ user.email }}</td>
+                      <td class="table-body text-center">{{ user.phone }}</td>
+                      <td class="table-body text-center">{{ user.country }}</td>
+                      <td class="table-body text-center">
+                        <span
+                          class="badge {{
+                            user.kycStatus === '1'
+                              ? 'status-verified'
+                              : 'status-invalid'
+                          }}"
+                        >
+                          {{
+                            user.kycStatus === "1" ? "Verified" : "Not Verified"
+                          }}
+                        </span>
+                      </td>
+
+                      <td class="table-body text-center">
+                        {{ user.stellar_address }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="card-footer pb-0 pt-3">
+                  <pagination
+                    [items]="items"
+                    (changePage)="onChangePage($event)"
+                  ></pagination>
+                </div>
+                <div
+                  class="total"
+                  style="display: flex; justify-content: space-between"
+                >
+                  <div>
+                    <h3 class="card-title" style="margin-top: 5px">Total:</h3>
+                  </div>
+                  <div
+                    (click)="openDialog()"
+                    style="
+                      background-color: white;
+                      margin-left: 10px;
+                      display: flex;
+                      align-items: center;
+                      cursor: pointer;
+                    "
+                  >
+                    <h3 class="card-title" style="margin-top: 5px">
+                      <i class="bi bi-cloud-download-fill"></i> Generate Report
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

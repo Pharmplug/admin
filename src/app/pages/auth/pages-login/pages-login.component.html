@@ -1,0 +1,98 @@
+<div class="container-fluid">
+  <div class="row" style="height: 100vh; padding: 0">
+    <div class="col-6" style="background-color: #06B1CF">
+      <img
+        src="assets/img/medical.jpeg"
+        alt=""
+        style="width: 100%; height: 100vh; object-fit: contain;"
+      />
+    </div>
+
+    <div class="col-6" style="background-color: #fff">
+      <div
+        class="d-flex justify-content-center align-items-center"
+        style="height: 100%"
+      >
+        <div class="card-body" style="padding-left: 24%; padding-right: 24%">
+          <div class="text-center" style="margin-bottom: 12px">
+            <img
+              src="assets/img/logo.png"
+              alt=""
+              style="font-size: 8px; max-width: 80%"
+            />
+          </div>
+
+          <form [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="row mb-3">
+              <label for="inputEmail3" class="col-sm-2 col-form-label"
+                >Username</label
+              >
+              <div class="col-md-12">
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    name="text"
+                    class="form-control"
+                    placeholder="i.e pharmplug"
+                    aria-label="staff name"
+                    formControlName="email"
+                    aria-describedby="basic-addon2"
+                  />
+                  <span class="input-group-text" id="basic-addon2">{{
+                    baseURL
+                  }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label
+                for="yourPassword"
+                class="form-label"
+                style="padding-top: 2%"
+                >Password</label
+              >
+              <input
+                type="password"
+                name="password"
+                formControlName="password"
+                class="form-control"
+                id="yourPassword"
+                required
+              />
+              <div class="invalid-feedback">Please enter your password!</div>
+            </div>
+           
+       
+            <div
+              class="col-12"
+              style="padding-top: 8%; padding-left: 8%; padding-right: 8%"
+            >
+              <button
+                *ngIf="showLoginButton"
+                type="button"
+                style="color: #f0f6fc; background-color: #06B1CF"
+                class="btn btn-primary w-100"
+                (click)="login()"
+              >
+                Login
+              </button>
+              <button *ngIf="!showLoginButton"
+              class="btn btn-primary w-100" type="button" disabled>
+                <span
+                  class="spinner-grow spinner-grow-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+               Connecting...
+              </button>
+            </div>
+          </form>
+          <p class="text-center" style="padding-top: 16%">
+            © {{ year }} PharmPlug. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

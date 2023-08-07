@@ -1,0 +1,113 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Login Activities</h1>
+  </div>
+  <section class="section">
+    <div class="row">
+
+      <!---Admin login history-->
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Super Admin History</h5>
+            <div 
+             class="accordion accordion-flush"
+             id="accordionFlushExample"
+             *ngFor="let h of filteredSUAdminRoles">
+              <div class="accordion-item">
+                <h5 class="accordion-header" id="flush-headingOne">
+                  <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#flush-collapseOne"
+                  aria-expanded="false"
+                  aria-controls="flush-collapseOne"
+                >{{ h.email }}
+                  </button>
+                </h5>
+               <div 
+                  id="flush-collapseOne"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample">
+
+              <p>{{ h.id }}</p>
+              <div class="accordion-body scrollable-list d-flex w-100 justify-content-between" *ngFor="let n of h.history">
+                    <p>From this IP: {{ n.ip }}</p>
+                  <small>
+                    Last Login At: <span>{{ n.lastLogin.toMillis() | date : "dd-MMMM-yyyy h:mm:ss a" }}
+                    </span>
+                  </small>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!---Login History-->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Login History</h5>
+            <li
+            *ngIf="filteredRoles.length === 0"
+            class="list-group-item text-center"
+          >
+            <i class="bi bi-exclamation-circle"></i> No users
+            added yet
+          </li>
+            <div
+              class="accordion accordion-flush"
+              id="accordionFlushExample"
+              *ngFor="let loginLog of filteredRoles; let i = index"
+            >
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                  <button
+                    class="accordion-button collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapseOne"
+                    aria-expanded="false"
+                    aria-controls="flush-collapseOne"
+                  >
+                    {{ loginLog.email }}
+                  </button>
+                </h2>
+                <div
+                  id="flush-collapseOne"
+                  class="accordion-collapse collapse"
+                  aria-labelledby="flush-headingOne"
+                  data-bs-parent="#accordionFlushExample"
+                >
+                  <p>{{ loginLog.id }}</p>
+                  <div
+                    class="accordion-body scrollable-list d-flex w-100 justify-content-between"
+                    *ngFor="let h of loginLog.history "
+                  >
+                    <p>From this IP: {{ h.ip }}
+                    </p>
+                    <small>
+                      Last Login At:
+                      <span>
+                        {{
+                          h.lastLogin.toMillis()
+                            | date : "dd-MMMM-yyyy h:mm:ss a"
+                        }}
+                      </span>
+                    </small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

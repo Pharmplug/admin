@@ -1,0 +1,189 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Customer KYC</h1>
+    <nav>
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin/kyc">KYC</a></li>
+
+        <li class="breadcrumb-item active">
+          {{ user.firstName }} {{ user.lastName }} KYC details
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+
+          <!-- GENERAL COLUMN -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="kyc-info">General Information</h5>
+            <form>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >Customer ID</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ user.id }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >FirstName</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ facePhiCollection.FirstName }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >LastName</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ facePhiCollection.LastName }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >Gender</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ facePhiCollection .Gender }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >Phone</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ user.phone }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >AuthType</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ user.authType }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >Country</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ user.country }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >Email</label
+                >
+                <div class="col-sm-10">
+                  <input
+                    type="text"
+                    class="form-control"
+                    value="{{ user.email }}"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="row mb-3">
+                <label for="inputNumber" class="col-sm-2 col-form-label"
+                  >File Upload</label
+                >
+                <div class="col-sm-10">
+                  <input class="form-control" type="file" id="formFile" />
+                </div>
+              </div>
+            
+
+            
+                
+              
+            </form>
+          </div>
+        </div>
+      </div>
+    <!-- GENERAL COLUMN END-->
+
+      <!--  ADMIN COLUMN -->
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="kyc-admin">Admin Actions</h5>
+            <form>
+              <div class="row mb-5">
+                <label class="col-sm-2 col-form-label">Revokes</label>
+                <div class="col-sm-10">
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="flexSwitchCheckDefault"
+                    />
+                    <label class="form-check-label" for="flexSwitchCheckDefault"
+                      >Checkbook Link</label
+                    >
+                  </div>
+                  <div class="form-check form-switch">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="flexSwitchCheckChecked"
+                      checked
+                    />
+                    <label class="form-check-label" for="flexSwitchCheckChecked"
+                      >Business Account</label
+                    >
+                  </div>
+                  
+                </div>
+              </div>
+           
+             
+            </form>
+          </div>
+        </div>
+      </div>
+          <!--  ADMIN COLUMN  ENDS-->
+    </div>
+  </section>
+</main>

@@ -1,0 +1,185 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+     <h1>{{userTransactionInfo.lastName.toString().charAt(0).toUpperCase()}}{{userTransactionInfo.lastName.slice(1).toLowerCase()}} {{userTransactionInfo.transition_type}} Details</h1>
+     <nav>
+        <ol    style="cursor: pointer;" class="breadcrumb">
+           <li class="breadcrumb-item"><a routerLink="/admin/transactions">Deposit/Withdrawals Transactions</a></li>
+           <li class="breadcrumb-item active">{{userTransactionInfo.firstName.toLowerCase()}} {{userTransactionInfo.lastName.toLowerCase()}}</li>
+    
+        </ol>
+     </nav>
+  </div>
+  <section class="section">
+     <div class="row">
+        <div class="col-lg-6">
+          <!----User Information-->
+           <div class="card">
+            <div class="card-body">
+               <h5 style="color: #4154f1" class="transaction-details-headers">
+                 <i class="bx bxs-user-detail"></i> User Information
+               </h5>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">First Name:</div>
+                <ol class="breadcrumb userDetails" >
+
+                   <li  class="breadcrumb-item">
+                    {{userTransactionInfo.firstName.toString().charAt(0).toUpperCase()}}{{userTransactionInfo.firstName.slice(1).toLowerCase()}}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label"> Last Name:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                    {{userTransactionInfo.lastName.toString().charAt(0).toUpperCase()}}{{userTransactionInfo.lastName.slice(1).toLowerCase()}}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Phone:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.phone }}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Email:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.email }}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Customer ID:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.id}}
+                   </li>
+                 </ol>
+               </nav>
+             </div>
+           </div>
+
+           <!--Payment-->
+           <div class="card">
+            <div class="card-body">
+              <h5 style="color: #28935d" class="transaction-details-headers">
+                 <i class="bx bxs-receipt"></i> Payment Information
+               </h5>
+
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Transaction Reference:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.transition_ref }}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Net Amount:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.amount_net }}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Transaction Type:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.transition_type }}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Fee:</div>
+                <ol class="breadcrumb userDetails" >
+                   <li  class="breadcrumb-item">
+                     {{ userTransactionInfo.amount_fee}}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Transaction External ID:</div>
+                 <ol class="breadcrumb userDetails">
+                   <li  class="breadcrumb-item">
+                    {{ userTransactionInfo.external_id}}
+                   </li>
+                 </ol>
+               </nav>
+             </div>
+           </div>
+          
+        </div>
+        <div class="col-lg-6">
+          <!---Blockchain-->
+           <div class="card">
+            <div class="card-body">
+              <h5 style="color: #af00b8" class="transaction-details-headers">
+                 <i class="bx bxs-user-detail"></i> Blockchain Information
+               </h5>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Wallet Address:</div>
+                <ol class="breadcrumb " style="color: #012970; font-family: 'Poppins', sans-serif; font-weight: 500;">
+                   <li  class="breadcrumb-item">
+                    {{ userTransactionInfo.stellar_address}}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Transaction Hash:</div>
+                <ol class="breadcrumb " style="color: #012970; font-family: 'Poppins', sans-serif; font-weight: 500;">
+                   <li  class="breadcrumb-item">
+                    {{  userTransactionInfo.transaction_hash}}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Transaction Initiator:</div>
+                <ol class="breadcrumb " style="color: #012970; font-family: 'Poppins', sans-serif; font-weight: 500;">
+                   <li  class="breadcrumb-item">
+                    {{ userTransactionInfo.tx_initiator }}
+                   </li>
+                 </ol>
+               </nav>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Asset Code:</div>
+                <ol class="breadcrumb " style="color: #012970; font-family: 'Poppins', sans-serif; font-weight: 500;">
+                   <li  class="breadcrumb-item">
+                    {{ userTransactionInfo.asset_code }}
+                   </li>
+                 </ol>
+               </nav> 
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Token Amount:</div>
+                <ol class="breadcrumb " style="color: #012970; font-family: 'Poppins', sans-serif; font-weight: 500;">
+                   <li  class="breadcrumb-item">
+                    {{ userTransactionInfo.token_amount }}
+                   </li>
+                 </ol>
+               </nav>
+               
+             </div>
+           </div>
+           <!--Others-->
+           <div class="card">
+            <div class="card-body">
+              <h5 style="color: #ad1e36 " class="transaction-details-headers">
+                 <i class="bx bxs-user-detail"></i> Others
+               </h5>
+               <nav style="color: #798eb3" >
+                <div class=" col-lg-3 col-md-4 label">Status:</div>
+                <ol class="breadcrumb " style="color: #012970; font-family: 'Poppins', sans-serif; font-weight: 500;">
+                   <li  class="breadcrumb-item">
+                    {{ userTransactionInfo.status }}
+                   </li>
+                 </ol>
+               </nav>
+             </div>
+           </div>
+        </div>
+     </div>
+  </section>
+</main>

@@ -1,0 +1,768 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Promotions</h1>
+  </div>
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="row">
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card sales-card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Cost <span>| Today</span></h5>
+                <div class="d-flex align-items-center">
+                  <div
+                    class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                  >
+                    <i class="bi bi-currency-dollar"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ total_deposit }}</h6>
+                    <span class="text-success small pt-1 fw-bold">12%</span>
+                    <span class="text-muted small pt-2 ps-1">increase</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-md-6">
+            <div class="card info-card revenue-card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+                  <li><a class="dropdown-item">Today</a></li>
+                  <li><a class="dropdown-item">This Month</a></li>
+                  <li><a class="dropdown-item">This Year</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Income <span>| This Month</span></h5>
+                <div class="d-flex align-items-center">
+                  <div
+                    class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                  >
+                    <i class="bi bi-currency-dollar"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ total_withdrawal }}</h6>
+                    <span class="text-success small pt-1 fw-bold">8%</span>
+                    <span class="text-muted small pt-2 ps-1">increase</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-4 col-xl-12">
+            <div class="card info-card customers-card">
+              <div class="filter">
+                <a class="icon" href="#" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+                  <li><a class="dropdown-item" href="#">Today</a></li>
+                  <li><a class="dropdown-item" href="#">This Month</a></li>
+                  <li><a class="dropdown-item" href="#">This Year</a></li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Conversions <span>| This Year</span></h5>
+                <div class="d-flex align-items-center">
+                  <div
+                    class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                  >
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ kyc_count }}</h6>
+                    <span class="text-danger small pt-1 fw-bold">12%</span>
+                    <span class="text-muted small pt-2 ps-1">decrease</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!---Campaign-->
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Campaigns</h5>
+              <ul
+                class="nav nav-tabs nav-tabs-bordered d-flex"
+                id="borderedTabJustified"
+                role="tablist"
+              >
+                <li class="nav-item flex-fill" role="presentation">
+                  <button
+                    class="nav-link w-100 active"
+                    id="home-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#bordered-justified-home"
+                    type="button"
+                    role="tab"
+                    aria-controls="home"
+                    aria-selected="true"
+                  >
+                    Running
+                  </button>
+                </li>
+
+                <li class="nav-item flex-fill" role="presentation">
+                  <button
+                    class="nav-link w-100"
+                    id="profile-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#bordered-justified-profile"
+                    type="button"
+                    role="tab"
+                    aria-controls="profile"
+                    aria-selected="false"
+                  >
+                    Create
+                  </button>
+                </li>
+                <li class="nav-item flex-fill" role="presentation">
+                  <button
+                    class="nav-link w-100"
+                    id="contact-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#bordered-justified-contact"
+                    type="button"
+                    role="tab"
+                    aria-controls="contact"
+                    aria-selected="false"
+                  >
+                    All
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content pt-2" id="borderedTabJustifiedContent">
+                <div
+                  class="tab-pane fade show active"
+                  id="bordered-justified-home"
+                  role="tabpanel"
+                  aria-labelledby="home-tab"
+                >
+                  <div class="card mb-3">
+                    <div
+                      class="row g-0"
+                      *ngFor="let it of validPromo"
+                      style="margin-bottom: 24px"
+                    >
+                      <div class="col-md-4">
+                        <img
+                          src="assets/img/orokii.jpeg"
+                          class="img-fluid rounded-start"
+                          alt="..."
+                        />
+                      </div>
+                      <div class="col-md-8">
+                        <div class="card-body">
+                          <h5 class="card-title">{{ it.promoName }}</h5>
+                          <p class="card-text">{{ it.promoCode }}</p>
+                          <div class="progress mt-3">
+                            <div
+                              class="progress-bar"
+                              role="progressbar"
+                              [style.width.%]="
+                                getProgressWidth(
+                                  it.promoStartDate,
+                                  it.promoEndDate
+                                )
+                              "
+                              [attr.aria-valuenow]="
+                                getProgressWidth(
+                                  it.promoStartDate,
+                                  it.promoEndDate
+                                )
+                              "
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                            >
+                              {{
+                                getProgressWidth(
+                                  it.promoStartDate,
+                                  it.promoEndDate
+                                )
+                              }}%
+                            </div>
+                          </div>
+
+                          <div
+                            class="row"
+                            style="
+                              margin-right: 200px;
+                              margin-top: 25px;
+                              padding-bottom: 50px;
+                            "
+                            *ngIf="it.promoEndDate"
+                          >
+                            <div class="col-md-6">
+                              <span style="color: #93a1bb">Start Date :</span>
+                            </div>
+                            <div class="col-md-6">
+                              <h6>
+                                {{
+                                  it.promoStartDate
+                                    ? convertTimeStamp(it.promoStartDate)
+                                    : "not available"
+                                }}
+                              </h6>
+                            </div>
+                            <div class="col-md-6">
+                              <span style="color: #93a1bb; padding-top: 25px"
+                                >End Date :</span
+                              >
+                            </div>
+                            <div class="col-md-6">
+                              <h6>
+                                {{
+                                  it.promoEndDate
+                                    ? convertTimeStamp(it.promoEndDate)
+                                    : "not available"
+                                }}
+                              </h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="bordered-justified-profile"
+                  role="tabpanel"
+                  aria-labelledby="profile-tab"
+                >
+                  <!--create Campaign-->
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Create a Campaign Code</h5>
+                      <form
+                        [formGroup]="promoForm"
+                        (ngSubmit)="onSubmit()"
+                        class="row g-3"
+                      >
+                        <div class="col-md-12">
+                          <label for="inputName5" class="form-label"
+                            >Campaign Name</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="name"
+                            formControlName="promoName"
+                          />
+                        </div>
+                        <div class="col-md-12">
+                          <label for="inputName5" class="form-label"
+                            >Promo Code</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="code"
+                            formControlName="promoCode"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputName5" class="form-label"
+                            >Advert Type</label
+                          >
+                          <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            id="name"
+                            formControlName="adType"
+                          >
+                            <option selected>Select advert type</option>
+                            <option value="1">Discount</option>
+                            <option value="2">Gift</option>
+                          </select>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputName5" class="form-label"
+                            >Value</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            id="inputEmail5"
+                            formControlName="promoValue"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputName5" class="form-label"
+                            >Start Date</label
+                          >
+                          <input
+                            type="date"
+                            class="form-control"
+                            id="inputEmail5"
+                            formControlName="promoStartDate"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputName5" class="form-label"
+                            >End Date</label
+                          >
+                          <input
+                            type="date"
+                            class="form-control"
+                            id="inputPassword5"
+                            formControlName="promoEndDate"
+                          />
+                        </div>
+                        <div class="col-md-12">
+                          Minimum Transfer Amount
+                          <div class="input-group mb-3">
+                            <span class="input-group-text">$</span>
+                            <input
+                              type="text"
+                              class="form-control"
+                              aria-label="Amount (to the nearest dollar)"
+                              formControlName="minTransferAmount"
+                              placeholder="Enter minimum amount that applies for this code"
+                            />
+                            <span class="input-group-text">.00</span>
+                          </div>
+                        </div>
+                        <div>
+                          <label for="customRange2" class="form-label"
+                            >Set the promo frequency</label
+                          >
+                          <input
+                            type="range"
+                            class="form-range"
+                            min="0"
+                            max="100"
+                            step="0.5"
+                            id="customRange2"
+                            formControlName="promoFrequency"
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputName5" class="form-label"
+                            >Amount of times promo code can be applied</label
+                          >
+                          <input
+                            type="text"
+                            class="form-control"
+                            [value]="frequencyValue"
+                            disabled
+                          />
+                        </div>
+                        <div class="col-md-6">
+                          <label for="inputName5" class="form-label"
+                            >Code Expiry Date</label
+                          >
+                          <input
+                            type="date"
+                            class="form-control"
+                            id="inputEmail5"
+                            formControlName="promoCodeExpiryDate"
+                          />
+                        </div>
+                        <div class="text-center">
+                          <button type="submit" class="btn btn-primary">
+                            Submit
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade"
+                  id="bordered-justified-contact"
+                  role="tabpanel"
+                  aria-labelledby="contact-tab"
+                >
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title"></h5>
+                      <div class="list-group">
+                        <div
+                          class="list-group-item list-group-item-action row"
+                          *ngFor="let items of promoModel; let i = index"
+                        >
+                          <div class="d-flex w-500 justify-content-between">
+                            <div class="d-flex w-500 align-items-center">
+                              <div
+                                style="
+                                  display: flex;
+                                  flex-direction: column;
+                                  margin-right: 15px;
+                                "
+                              >
+                                <i
+                                  class="bi bi-megaphone-fill me-1 text-dark"
+                                  style="font-size: 24px"
+                                ></i>
+                                <!-- <i
+                                  class="bi bi-speedometer me-1 text-success"
+                                  style="font-size: 24px"
+                                ></i>
+                                <i
+                                  class="bi bi-hourglass-split me-1 text-primary"
+                                  style="font-size: 24px"
+                                ></i>
+
+                                <i
+                                  class="bi bi-x-octagon-fill me-1 text-dark"
+                                  style="font-size: 24px"
+                                ></i> -->
+                              </div>
+
+                              <div>
+                                <h5 class="mb-1">
+                                  <span style="color: #68729ce1">Name: </span
+                                  >{{ items.promoName }}
+                                </h5>
+                                <p class="mb-1">
+                                  <span style="color: #68729ce1">Code: </span
+                                  >{{ items.promoCode }}
+                                </p>
+                                <p class="mb-1">
+                                  <span style="color: #68729ce1"
+                                    >Usage Count: </span
+                                  >{{ items.promoUsedCount }}
+                                </p>
+                                <p class="mb-1">
+                                  <span style="color: #68729ce1"
+                                    >Usage Frequency: </span
+                                  >{{ items.promoFrequency }}
+                                </p>
+                                <p class="mb-1">
+                                  <span style="color: #68729ce1"
+                                    >Advert Type: </span
+                                  >{{ items.adType }}
+                                </p>
+                                <small class="text-muted"
+                                  ><span style="color: #68729ce1"
+                                    >Duration: </span
+                                  >Started at
+                                  <small class="text-success">{{
+                                    items.promoStartDate
+                                      ? convertTimeStamp(items.promoStartDate)
+                                      : "Not Available"
+                                  }}</small>
+
+                                  and expired on
+                                  <code>
+                                    {{
+                                      items.promoStartDate
+                                        ? convertTimeStamp(
+                                            items.promoCodeExpiryDate
+                                          )
+                                        : "Not Available"
+                                    }}
+                                  </code></small
+                                >
+                                <div></div>
+                              </div>
+                            </div>
+
+                            <small class="text-muted"
+                              ><span style="color: #68729ce1">Ended: </span
+                              >{{
+                                items.promoEndDate
+                                  ? convertTimeStamp(items.promoEndDate)
+                                  : "Not Available"
+                              }}</small
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--FCM-->
+          <div class="row">
+            <h2 style="margin-left: 28px" class="card-title">
+              Customer Messaging
+            </h2>
+            <form [formGroup]="fcmForm" class="row" (ngSubmit)="sendFCM()">
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <span class="input-group-text">Header</span
+                  ><textarea
+                    class="form-control"
+                    formControlName="header"
+                    aria-label="With textarea"
+                  ></textarea>
+                </div>
+                <div class="form-floating my-3">
+                  <textarea
+                    class="form-control"
+                    formControlName="body"
+                    placeholder="Write your message here"
+                    id="floatingTextarea"
+                    style="height: 100px"
+                  ></textarea
+                  ><label for="floatingTextarea">Write your message</label>
+                </div>
+                <div class="row mb-3" style="margin-top: 10px">
+                  <div class="col-sm-8">
+                    <input
+                      class="form-control"
+                      type="file"
+                      id="formFile"
+                      (change)="selectFile($event)"
+                    />
+                  </div>
+                  <div class="col-4">
+                    <button
+                      class="btn btn-success btn-sm"
+                      [disabled]="!selectedFiles"
+                      (click)="upload()"
+                    >
+                      Upload
+                    </button>
+                  </div>
+                </div>
+
+                <div *ngIf="currentFileUpload" class="progress mt-2">
+                  <div
+                    class="progress-bar progress-bar-info"
+                    role="progressbar"
+                    attr.aria-valuenow="{{ percentage }}"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    [ngStyle]="{ width: percentage + '%' }"
+                  >
+                    {{ percentage }}%
+                  </div>
+                </div>
+              
+                <!-- <div>
+                <div class="card-body">
+                  <p style="color: #93a1bb">Compose a broadcast message</p>
+                  <div class="quill-editor-full">
+                    <p style="color: #93a1bb"><strong>Set Header!</strong></p>
+                    <p style="color: #93a1bb">Edit to write your message</p>
+                  </div>
+                  <div class="row mb-3" style="margin-top: 10px">
+                    <div class="col-sm-8">
+                      <input
+                        class="form-control"
+                        type="file"
+                        id="formFile"
+                        (change)="selectFile($event)"
+                      />
+                    </div>
+                    <div class="col-4">
+                      <button
+                        class="btn btn-success btn-sm"
+                        [disabled]="!selectedFiles"
+                        (click)="upload()"
+                      >
+                        Upload
+                      </button>
+                    </div>
+                  </div>
+
+                  <div *ngIf="currentFileUpload" class="progress mt-2">
+                    <div
+                      class="progress-bar progress-bar-info"
+                      role="progressbar"
+                      attr.aria-valuenow="{{ percentage }}"
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                      [ngStyle]="{ width: percentage + '%' }"
+                    >
+                      {{ percentage }}%
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+              </div>
+              <!--Select checklist-->
+              <div *ngIf="selectedImage" class="col-lg-6 text-center">
+                <div class="card">
+                  <p
+                    style="
+                      color: #93a1bb;
+                      font-size: 16px;
+                      margin-top: 18px;
+                      margin-left: 18px;
+                    "
+                  >
+                    Select recipient(s)
+                  </p>
+                  <div
+                    class="search-trans"
+                    style="
+                      margin-top: 8px;
+                      margin-left: 8px;
+                      margin-right: 8px;
+                      margin-bottom: 15px;
+                    "
+                  >
+                    <input
+                      type="text"
+                      [(ngModel)]="searchTerm"
+                      placeholder="Search user..."
+                      (input)="searchUser($event)"
+                    />
+                  </div>
+                  <div
+                    class="card-body"
+                    style="
+                      margin-top: 8px;
+                      margin-bottom: 15px;
+                      max-height: 400px;
+                      overflow-y: scroll;
+                    "
+                  >
+                    <ul class="list-group">
+                      <h3 style="margin: 4px"></h3>
+                      <div style="margin-bottom: 15px" class="form-check">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          [checked]="isAllSelected()"
+                          (change)="toggleAllItemsSelection($event)"
+                        />
+                        <label
+                          class="form-check-label"
+                          style="
+                            color: #070c15;
+                            font-size: 16px;
+                            font-weight: bolder;
+                          "
+                        >
+                          SELECT ALL</label
+                        >
+                      </div>
+
+                      <div class="form-check" *ngFor="let item of recipients">
+                        <input
+                          class="form-check-input"
+                          type="checkbox"
+                          [checked]="isSelected(item)"
+                          (change)="toggleItemSelection(item)"
+                        />
+                        {{ item.firstName }}
+                        {{ item.lastName }}
+                      </div>
+                    </ul>
+                  </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-cursor-fill me-1"></i> Send
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <!--Recent activity-->
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="filter">
+            <a class="icon" href="#" data-bs-toggle="dropdown"
+              ><i class="bi bi-three-dots"></i
+            ></a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+              <li class="dropdown-header text-start">
+                <h6>Filter</h6>
+              </li>
+              <li><a class="dropdown-item" href="#">Today</a></li>
+              <li><a class="dropdown-item" href="#">This Month</a></li>
+              <li><a class="dropdown-item" href="#">This Year</a></li>
+            </ul>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+            <div class="activity">
+              <div class="activity-item d-flex">
+                <div class="activite-label">32 min</div>
+                <i
+                  class="bi bi-circle-fill activity-badge text-success align-self-start"
+                ></i>
+                <div class="activity-content">
+                  Quia quae rerum
+                  <a href="#" class="fw-bold text-dark">explicabo officiis</a>
+                  beatae
+                </div>
+              </div>
+              <div class="activity-item d-flex">
+                <div class="activite-label">56 min</div>
+                <i
+                  class="bi bi-circle-fill activity-badge text-danger align-self-start"
+                ></i>
+                <div class="activity-content">
+                  Voluptatem blanditiis blanditiis eveniet
+                </div>
+              </div>
+              <div class="activity-item d-flex">
+                <div class="activite-label">2 hrs</div>
+                <i
+                  class="bi bi-circle-fill activity-badge text-primary align-self-start"
+                ></i>
+                <div class="activity-content">
+                  Voluptates corrupti molestias voluptatem
+                </div>
+              </div>
+              <div class="activity-item d-flex">
+                <div class="activite-label">1 day</div>
+                <i
+                  class="bi bi-circle-fill activity-badge text-info align-self-start"
+                ></i>
+                <div class="activity-content">
+                  Tempore autem saepe
+                  <a href="#" class="fw-bold text-dark">occaecati voluptatem</a>
+                  tempore
+                </div>
+              </div>
+              <div class="activity-item d-flex">
+                <div class="activite-label">2 days</div>
+                <i
+                  class="bi bi-circle-fill activity-badge text-warning align-self-start"
+                ></i>
+                <div class="activity-content">
+                  Est sit eum reiciendis exercitationem
+                </div>
+              </div>
+              <div class="activity-item d-flex">
+                <div class="activite-label">4 weeks</div>
+                <i
+                  class="bi bi-circle-fill activity-badge text-muted align-self-start"
+                ></i>
+                <div class="activity-content">
+                  Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

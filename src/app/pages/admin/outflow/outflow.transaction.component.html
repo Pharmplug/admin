@@ -1,0 +1,448 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <div class="row">
+      <div class="col">
+        <h1>Cross-Border Transactions</h1>
+      </div>
+      <div class="col search-trans">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search transactions"
+            aria-label="Search transactions"
+            [(ngModel)]="searchTerm"
+          />
+          <button
+            class="btn btn-outline-secondary"
+            type="button"
+            (click)="searchTransactions()"
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="filter">
+    <a class="icon" href="#" data-bs-toggle="dropdown">
+      <i class="bi bi-funnel-fill"> Filter Transactions</i>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+      <li class="dropdown-header text-start">
+        <h6>Filter</h6>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="filterTransactionsByDays(30)">
+          Last 30 Days
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="filterTransactionsByDays(60)">
+          Last 60 Days
+        </a>
+      </li>
+      <li>
+        <a class="dropdown-item" (click)="filterTransactionsByDays(90)">
+          Last 90 Days
+        </a>
+      </li>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title" style="font-size: 0.9rem">
+            Sort by Custom Date
+          </h5>
+
+          <div class="custom-filter">
+            <div
+              class="form-group"
+              style="font-size: 0.8rem; color: indigo; padding: 12"
+            >
+              <label
+                class=""
+                for="start-date"
+                style="font-size: 0.8rem; color: indigo; padding: 12"
+                >Start Date</label
+              >
+              <input
+                style="font-size: 0.8rem; color: black; padding: 12"
+                type="date"
+                class="form-control"
+                id="start-date"
+                [(ngModel)]="startDate"
+              />
+            </div>
+            <div class="form-group">
+              <label
+                for="end-date"
+                style="font-size: 0.8rem; color: indigo; padding: 36"
+                >End Date</label
+              >
+              <input
+                style="font-size: 0.8rem; color: black; padding: 12"
+                type="date"
+                class="form-control"
+                id="end-date"
+                [(ngModel)]="endDate"
+              />
+            </div>
+            <div
+              class="col-sm-10 text-center"
+              style="font-size: 0.8rem; padding-top: 24px"
+            >
+              <button
+                style="font-size: 0.8rem; color: whitesmoke; padding: 12"
+                class="btn btn-primary"
+                (click)="filterTransactionsByCustomDate()"
+              >
+                Apply
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ul>
+  </div>
+  <section class="section dashboard">
+    <div class="col-lg-0">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"></h5>
+
+          <div class="tab-content pt-2" id="myTabjustifiedContent">
+            <div
+              class="tab-pane fade show active"
+              id="home-justified"
+              role="tabpanel"
+              aria-labelledby="home-tab"
+            >
+              <!-- Table-->
+              <div class="row">
+                <div class="col-lg-0">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card top-selling overflow-auto">
+                        <div class="card-body pb-0">
+                          <h5 class="card-title"><span></span></h5>
+
+                          <table class="table dataTable-table">
+                            <thead>
+                              <tr>
+                                <th scope="col" class="text-center"></th>
+                                <th scope="col" class="text-center">s/n</th>
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Date <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  id="name-header"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Name
+                                </th>
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Email <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Phone <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                >
+                                  Stellar Address
+                                </th>
+
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Recipient Name
+                                  <i class="bi bi-chevron-expand"></i>
+                                </th>
+
+                                <th scope="col" class="text-center">
+                                  Recipient Currency
+                                </th>
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Recipient Country
+                                  <i class="bi bi-chevron-expand"></i>
+                                </th>
+
+                                <th
+                                  scope="col"
+                                  style="cursor: pointer"
+                                  class="text-center"
+                                  (click)="sortTable('id')"
+                                >
+                                  Transaction Amount
+                                  <i class="bi bi-chevron-expand"></i>
+                                </th>
+                                <th scope="col" class="text-center">
+                                  Delivered Amount
+                                </th>
+                                <th scope="col" class="text-center">Fee</th>
+                                <th scope="col" class="text-center">
+                                  FX Margin
+                                </th>
+
+                                <th
+                                  *ngIf="showNetAmount"
+                                  scope="col"
+                                  class="text-center"
+                                >
+                                  Net Amount
+                                </th>
+                                <th scope="col" class="text-center">Revenue</th>
+                                <th
+                                  *ngIf="showTransactionType"
+                                  class="text-center"
+                                >
+                                  Transaction Type
+                                </th>
+                              </tr>
+                            </thead>
+
+                            <tbody class="tb">
+                              <!-- Loader-->
+
+                              <div
+                                *ngIf="isLoading"
+                                class="card-body justify-content-center align-items-center text-primary"
+                              >
+                                <div class="d-flex justify-content-center">
+                                  <div class="spinner-border" role="status">
+                                    <span class="visually-hidden"
+                                      >Loading...</span
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                              <!--Loder Ends-->
+                              <tr
+                                *ngFor="
+                                  let transaction of filteredTransactions;
+                                  let i = index
+                                "
+                                (click)="showIndex(i)"
+                              >
+                                <td>
+                                  <i
+                                    class="bi {{
+                                      transaction.transition_type ==
+                                      'withdrawal'
+                                        ? 'bi-arrow-up-left-circle-fill icon-outbound'
+                                        : 'bi-arrow-down-left-circle-fill icon-inbound'
+                                    }} "
+                                  ></i>
+                                </td>
+                                <td lass="table-body text-center">
+                                  {{ i + 1 }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{
+                                    transaction.created_at.toMillis()
+                                      | date : "yyyy/MM/dd h:mm"
+                                  }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{ transaction.firstName }}
+                                  {{ transaction.lastName }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{ transaction.email }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{ transaction.phone }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{ transaction.stellar_address }}
+                                </td>
+
+                                <!----Recipient -->
+                                <td class="table-body text-center">
+                                  {{ transaction.recipient_info.first_name }}
+                                  {{ transaction.recipient_info.last_name }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{ transaction.fxRateInfo.receivingCurrency }}
+                                </td>
+                                <td class="table-body text-center">
+                                  {{ transaction.recipient_info.toCountry }}
+                                </td>
+
+                                <td class="table-body text-center">
+                                  ${{ convertFloat(transaction.token_amount) }}
+                                </td>
+                                <td class="table-body text-center">
+                                  ${{
+                                    convertFloat(
+                                      transaction.fxRateInfo
+                                        .markupRateAmountInReceivingCurrency
+                                    )
+                                  }}
+                                </td>
+                                <td class="table-body text-center">
+                                  ${{ convertFloat(transaction.amount_fee) }}
+                                </td>
+
+                                <td class="table-body text-center">
+                                  ${{
+                                    convertFloat(transaction.fxRateInfo.fxRate)
+                                  }}
+                                </td>
+
+                                <!---End of Recipient-->
+
+                                <td
+                                  *ngIf="showNetAmount"
+                                  class="table-body text-center"
+                                >
+                                  ${{ convertFloat(transaction.amount_net) }}
+                                </td>
+
+                                <!--Revenue-->
+                                <td class="table-body text-center">
+                                  ${{
+                                    addFloat(
+                                      transaction.amount_fee,
+                                      transaction.fxRateInfo.fxRate
+                                    )
+                                  }}
+                                </td>
+                                <!--End of Revenue-->
+                                <td
+                                  *ngIf="showTransactionType"
+                                  class="table-body text-center"
+                                >
+                                  {{ transaction.transition_type }}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Table End-->
+            </div>
+          </div>
+          <h5 class="card-title" style="margin-top: 5px; margin-left: 5px">
+            Total:
+          </h5>
+          <div class="total">
+            <div class="headers bg-primary">
+              <i class="bi bi-currency-dollar header-icon"></i>
+              <p class="t-header">Transactions Amount</p>
+            </div>
+            <div class="t-body-box">
+              <p class="t-body">${{ amountSum }}</p>
+            </div>
+
+            <div class="headers bg-info">
+              <i class="bi bi-journal-text header-icon"></i>
+              <p class="t-header">Transaction Fees</p>
+            </div>
+            <div class="t-body-box">
+              <p class="t-body">${{ feeSum }}</p>
+            </div>
+
+            <div class="headers bg-warning">
+              <i class="bi bi-currency-exchange header-icon"></i>
+              <p class="t-header">Fx Margin</p>
+            </div>
+            <div class="t-body-box">
+              <p class="t-body">${{ fxSum }}</p>
+            </div>
+
+            <div class="headers bg-success">
+              <i class="bi bi-cash-coin header-icon"></i>
+              <p class="t-header">Revenue</p>
+            </div>
+            <div class="t-body-box">
+              <p class="t-body">${{ revenueSum }}</p>
+            </div>
+          </div>
+
+          <!-- Pagination-->
+          <div class="row">
+            <div class="col-lg-0">
+              <div class="row">
+                <div class="col-12"></div>
+                <div class="top-selling overflow-auto">
+                  <div class="card-body pb-0">
+                    <ul class="pagination">
+                      <li class="page-item" (click)="prevPage()">
+                        <a
+                          [ngClass]="{ active: currentPage > pages.length }"
+                          class="page-link"
+                          aria-label="Previous"
+                        >
+                          <span aria-hidden="true">&laquo;</span>
+                        </a>
+                      </li>
+                      <li
+                        class="page-item active"
+                        (click)="setPage(page)"
+                        *ngFor="let page of pages"
+                        [ngClass]="{ active: page === currentPage }"
+                      >
+                        <a class="page-link">
+                          <span> {{ page }}</span>
+                        </a>
+                      </li>
+                      <li class="page-item" (click)="nextPage()">
+                        <a class="page-link" aria-label="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                        </a>
+                      </li>
+                    </ul>
+                    <div class="col-lg-3 col-md-4 label">
+                      Items per Page:
+                      <select (change)="handlePageSizeChange($event)">
+                        <option *ngFor="let size of pageSizes" [ngValue]="size">
+                          {{ size }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Pagination End-->
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

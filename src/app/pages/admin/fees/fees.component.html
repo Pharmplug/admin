@@ -1,0 +1,82 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Service Fees</h1>
+  </div>
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">Set Transaction Fees Limits</h5>
+        <form
+          [formGroup]="settingForm"
+          (ngSubmit)="onSubmit()"
+          class="row g-3 needs-validation"
+        >
+          <div class="col-md-6">
+            <label for="validationCustom01" class="form-label"
+              >Minimum Deposit (USD)</label
+            >
+            <input
+            type="text"
+            class="form-control"
+            id="validationCustom01"
+            formControlName="minDeposit"
+            placeholder="{{settingsModel.minDeposit}}"
+              [ngClass]="{
+                'is-invalid': submitted && f['minDeposit'].errors
+              }"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="validationCustom01" 
+              >Maximum Deposit (USD)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              formControlName="maxDeposit"
+              placeholder="{{settingsModel.maxDeposit}}"
+              [ngClass]="{
+                'is-invalid': submitted && f['maxDeposit'].errors
+              }"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="validationCustom01" class="form-label"
+              >Maximum Withdrawal (USD)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              formControlName="maxWithdraw"
+              placeholder="{{settingsModel.maxWithdraw}}"
+              [ngClass]="{
+                'is-invalid': submitted && f['maxWithdrawal'].errors
+              }"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="validationCustom01" class="form-label"
+              >Minimum Withdrawal (USD)</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="validationCustom01"
+              formControlName="minWithdraw"
+              placeholder="{{settingsModel.minWithdraw}}"
+              [ngClass]="{
+                'is-invalid': submitted && f['minWithdrawal'].errors
+              }"
+            />
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Update Fees</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
