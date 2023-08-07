@@ -16,7 +16,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './material';
 
 
 // Firebase services + environment module
@@ -27,7 +26,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import {  ReactiveFormsModule } from '@angular/forms';
-import { Base64Pipe } from './shared/convert-base64-img.pipe';
+
 
 
 @NgModule({ 
