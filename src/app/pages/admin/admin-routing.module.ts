@@ -11,7 +11,6 @@ import { TransactionComponent } from './transactions/transaction.component';
 import { CustomersComponent } from './customers/customers.component';
 import { KYCDetailsComponent } from './kyc/kyc-Details/kyc.details.component';
 import { KYCComponent } from './kyc/kyc.component';
-import { PromotionsComponent } from './promotions/promotions.component';
 import { ACHTransactionComponent } from './ach-transaction/ach.transaction.component';
 import { OutflowComponent } from './outflow/outflow.transaction.component';
 import { UserACHTransactionComponent } from './ach-transaction/user-ach.transaction/user.ach.transaction.component';
@@ -19,33 +18,25 @@ import { UserOutflowComponent } from './outflow/user-outflow.transaction/user.ou
 import { UserTransactionComponent } from './transactions/user-transaction/user.transaction.component';
 import { MtlComponent } from './mtl-licence/mtl.component';
 import { LoginHistoryComponent } from './login-history/login.history.component';
-import { FeesComponent } from './fees/fees.component';
 import { IamComponent } from './iam/iam.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { DevAccessGuard } from 'src/app/access-control.guard';
-import { InflowComponent } from './inflow/inflow.component';
+
 import { CommonModule } from '@angular/common';
-import { MarketComponent } from './markets/market.component';
-import { ResetComponent } from './reset/reset-net.component';
+
 
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, canActivate: [AuthGuard]},
   { path: 'customer-details',component: CustomerDetailsComponent, },
   { path: 'achTransactions', component: ACHTransactionComponent, },
-  { path: 'promotions', component: PromotionsComponent,},
   { path: 'transactions', component: TransactionComponent, },
   { path: 'user-transaction', component: UserTransactionComponent, },
   { path: 'user-achTransactions', component: UserACHTransactionComponent,},
-  { path: 'settings-mtl', component: MtlComponent, },
-  { path: 'settings-testnetReset', component:ResetComponent,canActivate: [AuthGuard] },
-  { path: 'settings-markets', component: MarketComponent,canActivate: [AuthGuard,DevAccessGuard] },
-  { path: 'settings-fees', component: FeesComponent, canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'settings-iam', component: IamComponent,},
   { path: 'settings-loginHistory', component: LoginHistoryComponent,canActivate: [AuthGuard,DevAccessGuard] },
   { path: 'customers', component: CustomersComponent,},
   { path: 'outflow', component: OutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
-  { path: 'inflow', component: InflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'user-outflow-transaction', component: UserOutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'contact', component: PagesContactComponent },
   { path: 'error404', component: PagesError404Component },
