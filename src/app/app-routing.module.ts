@@ -10,7 +10,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: LayoutsComponent,
-    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),canActivate: [AuthGuard]
+    loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule),
 
   },
   { path: '**', component: PagesError404Component }

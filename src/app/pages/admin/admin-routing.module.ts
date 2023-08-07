@@ -21,7 +21,7 @@ import { CommonModule } from '@angular/common';
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [AuthGuard]},
+  { path: '', component: DashboardComponent,},
   { path: 'customer-details',component: CustomerDetailsComponent, },
   { path: 'achTransactions', component: ACHTransactionComponent, },
   { path: 'transactions', component: TransactionComponent, },
