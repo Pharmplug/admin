@@ -2,9 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PagesBlankComponent } from './pages-blank/pages-blank.component';
-import { PagesContactComponent } from './pages-contact/pages-contact.component';
 import { PagesError404Component } from './pages-error404/pages-error404.component';
-import { PagesFaqComponent } from './pages-faq/pages-faq.component';
 import { CustomerDetailsComponent } from './customers/customer-details/details-customer.component';
 import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { TransactionComponent } from './transactions/transaction.component';
@@ -33,9 +31,7 @@ const routes: Routes = [
   { path: 'customers', component: CustomersComponent,},
   { path: 'outflow', component: OutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'user-outflow-transaction', component: UserOutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
-  { path: 'contact', component: PagesContactComponent },
   { path: 'error404', component: PagesError404Component },
-  { path: 'faq', component: PagesFaqComponent },
   { path: 'blank', component: PagesBlankComponent },
   { path: 'user-profile', component: UsersProfileComponent,},
 ];
