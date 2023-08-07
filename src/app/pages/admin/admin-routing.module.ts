@@ -9,15 +9,11 @@ import { CustomerDetailsComponent } from './customers/customer-details/details-c
 import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { TransactionComponent } from './transactions/transaction.component';
 import { CustomersComponent } from './customers/customers.component';
-import { KYCDetailsComponent } from './kyc/kyc-Details/kyc.details.component';
-import { KYCComponent } from './kyc/kyc.component';
 import { ACHTransactionComponent } from './ach-transaction/ach.transaction.component';
 import { OutflowComponent } from './outflow/outflow.transaction.component';
 import { UserACHTransactionComponent } from './ach-transaction/user-ach.transaction/user.ach.transaction.component';
 import { UserOutflowComponent } from './outflow/user-outflow.transaction/user.outflow.transaction.component';
 import { UserTransactionComponent } from './transactions/user-transaction/user.transaction.component';
-import { MtlComponent } from './mtl-licence/mtl.component';
-import { LoginHistoryComponent } from './login-history/login.history.component';
 import { IamComponent } from './iam/iam.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { DevAccessGuard } from 'src/app/access-control.guard';
@@ -34,7 +30,6 @@ const routes: Routes = [
   { path: 'user-transaction', component: UserTransactionComponent, },
   { path: 'user-achTransactions', component: UserACHTransactionComponent,},
   { path: 'settings-iam', component: IamComponent,},
-  { path: 'settings-loginHistory', component: LoginHistoryComponent,canActivate: [AuthGuard,DevAccessGuard] },
   { path: 'customers', component: CustomersComponent,},
   { path: 'outflow', component: OutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'user-outflow-transaction', component: UserOutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
@@ -42,8 +37,6 @@ const routes: Routes = [
   { path: 'error404', component: PagesError404Component },
   { path: 'faq', component: PagesFaqComponent },
   { path: 'blank', component: PagesBlankComponent },
-  { path: 'kyc-details', component: KYCDetailsComponent,canActivate: [AuthGuard,DevAccessGuard] },
-  { path: 'kyc', component: KYCComponent,canActivate: [AuthGuard,DevAccessGuard] },
   { path: 'user-profile', component: UsersProfileComponent,},
 ];
 

@@ -19,9 +19,6 @@ import { UserTransactionComponent } from './transactions/user-transaction/user.t
 import { OutflowComponent } from './outflow/outflow.transaction.component';
 
 import { ReactiveFormsModule } from '@angular/forms';
-import { MtlComponent } from './mtl-licence/mtl.component';
-import { LoginHistoryComponent } from './login-history/login.history.component';
-
 import { IamComponent } from './iam/iam.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UserACHTransactionComponent } from './ach-transaction/user-ach.transaction/user.ach.transaction.component';
@@ -47,15 +44,10 @@ import { CustomersReportDialog } from './customers/report/report.customers';
     DashboardComponent,
     TransactionComponent,
     CustomersComponent,
-
     CustomerDetailsComponent,
     ACHTransactionComponent,
     UserTransactionComponent,
     OutflowComponent,
-
-    MtlComponent,
-
-    LoginHistoryComponent,
     IamComponent,
     UserOutflowComponent,
     Base64Pipe,
