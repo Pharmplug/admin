@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import Transaction from "../../../models/transaction.model"
-import { TransactionService } from '../transactions/transaction.service';
+import { TransactionService } from '../store/transaction.service';
 
 @Component({
   selector: 'app-pages-outflow',

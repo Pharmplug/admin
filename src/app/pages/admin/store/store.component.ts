@@ -15,10 +15,10 @@ import Drugs from 'src/app/models/drugs.model';
 
 @Component({
   selector: 'app-pages-transactions',
-  templateUrl: './transaction.component.html',
+  templateUrl: './store.component.html',
   providers: [TransactionService]
 })
-export class TransactionComponent implements OnInit {
+export class StoreComponent implements OnInit {
   @ViewChild(MatSort)
 
 
@@ -73,7 +73,7 @@ export class TransactionComponent implements OnInit {
   /**
    * Filters transactions based on a search term entered by the drug.
    */
-  searchTransactions() {
+  searchDrug() {
     if (this.searchTerm.trim() !== '') {
       const mitems = this.drugsList!.filter((drug) =>
         (drug.productname && drug.productname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
@@ -92,6 +92,19 @@ export class TransactionComponent implements OnInit {
 
 
 
+
+  showInfo(index: number) {
+    //check that the users arrayis not null
+    if (this.filteredDrugsList.length > 0) {
+      // get a specific user from the index in the list of users 
+      //and pass it  to selected user object
+      let selectedDrug = this.filteredDrugsList[index];
+      // Stringify selected user 
+      const stringifiedDrug = JSON.stringify(selectedDrug);
+      // route to customer details screen and pass stringified user as arguement
+      this.router.navigate(['/admin/drug-details', { drugInfo: stringifiedDrug }]);
+    }
+  }
 
 
 

@@ -11,7 +11,7 @@
             class="form-control"
             placeholder="Search for drug"
             aria-label="Search for drug"
-            (input)="searchTransactions()"
+            (input)="searchDrug()"
             [(ngModel)]="searchTerm"
           />
           <div class="text-center text-primary" style="margin-top: 10px;margin-right: 15px;">
@@ -200,43 +200,44 @@
                             <tbody class="tb">
                               <tr
                                 *ngFor="
-                                  let transaction of  filteredDrugsList; 
+                                  let drugItem of  filteredDrugsList; 
                                   let i = index
+                                 
                                 "
-                             
+                                (click)="showInfo(i)"
                                 style="cursor: pointer"
                               >
                                 <td>
-                                  <a  class="logo"> <img src="assets/img/pill.png" alt=""></a>
+                                  <a  class="logo"> <img [src]="drugItem.imageurl" alt="" /></a>
                                 </td>
                                 <td class="table-body text-center">
                                   {{ i + 1 }}
                                 </td>
                                 <td class="table-body text-center">
                                   {{
-                                    transaction.created_at
+                                    drugItem.created_at
                                       | date : "yyyy/MM/dd h:mm"
                                   }}
                                 </td>
                                 <td class="table-body text-center">
-                                  {{ transaction.productname}}
+                                  {{ drugItem.productname}}
                                  
                                 </td>
                                 <td class="table-body text-center">
                                
-                                  {{ transaction.companyname}}
+                                  {{ drugItem.companyname}}
                                 </td>
                                 <td class="table-body text-center">
-                                  {{ transaction.category}}
+                                  {{ drugItem.category}}
                                 </td>
                                 <td class="table-body text-center">
-                                  {{ transaction.dosageform }}
+                                  {{ drugItem.dosageform }}
                                 </td>
                                 <td class="table-body text-center">
-                                  {{ transaction.price }}
+                                  {{ drugItem.price }}
                                 </td>
                                 <td class="table-body text-center">
-                                  {{ transaction.packsize }}
+                                  {{ drugItem.packsize }}
                                 </td>
                                
 

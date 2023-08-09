@@ -1,0 +1,173 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <h1>Drug Details</h1>
+    <nav>
+      <ol style="cursor: pointer" class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/admin/store">Store</a></li>
+        <li class="breadcrumb-item active">
+          {{ drugInfo.productname.toLowerCase() }}
+          {{ drugInfo.category.toLowerCase() }}
+        </li>
+      </ol>
+    </nav>
+  </div>
+  <section class="section">
+    <div class="row">
+      <div class="col-lg-6">
+     
+        <div
+        class=" pt-4 d-flex flex-column align-items-center"
+      >
+        <!-- Display image, or a placeholder image if imageUrl is null -->
+        <img
+        [src]="pickedUser.imageurl ? pickedUser.imageurl : '/assets/img/admin.png'"
+        class="img"
+      />
+      
+        <div>...</div>
+
+       
+     
+      </div>
+     
+   </div>
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <form
+              [formGroup]="updateDrugForm"
+              class="needs-validation"
+              (ngSubmit)="update()"
+            >
+              <!---Name-->
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label"
+                  >ID</label
+                >
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Update drug ID"
+                      aria-label="name"
+                      formControlName="drugid"
+                      aria-describedby="basic-addon2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!---Name-->
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label"
+                  >Drug Price</label
+                >
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Update drug price"
+                      aria-label="name"
+                      formControlName="drugprice"
+                      aria-describedby="basic-addon2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!---Name-->
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label"
+                  >Drug Name</label
+                >
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Update drug Name"
+                      aria-label="name"
+                      formControlName="drugname"
+                      aria-describedby="basic-addon2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!---SurName-->
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label"
+                  >Company Name</label
+                >
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter last name"
+                      aria-label="lastName"
+                      formControlName="drugcompanyname"
+                      aria-describedby="basic-addon2"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <!---SurName-->
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label"
+                  >Category</label
+                >
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter last name"
+                      aria-label="lastName"
+                      formControlName="drugcategory"
+                      aria-describedby="basic-addon2"
+                    />
+                  </div>
+                </div>
+              </div>
+              <!---SurName-->
+              <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label"
+                  >Dosage Form</label
+                >
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter last name"
+                      aria-label="lastName"
+                      formControlName="drugdosageform"
+                      aria-describedby="basic-addon2"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <h5 class="card-title">.</h5>
+              <div class="row mb-3">
+                <label class="col-sm-2 col-form-label">.</label>
+                <div class="col-sm-10">
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-primary">
+                      Submit
+                    </button>
+                    <button type="reset" class="btn btn-secondary">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+  </section>
+</main>

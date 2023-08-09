@@ -120,7 +120,7 @@
                 role="tab"
                 aria-controls="home"
                 aria-selected="true"
-                (click)="_filterTransactions('All'); showTransactionType = true"
+                (click)="_filterRequest('pending'); showTransactionType = true"
               >
                 Pending
               </button>
@@ -136,7 +136,7 @@
                 aria-controls="profile"
                 aria-selected="false"
                 (click)="
-                  _filterTransactions('deposit'); showTransactionType = false
+                  _filterRequest('completed'); showTransactionType = false
                 "
               >
                Completed
@@ -153,7 +153,7 @@
                 aria-controls="contact"
                 aria-selected="false"
                 (click)="
-                  _filterTransactions('withdraw'); showTransactionType = false
+                  _filterRequest('rejected'); showTransactionType = false
                 "
               >
                 Rejected

@@ -12,7 +12,7 @@ import AdminModel from 'src/app/models/super.admin.mode';
   styleUrls: ['./iam.component.css']
 })
 export class IamComponent implements OnInit {
-  baseURL = '@orokii.com'
+  baseURL = 'gmail.com'
   adminForm!: FormGroup;
   rolesData!: LoginAllow;
   updateAdminRoleForm!: FormGroup;
@@ -148,7 +148,7 @@ export class IamComponent implements OnInit {
     }
 
     // Filters the roles in the loginAllowList and stores them in filteredRoles
-    this.filteredRoles = this.loginAllowList.filter((data: any) => data.email !== 'bisi.adedokun@orokii.com' );
+    this.filteredRoles = this.loginAllowList.filter((data: any) => data.email !== 'pharmplug@gmail.com' );
     console.log(this.filteredRoles);
   }
 

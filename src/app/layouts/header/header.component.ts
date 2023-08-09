@@ -4,8 +4,8 @@ import { HttpClient } from "@angular/common/http";
 
 import { environment } from '../../../environments/environment';
 import { AuthService } from 'src/app/pages/auth/auth-utils/authUtils';
-import { AchService } from 'src/app/pages/admin/ach-transaction/ach.transaction.service';
-import { TransactionService } from 'src/app/pages/admin/transactions/transaction.service';
+import { AchService } from 'src/app/pages/admin/request/requests.service';
+import { TransactionService } from 'src/app/pages/admin/store/transaction.service';
 import { Observable, forkJoin, map } from 'rxjs';
 import { UserService } from 'src/app/pages/admin/customers/customers.service';
 import Customer from 'src/app/models/user.model';

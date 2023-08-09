@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TransactionComponent } from '../transactions/transaction.component';
+import { StoreComponent } from '../store/store.component';
 
 @Component({
   selector: 'app-users-profile',
   templateUrl: './users-profile.component.html',
   styleUrls: ['./users-profile.component.css'],
-  providers: [TransactionComponent]
+  providers: [StoreComponent]
 })
 export class UsersProfileComponent implements OnInit {
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
-import { AchService } from './ach.transaction.service';
+import { AchService } from './requests.service';
 import Ach from 'src/app/models/ach.model';
+import { HttpClient } from '@angular/common/http';
 
 
 export interface PeriodicElement {
@@ -26,10 +27,10 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 @Component({
   selector: 'app-pages-transactions',
-  templateUrl: './ach.transaction.component.html',
-  styleUrls: ['./ach.transaction.component.css']
+  templateUrl: './requests.component.html',
+
 })
-export class ACHTransactionComponent implements OnInit {
+export class RequestComponent implements OnInit {
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource:Ach[] = [];
   transactions: Ach[] = [];
@@ -38,7 +39,7 @@ export class ACHTransactionComponent implements OnInit {
   selectedTransaction: any;
   showTransactionType!: boolean;
   selectedUser: any;
-  filteredTransactions: Ach[] = [];
+  filteredRequest: Ach[] = [];
   startIndex: number = 0;
   lastIndex: number = 10;
   currentPage: number = 1;
@@ -118,55 +119,71 @@ export class ACHTransactionComponent implements OnInit {
     // Add more dummy data items here...
   ];
   constructor( private ach: AchService,
-    public router: Router) {
+    public router: Router, public http: HttpClient,) {
    
     
   }
 
   ngOnInit() {
-    this.fetchAch();
-    this._filterTransactions('All');
-    this.filteredTransactions;
+
+    this._filterRequest('pending');
+    this.requestUpdate;
     this.itemsPerPage=10;
   }
 
 
-  fetchAch() {
-    this.ach.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.transactions = data;
-      this.isLoading = false
-      this._filterTransactions('All');
-      this.dataSource =data
-      console.log(this.transactions)
-    })
+
+  _fetchData() {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    try {
+      const res: any = this.http.get('https://pharmplug-api.onrender.com/api/all-request', { headers }).toPromise();
+      res.then((value: any) => {
+        console.log(value['requests'])
+
+        this.requestUpdate =value['requests']
+        this.filteredRequest = value['requests']
+      })
+
+
+    } catch (error) {
+      console.error(error);
+    }
   }
 
-  _filterTransactions(type: string) {
-    if (type === 'All') {
-      this.headerType='All'
-   
-      this.filteredType = this.transactions
-      this.getAllSums(this.filteredType)
 
-    } if (type === 'deposit') {
+
+
+
+
+  _filterRequest(type: string) {
+    if (type === 'All') {
+      
+   
+      this.filteredRequest=this.requestUpdate
+  
+
+    } if (type === 'pending') {
       this.headerType='deposit'
      
-      this.filteredType = this.transactions.filter(transaction => transaction.transition_type === type)
+      this.filteredType = this.requestUpdate.filter(transaction => transaction.transition_type === type)
       this.getAllSums(this.filteredType)
 
 
-    } if (type === 'withdraw') {
+    } if (type === 'rejected') {
+    
+     
+      this.filteredType = this.requestUpdate.filter(transaction => transaction.transition_type === type)
+      
+
+
+    }if (type === 'completed') {
       this.headerType='withdraw'
   
     
-      this.filteredType = this.transactions.filter(transaction => transaction.transition_type === type)
-      this.getAllSums(this.filteredType)
+      this.filteredType = this.requestUpdate.filter(transaction => transaction.transition_type === type)
+  
     }
   }
 
@@ -189,7 +206,7 @@ export class ACHTransactionComponent implements OnInit {
       new Date(transaction.created_at.toMillis()) < end
   );
 
-  this.getAllSums(this.filteredTransactions)
+  this.getAllSums(this.requestUpdate)
 }
 
 
@@ -245,7 +262,7 @@ export class ACHTransactionComponent implements OnInit {
     }
 
     // Sort the table data based on the selected column and direction
-    this.filteredTransactions.sort((a:any, b:any) => {
+    this.requestUpdate.sort((a:any, b:any) => {
       let comparison = 0;
 
       if (a[columnName] > b[columnName]) {
