@@ -113,16 +113,32 @@
             <li class="nav-item flex-fill" role="presentation">
               <button
                 class="nav-link w-100 active"
-                id="home-tab"
+                id="pending-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#home-justified"
+                data-bs-target="#pending-justified"
                 type="button"
                 role="tab"
-                aria-controls="home"
+                aria-controls="pending"
                 aria-selected="true"
-                (click)="_filterRequest('pending'); showTransactionType = true"
+                (click)="_filterRequest('pending')"
               >
                 Pending
+              </button>
+            </li>  <li class="nav-item flex-fill" role="presentation">
+              <button
+                class="nav-link w-100"
+                id="contact-tab"
+                data-bs-toggle="tab"
+                data-bs-target="#contact-justified"
+                type="button"
+                role="tab"
+                aria-controls="contact"
+                aria-selected="false"
+                (click)="
+                  _filterRequest('ready');
+                "
+              >
+                Ready
               </button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
@@ -136,27 +152,26 @@
                 aria-controls="profile"
                 aria-selected="false"
                 (click)="
-                  _filterRequest('completed'); showTransactionType = false
+                  _filterRequest('delivered');
                 "
               >
-               Completed
+               Delivered
               </button>
             </li>
+          
             <li class="nav-item flex-fill" role="presentation">
               <button
                 class="nav-link w-100"
-                id="contact-tab"
+                id="home-tab"
                 data-bs-toggle="tab"
-                data-bs-target="#contact-justified"
+                data-bs-target="#home-justified"
                 type="button"
                 role="tab"
-                aria-controls="contact"
+                aria-controls="home"
                 aria-selected="false"
-                (click)="
-                  _filterRequest('rejected'); showTransactionType = false
-                "
+                (click)="_filterRequest('all'); "
               >
-                Rejected
+                All Request
               </button>
             </li>
           </ul>
@@ -198,7 +213,7 @@
                     <div class="col-12">
                       <div class="card recent-sales overflow-auto">
                         <div class="card-body">
-                          <h5 class="card-title">Request Processing Updates</h5>
+                         
                           <table class="table table-borderless">
                             <thead>
                               <tr>
@@ -209,7 +224,7 @@
                                   Customer <i class="bi bi-chevron-expand"></i>
                                 </th>
                                 <th scope="col">
-                                  Drug <i class="bi bi-chevron-expand"></i>
+                                  Drugs <i class="bi bi-chevron-expand"></i>
                                 </th>
                                 <th scope="col" >
                                   Location <i class="bi bi-chevron-expand"></i>
@@ -226,49 +241,47 @@
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let transact of requestUpdate let i = index" style="cursor: pointer;">
+                              <tr *ngFor="let request of filteredRequest let i = index"  (click)="showRequest(i)" style="cursor: pointer;">
                                 <td style="font-size: 12px; color: rgb(4, 25, 94)">
-                                  {{
-                                    transact.created_at
-                                      | date : "d-MMMM-yyyy h:mm a"
-                                  }}
+                                  {{ request.created_at | date : "d-MMMM-yyyy h:mm a" }}
                                 </td>
 
                                 <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
                                   <a  class="text-primary">{{
-                                    transact.firstName
+                                    request.customername
                                   }}</a>
                                 </td>
                                 <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
                                   <a  class="text-primary">{{
-                                    transact.drug
+                                    request.items.length
                                   }}</a>
                                 </td>
                                 <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
                                   <a  class="text-primary">{{
-                                    transact.location
+                                    request.customerlocation
                                   }}</a>
                                 </td>
                                 <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
                                   <a  class="text-primary">{{
-                                    transact.delivery_type
+                                    request.deliverytype
                                   }}</a>
                                 </td>
                                
-                                <td>${{ transact.amount_net}}</td>
+                                <td>#{{ request.price}}</td>
                                 <td>
                                   <span
-                          class="badge {{
-                            transact.status === 'Pending'
-                              ? 'status-verified'
-                              : 'status-pending'
-                          }}"
-                        >
-                          {{
-                            transact.status === "Pending" ? "Completed" : "Pending"
-                          }}
-                        </span>
+                                    class="badge"
+                                    [ngClass]="{
+                                      'status-verified': request.status === 'delivered',
+                                      'status-invalid': request.status === 'ready',
+                                      'status-pending': request.status === 'pending' || request.status === 'new'
+                                    }"
+                                  >
+                                    {{ request.status }}
+                                  </span>
                                 </td>
+                                
+                                
                               </tr>
                             </tbody>
                           </table>

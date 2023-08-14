@@ -2,14 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { HttpClient } from "@angular/common/http";
 
-import { environment } from '../../../environments/environment';
+import { ToastrService } from 'ngx-toastr'
 import { AuthService } from 'src/app/pages/auth/auth-utils/authUtils';
-import { AchService } from 'src/app/pages/admin/request/requests.service';
-import { TransactionService } from 'src/app/pages/admin/store/transaction.service';
-import { Observable, forkJoin, map } from 'rxjs';
+import { Observable, Subscription, forkJoin, map } from 'rxjs';
 import { UserService } from 'src/app/pages/admin/customers/customers.service';
 import Customer from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { DashboardService } from 'src/app/pages/admin/dashboard/dashboard.service';
+import Recipient from 'src/app/models/request.model';
 
 @Component({
   selector: 'app-header',
@@ -28,11 +28,14 @@ export class HeaderComponent implements OnInit {
   notificationCount!: String;
   http!: HttpClient;
   authService!: AuthService;
-  totalLength: any
-  constructor(@Inject(DOCUMENT) private document: Document, private ach: AchService, private transactionService: TransactionService, private userService: UserService, private router: Router) { }
+  totalLength: any 
+  requestUpdate: Recipient[] = [];
+   private subscription!: Subscription;
+  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) { }
 
   ngOnInit() {
-localStorage.clear()
+  // this. _fetchRealTimeRequest()
+//localStorage.clear()
     const currentUser = JSON.parse(localStorage.getItem('user')!);
 
     this.admin = currentUser.email
@@ -50,12 +53,13 @@ localStorage.clear()
 
 
 
- 
-
-    this.getTotalDataCount();
 
   }
 
+  // ngOnDestroy() {
+  //   this.dashboardService.disconnect();
+  //   this.subscription.unsubscribe();
+  // }
 
   // Function to toggle sidebar
   sidebarToggle() {
@@ -71,60 +75,32 @@ localStorage.clear()
   }
 
 
-  _fetchAch() {
-    this.ach.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      localStorage.setItem('achLength', data.length.toString());
-    })
-  }
-
-  _fetchTransactions() {
-    this.transactionService.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      localStorage.setItem('transactionLength', data.length.toString());
-    });
-  }
-
-  _fetchData() {
-    this.userService.getAll().snapshotChanges().pipe(
-      map((changes: any[]) =>
-        changes.map((c: any) =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      localStorage.setItem('allUsersLength', data.length.toString());
-    });
-  }
+ 
 
 
-
-  // After all data is fetched, the total length will be stored in the totalLength variable
-
-
-
-  getTotalDataCount() {
-    this._fetchAch();
-    this._fetchTransactions();
-    this._fetchTransactions();
-    this.usersCount = Number.parseInt(localStorage.getItem('allUsersLength')!)
-    this.transactionsCount = Number.parseInt(localStorage.getItem('transactionLength')!)
-    this.achTransactionsCount = Number.parseInt(localStorage.getItem('achLength')!)
-    this.totalLength = this.usersCount + this.transactionsCount + this.achTransactionsCount
-    console.log("Total length of all data:", this.totalLength);
-    return this.notificationCount = this.totalLength.toString()
-  }
-
+  // _fetchRealTimeRequest() {
+  //   this.subscription = this.dashboardService.connect().subscribe(
+  //     (event: MessageEvent) => {
+  //       const data2obj = JSON.parse(event.data.trim());
+  
+  //       if (data2obj['request']['ref'] === null || data2obj['request']['ref'] === undefined || data2obj['request']['ref'] === 0) {
+  //         // Do nothing if the incoming request's 'ref' is null, undefined, or 0
+  //       } else {
+  //         // Check if a request with the same 'ref' value already exists in the array
+  //         const existingRequest = this.requestUpdate.find(item => item.ref === data2obj['request']['ref']);
+          
+  //         if (!existingRequest) {
+  //           // If no existing request with the same 'ref' value, push the new request to the array
+  //           this.requestUpdate.push(data2obj['request']);
+  //           console.log(data2obj['request']);
+  //         }
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error('Error:', error);
+  //     }
+  //   );
+  // }
 
   clearNotifications() {
     localStorage.removeItem('allUsersLength');

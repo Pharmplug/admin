@@ -1,13 +1,14 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AchService } from '../request/requests.service';
 import Ach from 'src/app/models/ach.model';
-import { TransactionService } from '../store/transaction.service';
-import Transaction from '../../../models/transaction.model';
 import { UserService } from '../customers/customers.service';
 import Customer from 'src/app/models/user.model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DashboardService } from './dashboard.service';
+import { HttpClient } from '@angular/common/http';
+import Recipient from 'src/app/models/request.model';
 
 
 interface UserTransaction {
@@ -27,7 +28,7 @@ interface UserTransactionWithAverage extends UserTransaction {
 })
 
 export class DashboardComponent implements OnInit {
-  transactions: Transaction[] = [];
+
   users_count!: Number;
   achData: any
   total_deposit: any = 0;
@@ -36,7 +37,7 @@ export class DashboardComponent implements OnInit {
   kyc: any
   totalWithdraw!: any
   totalDeposit!: any
-  paymentUpdate: Transaction[] = [];
+
   searchTerm = '';
   selectedTransaction: any;
   showTransactionType!: boolean;
@@ -49,204 +50,54 @@ export class DashboardComponent implements OnInit {
   users!: Customer[]
   sortColumn: string = 'created_at'; // Default sorting column
   sortDirection: string = 'asc'; // Default sorting direction
+  requestUpdate: Recipient[] = [];
 
-  constructor(private router: Router, private userService: UserService, private elementRef: ElementRef, private db: AngularFirestore, private ach: AchService, private transactionService: TransactionService) { }
-  requestUpdate: any[] = [
-    {
-      created_at: new Date(2023, 7, 1, 10, 30, 0), // Replace with the actual date and time
-      firstName: "John",
-      lastName: "Doe",
-      drug: "Drug A",
-      location: "Location A",
-      delivery_type: "Walk in",
-      amount_net: 100.5,
-      status: "Pending",
-    },
-    {
-      created_at: new Date(2023, 7, 2, 12, 45, 0), // Replace with the actual date and time
-      firstName: "Jane",
-      lastName: "Smith",
-      drug: "Drug B",
-      location: "Location B",
-      delivery_type: "Rider",
-      amount_net: 50.75,
-      status: "Pending",
-    },   {
-      created_at: new Date(2023, 7, 2, 12, 45, 0), // Replace with the actual date and time
-      firstName: "Jane",
-      lastName: "Smith",
-      drug: "Drug B",
-      location: "Location B",
-      delivery_type: "Rider",
-      amount_net: 50.75,
-      status: "Pending",
-    },   {
-      created_at: new Date(2023, 7, 2, 12, 45, 0), // Replace with the actual date and time
-      firstName: "Jane",
-      lastName: "Smith",
-      drug: "Drug B",
-      location: "Location B",
-      delivery_type: "Rider",
-      amount_net: 50.75,
-      status: "Pending",
-    },   {
-      created_at: new Date(2023, 7, 2, 12, 45, 0), // Replace with the actual date and time
-      firstName: "Jane",
-      lastName: "Smith",
-      drug: "Drug B",
-      location: "Location B",
-      delivery_type: "Rider",
-      amount_net: 50.75,
-      status: "Pending",
-    },
-    // Add more dummy data items here...
-  ];
+
+
+  constructor(private router: Router, private userService: UserService, private elementRef: ElementRef, private db: AngularFirestore,  public http: HttpClient) { }
+
   ngOnInit(): void {
-
     var s = document.createElement("script");
     s.type = "text/javascript";
     s.src = "../assets/js/main.js";
     this.elementRef.nativeElement.appendChild(s);
 
-    this.fetchAch()
-    this._fetchAllTransactions()
-    this._fetchUsersData()
+    //this.fetchAch()
+  
+    this. _fetchRequest()
     this.switchToDay('all');
-    this.paymentUpdate
-  var mm=  localStorage.getItem('user')
-  console.log(mm)
+  
     
   }
 
 
 
-
-  _fetchUsers() {
-    this.userService.getAll().snapshotChanges().pipe(
-      map((changes: any[]) =>
-        changes.map((c: any) =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      ),
-      map((users: any[]) =>
-        users.filter((user: any) => user.kycStatus === '1')
-      )
-    ).subscribe(data => {
-      // data now contains only the users where idVerified is true
-      console.log(data);
-      this.kyc = data;
-    });
-  }
-
-
-  _fetchUsersData() {
-    this.userService.getAll().snapshotChanges().pipe(
-      map((changes: any[]) =>
-        changes.map((c: any) =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      ),
-
-      map((users: any[]) =>
-        users.filter((user: any) => user.kycStatus
-          === '1')
-      )
-    ).subscribe(data => {
-      // data now contains only the users where idVerified is true
-      this.users = data;
-
-      console.log(data)
-      this.switchToDay('all');
-    });
-  }
-  fetchAch() {
-    this.ach.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      console.log(data)
-      this.achData = data
-      this.totalWithdraw = this.achData.filter((transaction: any) => transaction.transition_type === 'withdraw')
-      this.totalDeposit = this.achData.filter((transaction: any) => transaction.transition_type === 'deposit')
-
-
-      let sumWithdrawals = 0;
-      let sumDeposit = 0;
-      for (const item of this.totalWithdraw) {
-        sumWithdrawals += item.amount_net;
-      }
-      for (const item of this.totalDeposit) {
-        sumDeposit += item.amount_net;
-      }
-      this.total_withdrawal = '$' + Number(sumWithdrawals.toFixed(2)).toLocaleString();
-      this.total_deposit = '$' + Number(sumDeposit.toFixed(2)).toLocaleString();
-      this.getUserTransactions(data)
-
-    })
-  }
-  showInfo(index: number) {
-    //check that the users arrayis not null
-    if (this.paymentUpdate.length > 0) {
-      // get a specific user from the index in the list of users 
-      //and pass it  to selected user object
-      var targetId = this.paymentUpdate[index]['email'];
-
-      console.log(targetId, this.paymentUpdate[index]);
-
-
-      const filteredObject = this.users.filter((user: any) =>
-        (user.email && user.email.toLowerCase().includes(targetId.toLowerCase()))
-      );
-
-      if (filteredObject) {
-        console.log(filteredObject);
-      } else {
-        console.log("No object found with the specified ID.");
-      }
-
-      // Stringify selected user 
-      const stringifiedUser = JSON.stringify(filteredObject);
-      // route to customer details screen and pass stringified user as arguement
-      this.router.navigate(['/admin/customer-details', { userInfo: stringifiedUser }]);
+  _fetchRequest() {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+    try {
+      const res: any = this.http.get('https://pharmplug-api.onrender.com/api/all-request', { headers }).toPromise();
+      res.then((value: any) => {
+        console.log(value['request'])
+        
+        const existingRequest = value['request'].filter((item:  any) => item.status === 'pending');
+        console.log(existingRequest) 
+        if (!existingRequest) {
+       
+        }else{
+   // If no existing request with the same 'ref' value, push the new request to the array
+   this.requestUpdate=existingRequest
+   console.log(this.requestUpdate,"hgjg") 
+        }
+      })
+    } catch (error) {
+      console.error(error);
     }
   }
-  getTransactionDetails(index: number) {
-    //check that the users arrayis not null
-    if (this.paymentUpdate.length > 0) {
-      // get a specific user from the index in the list of users 
-      //and pass it  to selected user object
-      let selectedUser = this.paymentUpdate[index];
-      console.log(selectedUser)
-      // Stringify selected user 
-      const stringifiedTransaction = JSON.stringify(selectedUser);
-      // route to customer details screen and pass stringified user as arguement
-      this.router.navigate(['/admin/user-transaction', { transactionInfo: stringifiedTransaction }]);
-    }
-
-  }
-
-  _fetchAllTransactions() {
-
-    this.transactionService.getAll().snapshotChanges().pipe(
-      map(changes =>
-        changes.map(c =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-
-      // Assign the slice of transactions to be displayed in the current page to the filteredTransactions property
-      this.transactions = data
-      this.paymentUpdate = this.transactions.slice(0, 10);
 
 
-    });
 
-
-  }
 
 
   formatValue(data: any): string {
@@ -306,42 +157,10 @@ export class DashboardComponent implements OnInit {
       this.sortDirection = 'asc';
     }
 
-    // Sort the table data based on the selected column and direction
-    this.paymentUpdate.sort((a: any, b: any) => {
-      let comparison = 0;
-
-      if (a[columnName] > b[columnName]) {
-        comparison = 1;
-      } else if (a[columnName] < b[columnName]) {
-        comparison = -1;
-      }
-
-      return this.sortDirection === 'asc' ? comparison : -comparison;
-    });
   }
 
   sortTables(columnName: string) {
-    if (this.sortColumn === columnName) {
-      // If the same column is clicked again, reverse the sorting direction
-      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
-    } else {
-      // If a different column is clicked, set it as the new sorting column
-      this.sortColumn = columnName;
-      this.sortDirection = 'asc';
-    }
-
-    // Sort the table data based on the selected column and direction
-    this.topTransactions.sort((a: any, b: any) => {
-      let comparison = 0;
-
-      if (a[columnName] > b[columnName]) {
-        comparison = 1;
-      } else if (a[columnName] < b[columnName]) {
-        comparison = -1;
-      }
-
-      return this.sortDirection === 'asc' ? comparison : -comparison;
-    });
+ 
   }
 
 

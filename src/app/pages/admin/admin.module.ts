@@ -11,16 +11,16 @@ import { StoreComponent } from './store/store.component';
 import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { CustomersComponent } from './customers/customers.component';
 import { DrugDetailsComponent } from './store/drug-store/drug.store.component';
-import { OutflowComponent } from './outflow/outflow.transaction.component';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { IamComponent } from './iam/iam.component';
+import {MatProgressSpinner, MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RequestComponent } from './request/requestcomponent';
 import { RequestInfoComponent } from './request/request-info/requests.info.component';
 import { MaterialModule } from 'src/app/material';
 import { Base64Pipe } from '../../shared/convert-base64-img.pipe';
 import { PaginationComponent } from 'src/app/_components';
-import { ReportDialog } from './store/report/report';
 import { CustomersReportDialog } from './customers/report/report.customers';
 
 
@@ -41,12 +41,11 @@ import { CustomersReportDialog } from './customers/report/report.customers';
     CustomerDetailsComponent,
     RequestComponent,
     DrugDetailsComponent,
-    OutflowComponent,
     IamComponent,
     UserOutflowComponent,
     Base64Pipe,
-    ReportDialog,
-    CustomersReportDialog
+    CustomersReportDialog,
+   
  
 
   ],
@@ -54,7 +53,8 @@ import { CustomersReportDialog } from './customers/report/report.customers';
     AdminRoutingModule,
     MaterialModule,
     FormsModule, ReactiveFormsModule, MatDialogModule,
-    CommonModule
+    CommonModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AdminModule { }

@@ -6,6 +6,7 @@
 // // DEV
 
 export const environment = {
+  baseUrl:'http://localhost:9000/api/',
   production: false,
   defaultauth: 'firebase',
   firebaseConfig : {

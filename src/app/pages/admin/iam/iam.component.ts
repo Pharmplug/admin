@@ -47,7 +47,6 @@ export class IamComponent implements OnInit {
     this.rolesData
 
 
-
   }
   // This function deletes all the data from the collection
   deleteAllData() {

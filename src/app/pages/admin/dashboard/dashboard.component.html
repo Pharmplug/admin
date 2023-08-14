@@ -17,18 +17,36 @@
                   <li class="dropdown-header text-start">
                     <h6>Filter</h6>
                   </li>
-                  <li (click)="switchToDayACH('today','deposit')"><a class="dropdown-item" >Today</a></li>
-                  <li (click)="switchToDayACH('week','deposit')"><a class="dropdown-item" >This Week</a></li>
-                  <li (click)="switchToDayACH('last2Weeks','deposit')"><a class="dropdown-item" >Last 2 Weeks</a></li>
-                  <li (click)="switchToDayACH('month','deposit')"><a class="dropdown-item" >This Month</a></li>
-                  <li (click)="switchToDayACH('last3Months','deposit')"><a class="dropdown-item" >Last 3 Months</a></li>
-                  <li (click)="switchToDayACH('last6Months','deposit')"><a class="dropdown-item" >Last 6 Months</a></li>
-                  <li (click)="switchToDayACH('past1Year','deposit')"><a class="dropdown-item" >Last 1 year</a></li>
-                  <li (click)="switchToDayACH('all','deposit')"><a class="dropdown-item" >All</a></li>
+                  <li (click)="switchToDayACH('today', 'deposit')">
+                    <a class="dropdown-item">Today</a>
+                  </li>
+                  <li (click)="switchToDayACH('week', 'deposit')">
+                    <a class="dropdown-item">This Week</a>
+                  </li>
+                  <li (click)="switchToDayACH('last2Weeks', 'deposit')">
+                    <a class="dropdown-item">Last 2 Weeks</a>
+                  </li>
+                  <li (click)="switchToDayACH('month', 'deposit')">
+                    <a class="dropdown-item">This Month</a>
+                  </li>
+                  <li (click)="switchToDayACH('last3Months', 'deposit')">
+                    <a class="dropdown-item">Last 3 Months</a>
+                  </li>
+                  <li (click)="switchToDayACH('last6Months', 'deposit')">
+                    <a class="dropdown-item">Last 6 Months</a>
+                  </li>
+                  <li (click)="switchToDayACH('past1Year', 'deposit')">
+                    <a class="dropdown-item">Last 1 year</a>
+                  </li>
+                  <li (click)="switchToDayACH('all', 'deposit')">
+                    <a class="dropdown-item">All</a>
+                  </li>
                 </ul>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Purchase <span>|  {{periodD}}</span></h5>
+                <h5 class="card-title">
+                  Purchase <span>| {{ periodD }}</span>
+                </h5>
                 <div class="d-flex align-items-center">
                   <div
                     class="card-icon rounded-circle d-flex align-items-center justify-content-center"
@@ -44,67 +62,103 @@
               </div>
             </div>
           </div>
-<!--withdrawal-->
-<div class="col-xxl-4 col-xl-12">
-  <div class="card info-card customers-card">
-    <div class="filter">
-      <a class="icon"  data-bs-toggle="dropdown"
-        ><i class="bi bi-three-dots"></i
-      ></a>
-      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-        <li class="dropdown-header text-start">
-          <h6>Filter</h6>
-        </li>
-        <li (click)="switchToDay('today')"><a class="dropdown-item" >Today</a></li>
-        <li (click)="switchToDay('week')"><a class="dropdown-item" >This Week</a></li>
-        <li (click)="switchToDay('last2Weeks')"><a class="dropdown-item" >Last 2 Weeks</a></li>
-        <li (click)="switchToDay('month')"><a class="dropdown-item" >This Month</a></li>
-        <li (click)="switchToDay('last3Months')"><a class="dropdown-item" >Last 3 Months</a></li>
-        <li (click)="switchToDay('last6Months')"><a class="dropdown-item" >Last 6 Months</a></li>
-        <li (click)="switchToDay('past1Year')"><a class="dropdown-item" >Last 1 year</a></li>
-        <li (click)="switchToDay('all')"><a class="dropdown-item" >All</a></li>
-      </ul>
-    </div>
-    <div class="card-body">
-      <h5 class="card-title">Requests <span>| {{period}}</span></h5>
-      <div class="d-flex align-items-center">
-        <div
-          class="card-icon rounded-circle d-flex align-items-center justify-content-center"
-        >
-          <i class="bi bi-people"></i>
-        </div>
-        <div class="ps-3">
-          <h6>{{ kyc_count }}</h6>
-          <!-- <span class="text-danger small pt-1 fw-bold">12%</span>
-          <span class="text-muted small pt-2 ps-1">decrease</span> -->
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-          <!--kyc-->
+          <!--withdrawal-->
           <div class="col-xxl-4 col-xl-12">
             <div class="card info-card customers-card">
               <div class="filter">
-                <a class="icon"  data-bs-toggle="dropdown"
+                <a class="icon" data-bs-toggle="dropdown"
                   ><i class="bi bi-three-dots"></i
                 ></a>
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                   <li class="dropdown-header text-start">
                     <h6>Filter</h6>
                   </li>
-                  <li (click)="switchToDay('today')"><a class="dropdown-item" >Today</a></li>
-                  <li (click)="switchToDay('week')"><a class="dropdown-item" >This Week</a></li>
-                  <li (click)="switchToDay('last2Weeks')"><a class="dropdown-item" >Last 2 Weeks</a></li>
-                  <li (click)="switchToDay('month')"><a class="dropdown-item" >This Month</a></li>
-                  <li (click)="switchToDay('last3Months')"><a class="dropdown-item" >Last 3 Months</a></li>
-                  <li (click)="switchToDay('last6Months')"><a class="dropdown-item" >Last 6 Months</a></li>
-                  <li (click)="switchToDay('past1Year')"><a class="dropdown-item" >Last 1 year</a></li>
-                  <li (click)="switchToDay('all')"><a class="dropdown-item" >All</a></li>
+                  <li (click)="switchToDay('today')">
+                    <a class="dropdown-item">Today</a>
+                  </li>
+                  <li (click)="switchToDay('week')">
+                    <a class="dropdown-item">This Week</a>
+                  </li>
+                  <li (click)="switchToDay('last2Weeks')">
+                    <a class="dropdown-item">Last 2 Weeks</a>
+                  </li>
+                  <li (click)="switchToDay('month')">
+                    <a class="dropdown-item">This Month</a>
+                  </li>
+                  <li (click)="switchToDay('last3Months')">
+                    <a class="dropdown-item">Last 3 Months</a>
+                  </li>
+                  <li (click)="switchToDay('last6Months')">
+                    <a class="dropdown-item">Last 6 Months</a>
+                  </li>
+                  <li (click)="switchToDay('past1Year')">
+                    <a class="dropdown-item">Last 1 year</a>
+                  </li>
+                  <li (click)="switchToDay('all')">
+                    <a class="dropdown-item">All</a>
+                  </li>
                 </ul>
               </div>
               <div class="card-body">
-                <h5 class="card-title">Verified Customers <span>| {{period}}</span></h5>
+                <h5 class="card-title">
+                  Requests <span>| {{ period }}</span>
+                </h5>
+                <div class="d-flex align-items-center">
+                  <div
+                    class="card-icon rounded-circle d-flex align-items-center justify-content-center"
+                  >
+                    <i class="bi bi-people"></i>
+                  </div>
+                  <div class="ps-3">
+                    <h6>{{ kyc_count }}</h6>
+                    <!-- <span class="text-danger small pt-1 fw-bold">12%</span>
+          <span class="text-muted small pt-2 ps-1">decrease</span> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--kyc-->
+          <div class="col-xxl-4 col-xl-12">
+            <div class="card info-card customers-card">
+              <div class="filter">
+                <a class="icon" data-bs-toggle="dropdown"
+                  ><i class="bi bi-three-dots"></i
+                ></a>
+                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                  <li class="dropdown-header text-start">
+                    <h6>Filter</h6>
+                  </li>
+                  <li (click)="switchToDay('today')">
+                    <a class="dropdown-item">Today</a>
+                  </li>
+                  <li (click)="switchToDay('week')">
+                    <a class="dropdown-item">This Week</a>
+                  </li>
+                  <li (click)="switchToDay('last2Weeks')">
+                    <a class="dropdown-item">Last 2 Weeks</a>
+                  </li>
+                  <li (click)="switchToDay('month')">
+                    <a class="dropdown-item">This Month</a>
+                  </li>
+                  <li (click)="switchToDay('last3Months')">
+                    <a class="dropdown-item">Last 3 Months</a>
+                  </li>
+                  <li (click)="switchToDay('last6Months')">
+                    <a class="dropdown-item">Last 6 Months</a>
+                  </li>
+                  <li (click)="switchToDay('past1Year')">
+                    <a class="dropdown-item">Last 1 year</a>
+                  </li>
+                  <li (click)="switchToDay('all')">
+                    <a class="dropdown-item">All</a>
+                  </li>
+                </ul>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  Verified Customers <span>| {{ period }}</span>
+                </h5>
                 <div class="d-flex align-items-center">
                   <div
                     class="card-icon rounded-circle d-flex align-items-center justify-content-center"
@@ -130,89 +184,7 @@
             </div>
           </div>
 
-          <!---Payment Processing-->
-          <div class="col-12">
-            <div class="card recent-sales overflow-auto">
-              <div class="card-body">
-                <h5 class="card-title">Request Processing Updates</h5>
-                <table class="table table-borderless">
-                  <thead>
-                    <tr>
-                      <th scope="col" >
-                        Date <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th scope="col" >
-                        Customer <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th scope="col">
-                        Drug <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th scope="col" >
-                        Location <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th scope="col">
-                        Delivery Type <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th scope="col" >
-                        Amount <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th scope="col" >
-                        Status <i class="bi bi-chevron-expand"></i>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let transact of requestUpdate let i = index" style="cursor: pointer;">
-                      <td style="font-size: 12px; color: rgb(4, 25, 94)">
-                        {{
-                          transact.created_at
-                            | date : "d-MMMM-yyyy h:mm a"
-                        }}
-                      </td>
-
-                      <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                        <a  class="text-primary">{{
-                          transact.firstName
-                        }}</a>
-                      </td>
-                      <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                        <a  class="text-primary">{{
-                          transact.drug
-                        }}</a>
-                      </td>
-                      <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                        <a  class="text-primary">{{
-                          transact.location
-                        }}</a>
-                      </td>
-                      <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                        <a  class="text-primary">{{
-                          transact.delivery_type
-                        }}</a>
-                      </td>
-                     
-                      <td>${{ transact.amount_net}}</td>
-                      <td>
-                        <span
-                class="badge {{
-                  transact.status === 'Completed'
-                    ? 'status-verified'
-                    : 'status-pending'
-                }}"
-              >
-                {{
-                  transact.status === "Completed" ? "Completed" : "Pending"
-                }}
-              </span>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-
-       
+         
         </div>
       </div>
 
@@ -228,27 +200,28 @@
                   *ngFor="let item of requestUpdate"
                 >
                   <div class="activite-label">
-                    {{
-                      item.created_at| date : "d-M-yyyy h:mm a "
-                    }}
+                    {{ item.created_at | date : "d-M-yyyy h:mm a " }}
                     - -
                   </div>
                   <i
                     class="bi bi-circle-fill activity-badge"
                     [ngClass]="{
-                      'text-success': item.status === 'Completed',
-                      'text-warning': item.status === 'Pending'
-                    
+                      'text-success': item.status === 'completed',
+                      'text-danger': item.status === 'pending'
                     }"
                   ></i>
                   <div class="activity-content">
-                    {{ item.firstName }} {{ item.lastName }} made a
-                    {{ item.drug }} of ${{
-                      item.amount_net
-                    }}
+                    {{ item.customername }} needs  {{ item.items.length }} drugs of #{{
+                      item.price
+                    }} worth
                   </div>
                 </div>
               </div>
+            </div>
+            <!-- Display this text if requestUpdate is empty -->
+            <div *ngIf="requestUpdate.length === 0" class="text-center flex flex-col">
+              <img src="assets/img/request.png" alt="" />
+             <p>No new request.</p> 
             </div>
           </div>
         </div>
