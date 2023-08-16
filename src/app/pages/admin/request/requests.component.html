@@ -14,11 +14,12 @@
             [(ngModel)]="searchTerm"
             (click)="searchTransactions()"
           />
-          <div class="text-center text-primary" style="margin-top: 10px;margin-right: 15px;">
-            <i class="bi bi-search"></i
-              >
+          <div
+            class="text-center text-primary"
+            style="margin-top: 10px; margin-right: 15px"
+          >
+            <i class="bi bi-search"></i>
           </div>
-         
         </div>
       </div>
     </div>
@@ -112,7 +113,7 @@
           <ul class="nav nav-tabs d-flex" id="myTabjustified" role="tablist">
             <li class="nav-item flex-fill" role="presentation">
               <button
-                class="nav-link w-100"
+                class="nav-link w-100 active"
                 id="home-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#home-justified"
@@ -120,14 +121,14 @@
                 role="tab"
                 aria-controls="home"
                 aria-selected="true"
-                (click)="_filterRequest('all'); "
+                (click)="_filterRequest('all')"
               >
-                All Request
+                All
               </button>
             </li>
             <li class="nav-item flex-fill" role="presentation">
               <button
-                class="nav-link w-100 active"
+                class="nav-link w-100"
                 id="pending-tab"
                 data-bs-toggle="tab"
                 data-bs-target="#pending-justified"
@@ -139,7 +140,10 @@
               >
                 Pending
               </button>
-            </li>  <li class="nav-item flex-fill" role="presentation">
+            </li>
+            
+          
+            <li class="nav-item flex-fill" role="presentation">
               <button
                 class="nav-link w-100"
                 id="contact-tab"
@@ -148,10 +152,8 @@
                 type="button"
                 role="tab"
                 aria-controls="contact"
-                aria-selected="false"
-                (click)="
-                  _filterRequest('ready');
-                "
+                
+                (click)="_filterRequest('ready')"
               >
                 Ready
               </button>
@@ -165,16 +167,12 @@
                 type="button"
                 role="tab"
                 aria-controls="profile"
-                aria-selected="false"
-                (click)="
-                  _filterRequest('delivered');
-                "
+                aria-selected="true"
+                (click)="_filterRequest('delivered')"
               >
-               Delivered
+                Delivered
               </button>
             </li>
-          
-          
           </ul>
           <div class="tab-content pt-2" id="myTabjustifiedContent">
             <div
@@ -214,83 +212,111 @@
                     <div class="col-12">
                       <div class="card recent-sales overflow-auto">
                         <div class="card-body">
-                         
                           <table class="table table-borderless">
                             <thead>
                               <tr>
-                                <th scope="col" >
+                                <th scope="col">
                                   Date <i class="bi bi-chevron-expand"></i>
                                 </th>
-                                <th scope="col" >
+                                <th scope="col">
                                   Customer <i class="bi bi-chevron-expand"></i>
                                 </th>
                                 <th scope="col">
                                   Drugs <i class="bi bi-chevron-expand"></i>
                                 </th>
-                                <th scope="col" >
+                                <th scope="col">
                                   Location <i class="bi bi-chevron-expand"></i>
                                 </th>
                                 <th scope="col">
-                                  Delivery Type <i class="bi bi-chevron-expand"></i>
+                                  Delivery Type
+                                  <i class="bi bi-chevron-expand"></i>
                                 </th>
-                                <th scope="col" >
+                                <th scope="col">
                                   Amount <i class="bi bi-chevron-expand"></i>
                                 </th>
-                                <th scope="col" >
+                                <th scope="col">
                                   Status <i class="bi bi-chevron-expand"></i>
                                 </th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let request of filteredRequest let i = index"  (click)="showRequest(i)" style="cursor: pointer;">
-                                <td style="font-size: 12px; color: rgb(4, 25, 94)">
-                                  {{ request.created_at | date : "d-MMMM-yyyy h:mm a" }}
+                              <tr
+                                *ngFor="
+                                  let request of filteredRequest;
+                                  let i = index
+                                "
+                                (click)="showRequest(i)"
+                                style="cursor: pointer"
+                              >
+                                <td
+                                  style="font-size: 12px; color: rgb(4, 25, 94)"
+                                >
+                                  {{
+                                    request.created_at
+                                      | date : "d-MMMM-yyyy h:mm a"
+                                  }}
                                 </td>
 
-                                <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                                  <a  class="text-primary">{{
+                                <td
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="right"
+                                  title="view customer transaction details"
+                                >
+                                  <a class="text-primary">{{
                                     request.customername
                                   }}</a>
                                 </td>
-                                <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                                  <a  class="text-primary">{{
+                                <td
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="right"
+                                  title="view customer transaction details"
+                                >
+                                  <a class="text-primary">{{
                                     request.items.length
                                   }}</a>
                                 </td>
-                                <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                                  <a  class="text-primary">{{
+                                <td
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="right"
+                                  title="view customer transaction details"
+                                >
+                                  <a class="text-primary">{{
                                     request.customerlocation
                                   }}</a>
                                 </td>
-                                <td  data-bs-toggle="tooltip" data-bs-placement="right" title="view customer transaction details">
-                                  <a  class="text-primary">{{
+                                <td
+                                  data-bs-toggle="tooltip"
+                                  data-bs-placement="right"
+                                  title="view customer transaction details"
+                                >
+                                  <a class="text-primary">{{
                                     request.deliverytype
                                   }}</a>
                                 </td>
-                               
-                                <td>#{{ request.price}}</td>
+
+                                <td>#{{ request.price }}</td>
                                 <td>
                                   <span
                                     class="badge"
                                     [ngClass]="{
-                                      'status-verified': request.status === 'delivered',
-                                      'status-invalid': request.status === 'ready',
-                                      'status-pending': request.status === 'pending' || request.status === 'new'
+                                      'status-verified':
+                                        request.status === 'delivered',
+                                      'status-invalid':
+                                        request.status === 'ready',
+                                      'status-pending':
+                                        request.status === 'pending' ||
+                                        request.status === 'new'
                                     }"
                                   >
                                     {{ request.status }}
                                   </span>
                                 </td>
-                                
-                                
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
                     </div>
-
-                  
                   </div>
                 </div>
               </div>
