@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { HttpClient } from '@angular/common/http';
 import Recipient from 'src/app/models/request.model';
+import { RequestService } from '../request/request.service';
 
 
 interface UserTransaction {
@@ -34,6 +35,7 @@ export class DashboardComponent implements OnInit {
   total_deposit: any = 0;
   total_withdrawal: any = 0;
   kyc_count: number = 0;
+request_count: number = 0;
   kyc: any
   totalWithdraw!: any
   totalDeposit!: any
@@ -54,7 +56,7 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private userService: UserService, private elementRef: ElementRef, private db: AngularFirestore,  public http: HttpClient) { }
+  constructor(private router: Router, private userService: UserService, private elementRef: ElementRef, private db: AngularFirestore,  public http: HttpClient,private requestService:RequestService) { }
 
   ngOnInit(): void {
     var s = document.createElement("script");
@@ -66,35 +68,12 @@ export class DashboardComponent implements OnInit {
   
     this. _fetchRequest()
     this.switchToDay('all');
-  
-    
+   this. request_count
+   
   }
 
 
 
-  _fetchRequest() {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    try {
-      const res: any = this.http.get('https://pharmplug-api.onrender.com/api/all-request', { headers }).toPromise();
-      res.then((value: any) => {
-        console.log(value['request'])
-        
-        const existingRequest = value['request'].filter((item:  any) => item.status === 'pending');
-        console.log(existingRequest) 
-        if (!existingRequest) {
-       
-        }else{
-   // If no existing request with the same 'ref' value, push the new request to the array
-   this.requestUpdate=existingRequest
-   console.log(this.requestUpdate,"hgjg") 
-        }
-      })
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
 
 
@@ -146,6 +125,15 @@ export class DashboardComponent implements OnInit {
   }
 
 
+  async _fetchRequest() {
+
+    var value = await this.requestService.getAll()
+    console.log(value)
+    this.requestUpdate = value['request']
+    console.log(this.request_count)
+    this.request_count=this.requestUpdate.length
+    console.log(this.request_count)
+  }
 
   sortTable(columnName: string) {
     if (this.sortColumn === columnName) {

@@ -81,7 +81,9 @@ export class RequestComponent implements OnInit {
 
 
   _filterRequest(type: string) {
+    this.filteredRequest =[];
     if (type === 'all') {
+      this.filteredRequest =[];
       console.log(type);
       this.filteredRequest = this.requestUpdate;
     } else if (type === 'pending' || type === 'new') {
@@ -129,7 +131,7 @@ export class RequestComponent implements OnInit {
 
   showRequest(index: number) {
     if (this.requestUpdate.length > 0) {
-      this.selectedRequest = this.requestUpdate[index];
+      this.selectedRequest = this.filteredRequest[index];
       const stringifiedRequest = JSON.stringify(this.selectedRequest);
       this.router.navigate(['/admin/edit-request', { requestInfo: stringifiedRequest }]);
     }
