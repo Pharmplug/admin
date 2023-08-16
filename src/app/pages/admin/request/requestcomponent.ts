@@ -60,7 +60,7 @@ export class RequestComponent implements OnInit {
    
     this.requestUpdate;
 
-    this._filterRequest('pending');
+    this._filterRequest('all');
 
   }
 
