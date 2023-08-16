@@ -17,7 +17,6 @@ import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
 // Firebase services + environment module
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
@@ -26,6 +25,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import {  ReactiveFormsModule } from '@angular/forms';
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+const config: SocketIoConfig = { url: `http://localhost:8988`, options: {} };
+
 
 
 
@@ -40,7 +42,8 @@ import {  ReactiveFormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     LayoutsModule,
-    BrowserModule /* or CommonModule */,
+    BrowserModule,
+    SocketIoModule.forRoot(config),
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
@@ -49,6 +52,7 @@ import {  ReactiveFormsModule } from '@angular/forms';
     AngularFireDatabaseModule,
     NgxPaginationModule,
     HttpClientModule,
+    
 
   ],
   providers: [

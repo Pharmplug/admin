@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Subscription, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import Recipient from 'src/app/models/request.model';
-
+import { RequestService } from './request.service';
 
 
 @Component({
@@ -50,7 +50,7 @@ export class RequestComponent implements OnInit {
   private subscription!: Subscription;
   messages: string[] = [];
   constructor(
-    public router: Router, public http: HttpClient) {
+    public router: Router, public http: HttpClient,private requestService:RequestService) {
 
 
   }
@@ -66,20 +66,13 @@ export class RequestComponent implements OnInit {
 
 
 
-  _fetchData() {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    try {
-      const res: any = this.http.get('https://pharmplug-api.onrender.com/api/all-request', { headers }).toPromise();
-      res.then((value: any) => {
-        console.log(value['request'])
-        this.requestUpdate = value['request']
-        this.filteredRequest = value['request']
-      })
-    } catch (error) {
-      console.error(error);
-    }
+ async _fetchData() {
+
+    var value = await this.requestService.getAll()
+    console.log(value)
+    this.requestUpdate = value['request']
+    this.filteredRequest = value['request']
+   
   }
 
 

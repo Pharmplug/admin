@@ -15,20 +15,6 @@ export class RequestService {
   
   }
 
-  getAll(): AngularFirestoreCollection<any> {
-    let data= this.db.collection('/transactions', ref => ref.orderBy('created_at','desc'));
-    return data;
-  }
-
-  async getById(id: string | undefined): Promise<any>{
-    let document = await this.db.collection('transactions').doc(id).get();
-    return document;
-  }
-
-  create(): any {
-   
-  }
-
   async update(payload: any): Promise<any> {
     const headers = {
       'Content-Type': 'application/json',
@@ -44,6 +30,22 @@ export class RequestService {
     }
   }
   
+
+
+  async getAll(): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.get(`${environment.baseUrl}all-request`, { headers }).toPromise();
+      console.log(res); // You can directly log the response here
+      return res; // Return the response
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
+  }
   
 
   
