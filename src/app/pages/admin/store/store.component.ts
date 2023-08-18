@@ -12,6 +12,7 @@ import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
 import Drugs from 'src/app/models/drugs.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-pages-transactions',
@@ -47,7 +48,7 @@ export class StoreComponent implements OnInit {
       'Content-Type': 'application/json',
     };
     try {
-      const res: any = this.http.get('http://localhost:9000/api/get-all-products-without-limit', { headers }).toPromise();
+      const res: any = this.http.get(`${environment.baseUrl}get-all-products-without-limit`, { headers }).toPromise();
       res.then((value: any) => {
         console.log(value['products'])
 
