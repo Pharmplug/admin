@@ -250,7 +250,8 @@
                                   {{ drugItem.dosageform }}
                                 </td>
                                 <td class="table-body text-center">
-                                  {{ drugItem.price }}
+                          
+                                  {{ drugItem .price | currency:'NGN':'symbol-narrow'}} 
                                 </td>
                                 <td class="table-body text-center">
                                   {{ drugItem.packsize }}

@@ -5,7 +5,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Recipient from 'src/app/models/request.model';
 import { RequestService } from '../request.service';
-
+import DrugsRequestItem from 'src/app/models/requestitem.model.';
+import { symbol } from 'src/app/shared/currency.util';
+const currenciesSymbol = require('currencies-symbol');
 
 
 @Component({
@@ -18,6 +20,8 @@ export class RequestInfoComponent implements OnInit {
   pickedUser!: Recipient;
   updateRequestForm!: FormGroup;
   userRequestInfo!: Recipient;
+  requestedDrugsArray:DrugsRequestItem[]=[];
+
   constructor(private route: ActivatedRoute,private formBuilder: FormBuilder,public http: HttpClient, private toastr: ToastrService,private requestService:RequestService) {
     // initialize the filteredTransactions array with all transactions
   
@@ -36,12 +40,19 @@ export class RequestInfoComponent implements OnInit {
    this. getUserInfo()
   }
 
+
+  useSymbol(amt:any){
+    let symb = currenciesSymbol.symbol("Nigeria")
+    return `${symb} ${amt}`
+  }
   getUserInfo() {
 
   
     this.pickedUser =  this.userRequestInfo
     console.log(this.pickedUser)
+    this. requestedDrugsArray = JSON.parse(this.pickedUser.items);
 
+    console.log(this.requestedDrugsArray);
     
     this.updateRequestForm = this.formBuilder.group({
       status: this.pickedUser.status,

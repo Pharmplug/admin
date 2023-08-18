@@ -294,7 +294,7 @@
                                   }}</a>
                                 </td>
 
-                                <td>#{{ request.price }}</td>
+                                <td> {{ request .price | currency:'NGN':'symbol-narrow'}}  </td>
                                 <td>
                                   <span
                                     class="badge"

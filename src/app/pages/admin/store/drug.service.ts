@@ -38,9 +38,9 @@ export class DrugService {
       const res: any = await this.http.put(`${environment.baseUrl}update-one-product`, payload, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
-    } catch (error) {
+    } catch (error:any) {
       console.error(error);
-      throw error; // Rethrow the error to be caught by the caller
+      return error['error']['message']; // Rethrow the error to be caught by the caller
     }
   }
   
