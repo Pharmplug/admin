@@ -99,11 +99,6 @@ export class DrugDetailsComponent implements OnInit {
     // Call the addLoginAllowData method from the iamService with the newEmail object
     var result = await this.drugService.update(updateDrug)
 
-    if (result.includes("required")) {
-      this.toastr.error(`This item is missing a field, so it cannot be updated`, 'Error', {
-        timeOut: 3000,
-      });
-    } 
     console.log(result)
     this.toastr.success(`${result['data']['productname']} has been updated`, 'Success', {
       timeOut: 3000,
