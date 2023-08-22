@@ -110,17 +110,17 @@ export class StoreComponent implements OnInit {
   }
 
   onTableDataChange(event: any) {
-    this.filteredDrugsList= []
+    //this.filteredDrugsList= []
     this.page = event;
-    this.filteredDrugsList
    // this._fetchData()
+    this.filteredDrugsList
   }
 
   onTableSizeChange(event: any) {
     this.tableSize = event?.target.value;
     this.page = 1;
-      this.filteredDrugsList
    // this._fetchData()
+    this.filteredDrugsList
   }
 
   get drugData() { return this.storeForm.controls; }
