@@ -52,6 +52,7 @@ const config: SocketIoConfig = { url: `http://localhost:8988`, options: {} };
     AngularFireDatabaseModule,
     NgxPaginationModule,
     HttpClientModule,
+      
     
 
   ],

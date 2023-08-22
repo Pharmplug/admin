@@ -5,6 +5,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './pages-login/pages-login.component';
 import { RegisterComponent } from './pages-register/pages-register.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { RegisterComponent } from './pages-register/pages-register.component';
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     HttpClientModule,
     
   ]

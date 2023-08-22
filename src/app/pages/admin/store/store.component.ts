@@ -13,6 +13,8 @@ import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
 import Drugs from 'src/app/models/drugs.model';
 import { environment } from 'src/environments/environment';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pages-transactions',
@@ -25,9 +27,14 @@ export class StoreComponent implements OnInit {
   drugsList: Drugs[] = [];
   filteredDrugsList: Drugs[] = [];
   searchTerm = '';
-
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
+  showLoginButton: boolean = true;
+  storeForm!: FormGroup;
   constructor(public dialog: Dialog,
-    public router: Router, public http: HttpClient, private drugService:DrugService) {
+    public router: Router, public http: HttpClient,private toastr: ToastrService, private drugService:DrugService,private formBuilder: FormBuilder,) {
 
 
   }
@@ -36,7 +43,15 @@ export class StoreComponent implements OnInit {
 
     this._fetchData();
 
-
+    this.storeForm = this.formBuilder.group({
+      imageurl: [''],
+      productcode: [''],
+      price: [''],
+      dosageform: [''],
+      companyname: [''],
+      category: [''],
+      packsize: [''],productname: [''],
+    });
   }
 
 
@@ -67,10 +82,10 @@ export class StoreComponent implements OnInit {
   searchDrug() {
     if (this.searchTerm.trim() !== '') {
       const mitems = this.drugsList!.filter((drug) =>
-        (drug.productname && drug.productname.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
-        (drug.price && drug.price.toString().toLowerCase().includes(this.searchTerm.toLowerCase())) ||
-        (drug.created_at && drug.created_at.toLowerCase().includes(this.searchTerm.toLowerCase())) ||
-        (drug.companyname && drug.companyname.toLowerCase().includes(this.searchTerm.toLowerCase()))
+        (drug.productname && drug.productname.toLowerCase() && drug.productname.toUpperCase().includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
+        (drug.price && drug.price.toString().toLowerCase()&& drug.price.toString().toUpperCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+        (drug.created_at && drug.created_at.toLowerCase()&& drug.created_at.toUpperCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+        (drug.companyname && drug.companyname.toLowerCase()&& drug.companyname.toUpperCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
       );
       this.filteredDrugsList = mitems
     } else {
@@ -84,20 +99,90 @@ export class StoreComponent implements OnInit {
 
 
 
-  showInfo(index: number) {
-    //check that the users arrayis not null
-    if (this.filteredDrugsList.length > 0) {
-      // get a specific user from the index in the list of users 
-      //and pass it  to selected user object
-      let selectedDrug = this.filteredDrugsList[index];
+  showInfo(drug:any) {
+  
+      let selectedDrug = drug;
       // Stringify selected user 
       const stringifiedDrug = JSON.stringify(selectedDrug);
       // route to customer details screen and pass stringified user as arguement
       this.router.navigate(['/admin/drug-details', { drugInfo: stringifiedDrug }]);
+    
+  }
+
+  onTableDataChange(event: any) {
+    this.filteredDrugsList= []
+    this.page = event;
+    this._fetchData()
+  }
+
+  onTableSizeChange(event: any) {
+    this.tableSize = event?.target.value;
+    this.page = 1;
+    this._fetchData()
+  }
+
+  get drugData() { return this.storeForm.controls; }
+
+
+
+
+  onSubmit() {
+    this.showLoginButton = false;
+    // Check if the form is invalid
+    if (this.storeForm.invalid) {
+      // Show error message if form is invalid
+      this.toastr.error('Invalid form data', 'Error', {
+        timeOut: 3000,
+      });
+      this.showLoginButton = true;
+      return; // exit function early
     }
+
+    // Check if any required field is empty
+    if (this.drugData['price'].value.trim() === '' || this.drugData['imageurl'].value.trim() === ''|| this.drugData['category'].value.trim() === ''|| this.drugData['companyname'].value.trim() === '' || this.drugData['dosageform'].value.trim() === '' || this.drugData['productname'].value.trim() === '' || this.drugData['packsize'].value.trim() === '' || this.drugData['productcode'].value.trim() === null) {
+      // Show error message if any required field is empty
+      this.toastr.error('Please fill all fields', 'Error', {
+        timeOut: 3000,
+      });
+      this.showLoginButton = true;
+      return; // exit function early
+    }
+
+    if (!this.drugData['imageurl'].value.trim().startsWith("https://")) {
+      this.toastr.error("Invalid image URL format", 'Error', {
+        timeOut: 3000,
+      });
+      this.showLoginButton = true;
+      return ;
   }
 
 
+  const newDrug = {
+    price: this.drugData['price'].value.trim(),
+    imageurl: this.drugData['imageurl'].value.trim(),
+    category: this.drugData['category'].value.trim(),
+    companyname: this.drugData['companyname'].value.trim(),
+    dosageform: this.drugData['dosageform'].value.trim(),
+    productname: this.drugData['productname'].value.trim(),
+    packsize: this.drugData['packsize'].value.trim(),
+    productcode: this.drugData['productcode'].value.trim(),
+};
 
+    // Call the addLoginAllowData method from the iamService with the newEmail object
+    this.drugService.addDrug(newDrug)
+      .then((value) => {
+
+        // Show success message if admin is added successfully
+        this.toastr.success(`${value.data.productname
+        } made by ${value.data.companyname} has been added`, `Success `, {
+          timeOut: 3000,
+        });
+        this.showLoginButton = true;
+        // Reset the form after the success message is shown
+        this.storeForm.reset();
+        this._fetchData()
+      })
+      .catch(error => console.log(error));
+  }
 
 }

@@ -45,7 +45,27 @@ export class DrugService {
   }
   
   
-
+  async addDrug(payload: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.post(`${environment.baseUrl}add-product`, payload, { headers }).toPromise();
+      
+      if (typeof res.data === 'object') {
+        console.log({status:true,data: res.data})
+        return{status:true,data: res.data}
+      } else  {
+        console.log({status:false,data: res.data})
+        return{status:false,data: res.data}
+      } 
+   
+    } catch (error) {
+      console.error('Error:', error);
+      return{status:false,data: error}
+    }
+  }
   
 
   delete(id: string) {

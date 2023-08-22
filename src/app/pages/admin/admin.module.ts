@@ -22,6 +22,7 @@ import { MaterialModule } from 'src/app/material';
 import { Base64Pipe } from '../../shared/convert-base64-img.pipe';
 import { PaginationComponent } from 'src/app/_components';
 import { CustomersReportDialog } from './customers/report/report.customers';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 
@@ -53,7 +54,7 @@ import { CustomersReportDialog } from './customers/report/report.customers';
     AdminRoutingModule,
     MaterialModule,
     FormsModule, ReactiveFormsModule, MatDialogModule,
-    CommonModule,
+    CommonModule,  NgxPaginationModule,
     MatProgressSpinnerModule
   ]
 })
