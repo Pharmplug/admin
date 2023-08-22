@@ -39,9 +39,9 @@ export class IamComponent implements OnInit {
       email: [''],
       password: [''],
       role: [''],
-      firstName:[''],
-      lastName:[''],
-      status:[''],
+      firstName: [''],
+      lastName: [''],
+      status: [''],
     });
     //this.deleteAllData()
 
@@ -76,83 +76,83 @@ export class IamComponent implements OnInit {
     } else {
       this.password = newPassword
     }
-   var nfirstName = this.adminRoleData['firstName'].value;
+    var nfirstName = this.adminRoleData['firstName'].value;
     var nlastName = this.adminRoleData['lastName'].value;
 
-    if (nfirstName === null || nlastName===null) {
+    if (nfirstName === null || nlastName === null) {
       this.firstName = this.pickedUser.firstName;
-      this.lastName=this.pickedUser.lastName
+      this.lastName = this.pickedUser.lastName
     } else {
       this.firstName = nfirstName;
-      this.lastName=nlastName
+      this.lastName = nlastName
     }
     console.log(this.userEmail + this.password);
 
     // Get the selected role from the form
-   let selectedRole = this.adminRoleData['role'].value;
-  
+    let selectedRole = this.adminRoleData['role'].value;
+
     switch (this.adminRoleData['role'].value) {
       case '0':
-        selectedRole="Admin"
+        selectedRole = "Admin"
         // Add your code for handling Type A here
         break;
       case '1':
-        selectedRole="Marketing"
+        selectedRole = "Marketing"
         // Add your code for handling Type B here
         break;
       case '2':
-        selectedRole="Operations"
+        selectedRole = "Operations"
         // Add your code for handling Type C here
         break;
-        case '3':
-          selectedRole="Super Admin"
-          // Add your code for handling Type C here
-          break;
+      case '3':
+        selectedRole = "Super Admin"
+        // Add your code for handling Type C here
+        break;
       default:
-        selectedRole=this.pickedUser.role
-        // Add your code for handling unknown types here
+        selectedRole = this.pickedUser.role
+      // Add your code for handling unknown types here
     }
     let isActive = this.adminRoleData['status'].value;
-  
+
     switch (this.adminRoleData['status'].value) {
       case '0':
-        isActive=true
+        isActive = true
         // Add your code for handling Type A here
         break;
       case '1':
-        isActive=false
+        isActive = false
         // Add your code for handling Type B here
         break;
-      
+
       default:
-        isActive=this.pickedUser.status
-        // Add your code for handling unknown types here
+        isActive = this.pickedUser.status
+      // Add your code for handling unknown types here
     }
-    
-  
-  
+
+
+
 
     // Create a new email object with email, password, role, and isActive properties
-    const updateUser = { id: this.pickedUser.id, email: this.pickedUser.email, password: this.password, role: selectedRole, status: isActive, firstName:this.firstName, lastName:this.lastName };
+    const updateUser = { id: this.pickedUser.id, email: this.pickedUser.email, password: this.password, role: selectedRole, status: isActive, firstName: this.firstName, lastName: this.lastName };
     // Call the addLoginAllowData method from the iamService with the newEmail object
     this.iamService.update(updateUser)
       .then((value) => {
 
         if (!value.status) {
-              // Show success message if admin is added successfully
-        this.toastr.error( value.data,"Error", {
-          timeOut: 3000,
-        });
+          // Show success message if admin is added successfully
+          this.toastr.error(value.data, "Error", {
+            timeOut: 3000,
+          });
         } else {
-             // Show success message if admin is added successfully
-        this.toastr.success(`${value.data.fullname} now assigned to ${value.data.role}`, `Success `, {
-          timeOut: 3000,
-        });
-        this._fetchData()
-        // Reset the form after the success message is shown
-        this.adminForm.reset();
+          // Show success message if admin is added successfully
+          this.toastr.success(`${value.data.fullname} now assigned to ${value.data.role}`, `Success `, {
+            timeOut: 3000,
+          });
+          this._fetchData()
+          // Reset the form after the success message is shown
+          this.adminForm.reset();
         }
-     
+
       })
       .catch(error => {
         console.log(error)
@@ -163,11 +163,23 @@ export class IamComponent implements OnInit {
 
   // This function deletes a user with the specified id
   deleteUser() {
-console.log(this.userId)
-    this.iamService.deleteAdmin( this.userId.toString().trim()).then(() => {
-      this.toastr.success('User has deleted', 'Success', {
-        timeOut: 3000,
-      });
+    console.log(this.userId)
+    const data = { "id": this.userId.toString().trim() }
+    this.iamService.deleteAdmin(data).then((result) => {
+
+
+      if (!result.status) {
+        this.toastr.error(result.data, 'Error', {
+          timeOut: 3000,
+        });
+        this._fetchData()
+      } else {
+        this.toastr.success(`${result.data.fullname} has been deleted`, 'Success', {
+          timeOut: 3000,
+        });
+        this._fetchData()
+      }
+    
     }).catch(error => {
       console.error(error);
     });
@@ -222,7 +234,7 @@ console.log(this.userId)
         firstName: this.pickedUser.firstName,
         lastName: this.pickedUser.lastName,
         id: this.pickedUser.id,
-        status:this.pickedUser.status
+        status: this.pickedUser.status
       });
     }
   }
@@ -241,7 +253,7 @@ console.log(this.userId)
     }
 
     // Check if any required field is empty
-    if (this.adminData['email'].value.trim() === '' ||this.adminData['firstName'].value.trim() === '' ||this.adminData['lastName'].value.trim() === '' || this.adminData['password'].value.trim() === '' || this.adminData['role'].value.trim() === ''|| this.adminData['status'].value.trim() === null) {
+    if (this.adminData['email'].value.trim() === '' || this.adminData['firstName'].value.trim() === '' || this.adminData['lastName'].value.trim() === '' || this.adminData['password'].value.trim() === '' || this.adminData['role'].value.trim() === '' || this.adminData['status'].value.trim() === null) {
       // Show error message if any required field is empty
       this.toastr.error('Please fill all fields', 'Error', {
         timeOut: 3000,
@@ -249,41 +261,41 @@ console.log(this.userId)
       return; // exit function early
     }
 
-// Check if input is a valid email
-if (!/^\S+@\S+\.\S+$/.test(this.adminData['email'].value.trim())) {
-  // Show error message if input is not a valid email
-  this.toastr.error('Invalid email address', 'Error', {
-    timeOut: 3000,
-  });
-  return; // exit function early
-}
-// Check password length
-if (this.adminData['password'].value.trim().length < 8) {
-  this.toastr.error('Password must be at least 8 characters long', 'Error', {
-    timeOut: 3000,
-  });
-  return; // exit function early
-}
+    // Check if input is a valid email
+    if (!/^\S+@\S+\.\S+$/.test(this.adminData['email'].value.trim())) {
+      // Show error message if input is not a valid email
+      this.toastr.error('Invalid email address', 'Error', {
+        timeOut: 3000,
+      });
+      return; // exit function early
+    }
+    // Check password length
+    if (this.adminData['password'].value.trim().length < 8) {
+      this.toastr.error('Password must be at least 8 characters long', 'Error', {
+        timeOut: 3000,
+      });
+      return; // exit function early
+    }
 
-// Check if password contains at least one uppercase letter, one digit, and one special symbol
-if (!/[A-Z]/.test(this.adminData['password'].value.trim()) || !/\d/.test(this.adminData['password'].value.trim()) || !/[!@#$%^&*]/.test(this.adminData['password'].value.trim())) {
-  this.toastr.error('Password must contain at least one uppercase letter, one digit, and one special symbol', 'Error', {
-    timeOut: 3000,
-  });
-  return; // exit function early
-}
+    // Check if password contains at least one uppercase letter, one digit, and one special symbol
+    if (!/[A-Z]/.test(this.adminData['password'].value.trim()) || !/\d/.test(this.adminData['password'].value.trim()) || !/[!@#$%^&*]/.test(this.adminData['password'].value.trim())) {
+      this.toastr.error('Password must contain at least one uppercase letter, one digit, and one special symbol', 'Error', {
+        timeOut: 3000,
+      });
+      return; // exit function early
+    }
 
-const mEmail = this.adminData['email'].value.trim();
+    const mEmail = this.adminData['email'].value.trim();
 
-// Check if email already exists
-const emailExists = this.loginAllowList.some((user: any) => user.email === mEmail);
+    // Check if email already exists
+    const emailExists = this.loginAllowList.some((user: any) => user.email === mEmail);
 
-if (emailExists) {
-  this.toastr.error('Email already exists', 'Error', {
-    timeOut: 3000,
-  });
-  return; // Exit function early
-}
+    if (emailExists) {
+      this.toastr.error('Email already exists', 'Error', {
+        timeOut: 3000,
+      });
+      return; // Exit function early
+    }
 
     if (emailExists) {
       // Show error message if email already exists
@@ -300,57 +312,57 @@ if (emailExists) {
     var nfirstName = this.adminData['firstName'].value;
     var nlastName = this.adminData['lastName'].value;
 
-    if (nfirstName === null || nlastName===null) {
+    if (nfirstName === null || nlastName === null) {
       this.firstName = this.pickedUser.firstName;
-      this.lastName=this.pickedUser.lastName
+      this.lastName = this.pickedUser.lastName
     } else {
       this.firstName = nfirstName;
-      this.lastName=nlastName
+      this.lastName = nlastName
     }
-      // Get the selected role from the form
-      let selectedRole = this.adminData['role'].value;
-  
-      switch (this.adminData['role'].value) {
-        case '0':
-          selectedRole="Admin"
-          // Add your code for handling Type A here
-          break;
-        case '1':
-          selectedRole="Marketing"
-          // Add your code for handling Type B here
-          break;
-        case '2':
-          selectedRole="Operations"
-          // Add your code for handling Type C here
-          break;
-          case '3':
-            selectedRole="Super Admin"
-            // Add your code for handling Type C here
-            break;
-        default:
-          selectedRole=this.pickedUser.role
-          // Add your code for handling unknown types here
-      }
-      let isActive = this.adminData['status'].value;
-    
-      switch (this.adminData['status'].value) {
-        case '0':
-          isActive=true
-          // Add your code for handling Type A here
-          break;
-        case '1':
-          isActive=false
-          // Add your code for handling Type B here
-          break;
-        
-        default:
-          isActive=this.pickedUser.status
-          // Add your code for handling unknown types here
-      }
+    // Get the selected role from the form
+    let selectedRole = this.adminData['role'].value;
+
+    switch (this.adminData['role'].value) {
+      case '0':
+        selectedRole = "Admin"
+        // Add your code for handling Type A here
+        break;
+      case '1':
+        selectedRole = "Marketing"
+        // Add your code for handling Type B here
+        break;
+      case '2':
+        selectedRole = "Operations"
+        // Add your code for handling Type C here
+        break;
+      case '3':
+        selectedRole = "Super Admin"
+        // Add your code for handling Type C here
+        break;
+      default:
+        selectedRole = this.pickedUser.role
+      // Add your code for handling unknown types here
+    }
+    let isActive = this.adminData['status'].value;
+
+    switch (this.adminData['status'].value) {
+      case '0':
+        isActive = true
+        // Add your code for handling Type A here
+        break;
+      case '1':
+        isActive = false
+        // Add your code for handling Type B here
+        break;
+
+      default:
+        isActive = this.pickedUser.status
+      // Add your code for handling unknown types here
+    }
 
     // Create a new email object with email, password, role, and isActive properties
-    const newAdmin = { email: this.userEmail, password: this.password, confirmPassword: this.password,firstName:this.firstName,lastName:this.lastName, role: selectedRole, status:isActive };
-console.log(newAdmin)
+    const newAdmin = { email: this.userEmail, password: this.password, confirmPassword: this.password, firstName: this.firstName, lastName: this.lastName, role: selectedRole, status: isActive };
+    console.log(newAdmin)
 
     // Call the addLoginAllowData method from the iamService with the newEmail object
     this.iamService.addAdmin(newAdmin)
