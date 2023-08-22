@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr'
 import { IamService } from './iam.service';
-import { LoginAllow } from 'src/app/models/loginAllow.models';
-import { map } from 'rxjs';
+
+import { last, map } from 'rxjs';
 import AdminModel from 'src/app/models/super.admin.mode';
+import { LoginAllow } from 'src/app/models/admin.model';
+import { NgSwitchCase } from '@angular/common';
 
 @Component({
   selector: 'app-iam',
@@ -25,18 +27,21 @@ export class IamComponent implements OnInit {
   showUserEdit = true;
   userEmail!: string;
   userId!: any;
-  admin!: AdminModel
+  admin!: LoginAllow
   pickedUser: any
   public showPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private iamService: IamService) { }
   ngOnInit() {
-    this.iamService.createCollection();
+
 
     this.adminForm = this.formBuilder.group({
-      username: [''],
+      email: [''],
       password: [''],
-      role: ['']
+      role: [''],
+      firstName:[''],
+      lastName:[''],
+      status:[''],
     });
     //this.deleteAllData()
 
@@ -46,15 +51,12 @@ export class IamComponent implements OnInit {
     this.filteredRoles
     this.rolesData
 
-
+    const currentUser = JSON.parse(localStorage.getItem('user')!);
+    this.admin = currentUser;
   }
   // This function deletes all the data from the collection
   deleteAllData() {
-    this.iamService.emptyCollection().then(() => {
-      console.log('Collection emptied successfully.');
-    }).catch(error => {
-      console.error('Error emptying collection:', error);
-    });
+
   }
 
   update() {
@@ -74,37 +76,95 @@ export class IamComponent implements OnInit {
     } else {
       this.password = newPassword
     }
-    this.firstName = this.adminRoleData['firstName'].value;
-    this.lastName = this.adminRoleData['lastName'].value;
+   var nfirstName = this.adminRoleData['firstName'].value;
+    var nlastName = this.adminRoleData['lastName'].value;
+
+    if (nfirstName === null || nlastName===null) {
+      this.firstName = this.pickedUser.firstName;
+      this.lastName=this.pickedUser.lastName
+    } else {
+      this.firstName = nfirstName;
+      this.lastName=nlastName
+    }
     console.log(this.userEmail + this.password);
 
     // Get the selected role from the form
-    const selectedRole = this.adminRoleData['role'].value;
+   let selectedRole = this.adminRoleData['role'].value;
+  
+    switch (this.adminRoleData['role'].value) {
+      case '0':
+        selectedRole="Admin"
+        // Add your code for handling Type A here
+        break;
+      case '1':
+        selectedRole="Marketing"
+        // Add your code for handling Type B here
+        break;
+      case '2':
+        selectedRole="Operations"
+        // Add your code for handling Type C here
+        break;
+        case '3':
+          selectedRole="Super Admin"
+          // Add your code for handling Type C here
+          break;
+      default:
+        selectedRole=this.pickedUser.role
+        // Add your code for handling unknown types here
+    }
+    let isActive = this.adminRoleData['status'].value;
+  
+    switch (this.adminRoleData['status'].value) {
+      case '0':
+        isActive=true
+        // Add your code for handling Type A here
+        break;
+      case '1':
+        isActive=false
+        // Add your code for handling Type B here
+        break;
+      
+      default:
+        isActive=this.pickedUser.status
+        // Add your code for handling unknown types here
+    }
+    
+  
+  
 
     // Create a new email object with email, password, role, and isActive properties
-    const updateUser = { email: this.pickedUser.email, password: this.password, role: selectedRole, isActive: true, firstName: this.firstName, lastName: this.lastName };
-
+    const updateUser = { id: this.pickedUser.id, email: this.pickedUser.email, password: this.password, role: selectedRole, status: isActive, firstName:this.firstName, lastName:this.lastName };
     // Call the addLoginAllowData method from the iamService with the newEmail object
-    this.iamService.update(this.pickedUser.id, updateUser)
+    this.iamService.update(updateUser)
       .then((value) => {
 
-        // Show success message if admin is added successfully
-        this.toastr.success('Admin added', `Success `, {
+        if (!value.status) {
+              // Show success message if admin is added successfully
+        this.toastr.error( value.data,"Error", {
           timeOut: 3000,
         });
+        } else {
+             // Show success message if admin is added successfully
+        this.toastr.success(`${value.data.fullname} now assigned to ${value.data.role}`, `Success `, {
+          timeOut: 3000,
+        });
+        this._fetchData()
         // Reset the form after the success message is shown
         this.adminForm.reset();
+        }
+     
       })
-      .catch(error => console.log(error));
-
+      .catch(error => {
+        console.log(error)
+      })
   }
 
 
 
   // This function deletes a user with the specified id
   deleteUser() {
-
-    this.iamService.deleteUser(this.userId).then(() => {
+console.log(this.userId)
+    this.iamService.deleteAdmin( this.userId.toString().trim()).then(() => {
       this.toastr.success('User has deleted', 'Success', {
         timeOut: 3000,
       });
@@ -115,39 +175,30 @@ export class IamComponent implements OnInit {
 
   // This function fetches all the data from the collection and subscribes to the changes
   _fetchData() {
-    this.iamService.getAll().snapshotChanges().pipe(
-      map((changes: any[]) =>
-        changes.map((c: any) =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe((data: any) => {
 
-      // Stores the fetched data into loginAllowList
-      this.loginAllowList = data
-      console.log(data);
-      this.loginData = data;
-      this.rolesData = data
-      // Calls the getRoles function to filter the roles
-      this.getRoles()
+    this.iamService.getAllAdmin()
+      .then((result) => {
+        // Stores the fetched data into loginAllowList
+        this.loginAllowList = result.data
+        console.log(this.loginAllowList);
+        // Calls the getRoles function to filter the roles
+        this.getRoles()
+      })
 
-      const currentUser = JSON.parse(localStorage.getItem('user')!);
-      this.admin = currentUser
-      
-    });
+
   }
 
   // This function filters the roles in the loginAllowList and stores them in filteredRoles
-  getRoles(): void {
+  getRoles() {
 
     // Checks if loginAllowList is not null or undefined
     if (!this.loginAllowList) {
       console.error('loginAllowList is undefined or null.');
       return;
     }
-
+    console.log(this.loginAllowList)
     // Filters the roles in the loginAllowList and stores them in filteredRoles
-    this.filteredRoles = this.loginAllowList.filter((data: any) => data.email !== 'pharmplug@gmail.com' );
+    this.filteredRoles = this.loginAllowList.filter((data: any) => data.email !== 'pharmplug@gmail.com');
     console.log(this.filteredRoles);
   }
 
@@ -155,6 +206,8 @@ export class IamComponent implements OnInit {
   close() {
     this.showUserEdit = true;
   }
+
+
   getUserInfo(index: any) {
     if (this.filteredRoles.length > 0) {
       this.showUserEdit = false;
@@ -169,6 +222,7 @@ export class IamComponent implements OnInit {
         firstName: this.pickedUser.firstName,
         lastName: this.pickedUser.lastName,
         id: this.pickedUser.id,
+        status:this.pickedUser.status
       });
     }
   }
@@ -187,7 +241,7 @@ export class IamComponent implements OnInit {
     }
 
     // Check if any required field is empty
-    if (this.adminData['username'].value.trim() === '' || this.adminData['password'].value.trim() === '' || this.adminData['role'].value.trim() === '') {
+    if (this.adminData['email'].value.trim() === '' ||this.adminData['firstName'].value.trim() === '' ||this.adminData['lastName'].value.trim() === '' || this.adminData['password'].value.trim() === '' || this.adminData['role'].value.trim() === ''|| this.adminData['status'].value.trim() === null) {
       // Show error message if any required field is empty
       this.toastr.error('Please fill all fields', 'Error', {
         timeOut: 3000,
@@ -195,17 +249,42 @@ export class IamComponent implements OnInit {
       return; // exit function early
     }
 
-    // Check if username is valid
-    if (/^\d+$/.test(this.adminData['username'].value.trim())) {
-      // Show error message if username is all numbers
-      this.toastr.error('Username cannot be all numbers', 'Error', {
-        timeOut: 3000,
-      });
-      return; // exit function early
-    }
+// Check if input is a valid email
+if (!/^\S+@\S+\.\S+$/.test(this.adminData['email'].value.trim())) {
+  // Show error message if input is not a valid email
+  this.toastr.error('Invalid email address', 'Error', {
+    timeOut: 3000,
+  });
+  return; // exit function early
+}
+// Check password length
+if (this.adminData['password'].value.trim().length < 8) {
+  this.toastr.error('Password must be at least 8 characters long', 'Error', {
+    timeOut: 3000,
+  });
+  return; // exit function early
+}
 
-    // Check if email already exists
-    const emailExists = this.loginData.some((user: any) => user.email === `${this.adminData['username'].value}${this.baseURL}`);
+// Check if password contains at least one uppercase letter, one digit, and one special symbol
+if (!/[A-Z]/.test(this.adminData['password'].value.trim()) || !/\d/.test(this.adminData['password'].value.trim()) || !/[!@#$%^&*]/.test(this.adminData['password'].value.trim())) {
+  this.toastr.error('Password must contain at least one uppercase letter, one digit, and one special symbol', 'Error', {
+    timeOut: 3000,
+  });
+  return; // exit function early
+}
+
+const mEmail = this.adminData['email'].value.trim();
+
+// Check if email already exists
+const emailExists = this.loginAllowList.some((user: any) => user.email === mEmail);
+
+if (emailExists) {
+  this.toastr.error('Email already exists', 'Error', {
+    timeOut: 3000,
+  });
+  return; // Exit function early
+}
+
     if (emailExists) {
       // Show error message if email already exists
       this.toastr.error('Email already exists', 'Error', {
@@ -215,26 +294,75 @@ export class IamComponent implements OnInit {
     }
 
     // Construct email address from form data and baseURL
-    this.userEmail = this.adminData['username'].value + this.baseURL;
+    this.userEmail = this.adminData['email'].value
     this.password = this.adminData['password'].value;
     console.log(this.userEmail + this.password);
+    var nfirstName = this.adminData['firstName'].value;
+    var nlastName = this.adminData['lastName'].value;
 
-    // Get the selected role from the form
-    const selectedRole = this.adminData['role'].value;
+    if (nfirstName === null || nlastName===null) {
+      this.firstName = this.pickedUser.firstName;
+      this.lastName=this.pickedUser.lastName
+    } else {
+      this.firstName = nfirstName;
+      this.lastName=nlastName
+    }
+      // Get the selected role from the form
+      let selectedRole = this.adminData['role'].value;
+  
+      switch (this.adminData['role'].value) {
+        case '0':
+          selectedRole="Admin"
+          // Add your code for handling Type A here
+          break;
+        case '1':
+          selectedRole="Marketing"
+          // Add your code for handling Type B here
+          break;
+        case '2':
+          selectedRole="Operations"
+          // Add your code for handling Type C here
+          break;
+          case '3':
+            selectedRole="Super Admin"
+            // Add your code for handling Type C here
+            break;
+        default:
+          selectedRole=this.pickedUser.role
+          // Add your code for handling unknown types here
+      }
+      let isActive = this.adminData['status'].value;
+    
+      switch (this.adminData['status'].value) {
+        case '0':
+          isActive=true
+          // Add your code for handling Type A here
+          break;
+        case '1':
+          isActive=false
+          // Add your code for handling Type B here
+          break;
+        
+        default:
+          isActive=this.pickedUser.status
+          // Add your code for handling unknown types here
+      }
 
     // Create a new email object with email, password, role, and isActive properties
-    const newEmail = { email: this.userEmail, password: this.password, role: selectedRole, isActive: true };
+    const newAdmin = { email: this.userEmail, password: this.password, confirmPassword: this.password,firstName:this.firstName,lastName:this.lastName, role: selectedRole, status:isActive };
+console.log(newAdmin)
 
     // Call the addLoginAllowData method from the iamService with the newEmail object
-    this.iamService.addLoginAllowData(newEmail)
+    this.iamService.addAdmin(newAdmin)
       .then((value) => {
 
         // Show success message if admin is added successfully
-        this.toastr.success('Admin added', `Success `, {
+        this.toastr.success(`${value.data.fullname} has been added as ${value.data.role}`, `Success `, {
           timeOut: 3000,
         });
         // Reset the form after the success message is shown
         this.adminForm.reset();
+        this._fetchData()
       })
       .catch(error => console.log(error));
   }

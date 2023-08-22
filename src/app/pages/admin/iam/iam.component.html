@@ -76,28 +76,29 @@
                 <div style="margin-bottom: 24px"></div>
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Admin ID</div>
-                  <div class="col-lg-9 col-md-8">{{ admin.uid }}</div>
+                  <div class="col-lg-9 col-md-8">{{ admin.id }}</div>
                 </div>
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Full Name</div>
-                  <div class="col-lg-9 col-md-8"></div>
-                </div>
-
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Country</div>
-                  <div class="col-lg-9 col-md-8"></div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Address</div>
-                  <div class="col-lg-9 col-md-8"></div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-md-4 label">Phone</div>
-                  <div class="col-lg-9 col-md-8"></div>
+                  <div class="col-lg-9 col-md-8">{{ admin.fullname }}</div>
                 </div>
                 <div class="row">
                   <div class="col-lg-3 col-md-4 label">Email</div>
                   <div class="col-lg-9 col-md-8">{{ admin.email }}</div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3 col-md-4 label">Active</div>
+                  <div class="col-lg-9 col-md-8">
+                    <span
+                      class="badge"
+                      [ngClass]="{
+                        'status-verified': admin.status,
+                        'status-invalid': !admin.status
+                      }"
+                    >
+                      {{ admin.status }}
+                    </span>
+                  </div>
                 </div>
               </div>
               <!-- Edit  Admin Info-->
@@ -264,28 +265,28 @@
                               ></i
                               >{{ item.email }}
                               <span
-                                *ngIf="item.role === '0'"
+                                *ngIf="item.role === 'Admin'"
                                 class="text-secondary"
                                 style="font-size: 10; padding-left: 4%"
                               >
                                 Admin</span
                               >
                               <span
-                                *ngIf="item.role === '1'"
+                                *ngIf="item.role === 'Marketing'"
                                 class="text-success"
                                 style="font-size: 10; padding-left: 4%"
                               >
                                 Marketing</span
                               >
                               <span
-                                *ngIf="item.role === '2'"
-                                class="text-danger"
+                                *ngIf="item.role === 'Operations'"
+                                class="text-info"
                                 style="font-size: 10; padding-left: 4%"
                               >
                                 Operations</span
                               >
                               <span
-                                *ngIf="item.role === '3'"
+                                *ngIf="item.role === 'Super Admin'"
                                 class="text-primary"
                                 style="font-size: 10; padding-left: 4%"
                               >
@@ -359,6 +360,7 @@
                                   <input
                                     type="text"
                                     class="form-control"
+                                   
                                     placeholder="Enter first Name"
                                     aria-label="firstName"
                                     formControlName="firstName"
@@ -381,6 +383,7 @@
                                     class="form-control"
                                     placeholder="Enter last name"
                                     aria-label="lastName"
+                                    value="{{ lastName}}"
                                     formControlName="lastName"
                                     aria-describedby="basic-addon2"
                                   />
@@ -397,15 +400,22 @@
                               <div class="col-md-6">
                                 <div class="input-group mb-3">
                                   <input
-                                  [type]="showPassword ? 'text' : 'password'"
+                                    [type]="showPassword ? 'text' : 'password'"
                                     class="form-control"
                                     placeholder="Change Password"
                                     aria-label="password"
                                     formControlName="password"
                                     aria-describedby="basic-addon2"
                                   />
-                                  <i     (click)="showPassword = !showPassword" class="text-success list-group-item bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
-                            
+                                  <i
+                                    (click)="showPassword = !showPassword"
+                                    class="text-success list-group-item bi"
+                                    [ngClass]="
+                                      showPassword
+                                        ? 'bi-eye-slash-fill'
+                                        : 'bi-eye-fill'
+                                    "
+                                  ></i>
                                 </div>
                               </div>
                             </div>
@@ -419,6 +429,7 @@
                                   <select
                                     class="form-select"
                                     id="floatingSelect"
+                                    
                                     aria-label="Floating label select example"
                                     formControlName="role"
                                   >
@@ -434,12 +445,38 @@
                               </div>
                             </div>
 
+
+
+                            <div class="row mb-3">
+                              <label class="col-sm-2 col-form-label"
+                                >Set Admin status</label
+                              >
+                              <div class="col-md-4">
+                                <div class="form-floating mb-4">
+                                  <select
+                                    class="form-select"
+                                    id="floatingSelect"
+                                    placeholder="Enter last name"
+                                    aria-label="Floating label select example"
+                                    formControlName="status"
+                                  >
+                                    <option value="0">Active</option>
+                                    <option value="1">Deactivated</option>
+                                    
+                                  </select>
+                                  <label for="floatingSelect"
+                                    >Select a role</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+
                             <h5 class="card-title">.</h5>
                             <div class="row mb-3">
                               <label class="col-sm-2 col-form-label">.</label>
-                              <div class="col-sm-10">
+                              <div class="col-sm-10 mr-12">
                                 <div class="text-center">
-                                  <button type="submit" class="btn btn-primary">
+                                  <button type="submit" class="btn btn-primary mr-12">
                                     Submit
                                   </button>
                                   <button
@@ -455,10 +492,13 @@
                           </form>
                         </div>
                       </div>
-             </div>
+                    </div>
                   </div>
                 </div>
               </div>
+
+
+
               <!-- Add Admins -->
               <div class="tab-pane fade pt-3" id="profile-change-password">
                 <div
@@ -487,23 +527,22 @@
                               <input
                                 type="text"
                                 class="form-control"
-                                placeholder="staff name"
+                                placeholder="email"
                                 aria-label="staff name"
-                                formControlName="username"
+                                formControlName="email"
                                 aria-describedby="basic-addon2"
                               />
-                              <span
-                                class="input-group-text"
-                                id="basic-addon2"
-                                >{{ baseURL }}</span
-                              >
                             </div>
                           </div>
                         </div>
 
                         <!---Password-->
                         <div class="row mb-3">
-                          <label for="inputEmail3" class="col-sm-2 col-form-label">Password</label>
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Password</label
+                          >
                           <div class="col-md-6">
                             <div class="input-group mb-3">
                               <input
@@ -514,14 +553,59 @@
                                 formControlName="password"
                                 aria-describedby="basic-addon2"
                               />
-                              <i     (click)="showPassword = !showPassword" class="text-success list-group-item bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
-                              
+                              <i
+                                (click)="showPassword = !showPassword"
+                                class="text-success list-group-item bi"
+                                [ngClass]="
+                                  showPassword
+                                    ? 'bi-eye-slash-fill'
+                                    : 'bi-eye-fill'
+                                "
+                              ></i>
                             </div>
                           </div>
                         </div>
-                        
-                        
 
+                        <!---Email-->
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >First name</label
+                          >
+                          <div class="col-md-6">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="first name"
+                                aria-label="staff name"
+                                formControlName="firstName"
+                                aria-describedby="basic-addon2"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <!---Email-->
+                        <div class="row mb-3">
+                          <label
+                            for="inputEmail3"
+                            class="col-sm-2 col-form-label"
+                            >Last Name</label
+                          >
+                          <div class="col-md-6">
+                            <div class="input-group mb-3">
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="last name"
+                                aria-label="staff name"
+                                formControlName="lastName"
+                                aria-describedby="basic-addon2"
+                              />
+                            </div>
+                          </div>
+                        </div>
                         <!--Roles-->
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Roles</label>
@@ -539,6 +623,26 @@
                                 <option value="3">Super Admin</option>
                               </select>
                               <label for="floatingSelect">Select a role</label>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Roles-->
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Status</label>
+                          <div class="col-md-4">
+                            <div class="form-floating mb-4">
+                              <select
+                                class="form-select"
+                                id="floatingSelect"
+                                aria-label="Floating label select example"
+                                formControlName="status"
+                              >
+                                <option selected value="0">Active</option>
+                                <option value="1">Deactivated</option>
+                              </select>
+                              <label for="floatingSelect"
+                                >Set account status</label
+                              >
                             </div>
                           </div>
                         </div>
@@ -591,7 +695,15 @@
                                 class="bi bi-trash-fill text-danger"
                                 style="padding-right: 2%"
                               ></i
-                              >{{ item.email }}
+                              >{{ item.email }}  <span
+                              class="badge"
+                              [ngClass]="{
+                                'status-verified': item.status,
+                                'status-invalid': !item.status
+                              }"
+                            >
+                            {{ item.status ? 'Active' : 'Deactivated' }}
+                            </span>
                             </span>
                           </li>
                         </ul>

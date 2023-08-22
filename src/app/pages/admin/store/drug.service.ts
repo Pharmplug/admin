@@ -14,19 +14,19 @@ export class DrugService {
   constructor(private db: AngularFirestore,public http: HttpClient,) {
   
   }
-
-  getAll(): AngularFirestoreCollection<any> {
-    let data= this.db.collection('/transactions', ref => ref.orderBy('created_at','desc'));
-    return data;
-  }
-
-  async getById(id: string | undefined): Promise<any>{
-    let document = await this.db.collection('transactions').doc(id).get();
-    return document;
-  }
-
-  create(): any {
-   
+  async getStore(): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.get(`${environment.baseUrl}get-all-products-without-limit`, { headers }).toPromise();
+      console.log(res['products']); // You can directly log the response here
+      return res['products']
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
   }
 
   async update(payload: any): Promise<any> {

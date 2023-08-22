@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/pages/auth/auth-utils/authUtils';
-import { IamService } from '../../admin/iam/iam.service';
-import { map } from 'rxjs';
-import { LoginAllow } from 'src/app/models/loginAllow.models';
+import { LoginAllow } from 'src/app/models/admin.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -28,9 +26,9 @@ export class LoginComponent implements OnInit {
   filteredRoles!: LoginAllow[];
 
   constructor(
- public router: Router,
+    public router: Router,
     private formBuilder: FormBuilder,
-    private iamService: IamService, private toastr: ToastrService,
+    private authService: AuthService, private toastr: ToastrService,
     public http: HttpClient
   ) { }
   ngOnInit() {
@@ -38,49 +36,36 @@ export class LoginComponent implements OnInit {
     /**
      * Initialize login form
     //  */
-    // this.loginForm = this.formBuilder.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   password: ['', [Validators.required]],
-    // });
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
 
 
-   // this.logout()
+    // this.logout()
 
     /**
      * initialize functions
      */
-  //  this._fetchData()
-   // this.getIpAddress()
+    //  this._fetchData()
+    // this.getIpAddress()
   }
   /**
    * Asynchronously retrieves the user's IP address using a third-party API.
    * Logs the IP address to the console upon successful retrieval.
    */
-  async getIpAddress() {
-    try {
-      const res: any = await this.http.get('http://api.ipify.org/?format=json').toPromise();
-      this.ip = res!['ip'];
-      console.error(this.ip);
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
   /**
    * Fetches data from the IAM service and updates the `loginAllowList` array with the retrieved data.
    */
-  _fetchData() {
-    this.iamService.getAll().snapshotChanges().pipe(
-      map((changes: any[]) =>
-        changes.map((c: any) =>
-          ({ id: c.payload.doc.id, ...c.payload.doc.data() })
-        )
-      )
-    ).subscribe(data => {
-      this.loginAllowList = data;
-    });
-  }
 
+  async _fetchData() {
+
+    var value = await this.authService.getAllAdmin()
+    console.log(value)
+
+
+  }
 
   // convenience getter for easy access to form fields
   get formData() { return this.loginForm.controls; }
@@ -97,160 +82,93 @@ export class LoginComponent implements OnInit {
    */
   login = async () => {
 
-    this.router.navigate(['/admin']);
 
-    // if (this.formData['email'].value.endsWith(`${this.baseURL}`)) {
-    //   this.toastr.warning('Your username must not include @orokii.com', 'Error', {
-    //     timeOut: 3000,
-    //   });
-    //   return;
-    // }
+    this.showLoginButton = false;
 
-    // this.showLoginButton = false;
+    let getEmail = `${this.formData['email'].value}`
+    let userPassword = `${this.formData['password'].value}`
 
-//     let getEmail = `${this.formData['email'].value}${this.baseURL}`
-//     let userPassword = `${this.formData['password'].value}`
+    if (!getEmail || !userPassword) {
+      // Handle the case where getEmail or userPassword is missing
+      this.toastr.warning(`Error`, "getEmail and/or userPassword is missing.", {
+        timeOut: 1500,
+      });
+      return
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(getEmail)) {
+      // Handle invalid email format
+      this.toastr.warning(`Error`, "Invalid email format.", {
+        timeOut: 1500,
+      });
+      return
+    }
+    const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
 
-//     // Check if email is on allow list
-//     if (getEmail !== '<>') {
-//       // Find user by email
-//       const user = this.loginAllowList.find((user: LoginAllow) => user.email === getEmail);
-//       // Display warning message if user not found
-//       if (!user) {
-//         this.toastr.warning('We cannot find this user on our records', 'Error', {
-//           timeOut: 3000,
-//         });
-//         this.showLoginButton = true;
-//         return;
-//       }
-
-//       // Display warning message if user password not match
-//       if (user!.password != userPassword) {
-//         this.toastr.warning('Invalid password', 'Error', {
-//           timeOut: 3000,
-//         });
-//         this.showLoginButton = true;
-//         return;
-//       }
-
-//       // Update user login history
-//       const now = new Date();
-//       const ip = this.ip;
-//       this.id = user!.id
-//       const data = { lastLogin: now, ip: ip };
-//       user!.history = user!.history || [];
-//       user!.history.push(data);
-//       // Set user in local storage
-//       localStorage.setItem('user', JSON.stringify(user));
-//       localStorage.setItem('role', user.role);
-//       console.log(localStorage.getItem('role'))
-//       const currentUser = JSON.parse(localStorage.getItem('user')!);
-//       console.log(currentUser)
+    if (!passwordRegex.test(userPassword)) {
+      // Handle invalid password format
+      this.toastr.warning(`Error`, "Invalid password format. Password must be at least 8 characters long and contain a number and a special symbol.", {
+        timeOut: 1500,
+      });
+      return
+    }
 
 
-//       // Update user in the database
-//       this.iamService.update(this.id, user)
-//         .then(() => {
-//           // Display success message and navigate to admin page
-//           const displayName = user?.email ? user.email : 'User';
-//           this.toastr.success(`Welcome ${displayName}`, 'Logged-in Successfully', {
-//             timeOut: 1500,
-//           });
-//           this.router.navigate(['/admin']);
-//         })
+
+    // Find user by email
+    // const user = this.loginAllowList.find((user: LoginAllow) => user.email === getEmail);
+    const payload = { email: getEmail, password: userPassword };
+
+    console.log(payload)
+    // Authenticate user
+    this.authService.login(payload)
+      .then((result) => {
+
+        console.log(result)
+        if (!result.status) {
+          this.showLoginButton = true;
+          this.toastr.warning(`Error`, `${result.data}`, {
+            timeOut: 1500,
+          });
+        }
+
+        else {
+          this.showLoginButton = true;
+          if (!result.data.status) {
+            this.toastr.warning( `Account ${result.data.fullname} is deactiveated`,`Error`, {
+              timeOut: 1500,
+            });
+          } else {
+            this.showLoginButton = true;
+            // // Set user in local storage
+            localStorage.setItem('user', JSON.stringify(result.data));
+            localStorage.setItem('role', result.data.role);
+            console.log(localStorage.getItem('role'))
+            // const currentUser = JSON.parse(localStorage.getItem('user')!);
+            // Display success message and navigate to admin page
+            const displayName = result.data.fullname ? result.data.fullname : 'User';
+            this.toastr.success(`Welcome ${displayName}`, 'Logged-in Successfully', {
+              timeOut: 1500,
+            });
+            this.router.navigate(['/admin']);
+          }
 
 
-//     }
-// //FOR SUPER ADMIN
-//     else {
 
-//       // Find user by email
-//       const user = this.loginAllowList.find((user: LoginAllow) => user.email === getEmail);
-
-//       // Authenticate user
-//       this.authService.SignIn(getEmail, this.formData['password'].value)
-//         .then((result) => {
-//           // Display warning message if user not found
-//           if (!user) {
-//             // Create a new email object with email, role, and isActive properties
-//             const newEmail = { email: getEmail, password: '', role: '3', isActive: true };
-//             // Call the addLoginAllowData method from the iamService with the newEmail object
-//             this.iamService.addLoginAllowData(newEmail)
-//               .then(() => {
-//                 // Display success message and navigate to admin page
-//                 const displayName = result.user?.displayName ? result.user.displayName : 'User';
-//                 this.toastr.success(`Welcome ${displayName}`, 'Logged-in Successfully', {
-//                   timeOut: 1500,
-//                 });
-//                 this.router.navigate(['/admin']);
-//               })
-
-//               .catch(error => {
-//                 this.showLoginButton = true;
-//                 console.log(error)
-//               });
-
-//           } else {
-//             // Update user login history
-//             const now = new Date();
-//             const ip = this.ip;
-//             this.id = user!.id
-//             const data = { lastLogin: now, ip: ip };
-//             user!.history = user!.history || [];
-//             user!.history.push(data);
+        }
 
 
-//             // Update user in the database
-//             this.iamService.update(this.id, user)
-//               .then(() => {
-
-
-//                 // Set user in local storage
-//                 localStorage.setItem('user', JSON.stringify(user));
-//                 localStorage.setItem('role', user!.role);
-//                 console.log(localStorage.getItem('role'))
-//                 const currentUser = JSON.parse(localStorage.getItem('user')!);
-//                 console.log(currentUser)
-
-//                 // Display success message and navigate to admin page
-//                 const displayName = result.user?.displayName ? result.user.displayName : 'User';
-//                 this.toastr.success(`Welcome ${displayName}`, 'Logged-in Successfully', {
-//                   timeOut: 1500,
-//                 });
-//                 this.router.navigate(['/admin']);
-//               })
-//               .catch((error) => {
-//                 // Display error message if authentication fails
-//                 this.toastr.error(error, 'Error', {
-//                   timeOut: 1500,
-//                 });
-
-//                 this.showLoginButton = true;
-
-
-//               })
-
-//               .catch((error) => {
-//                 // Display error message if authentication fails
-//                 this.toastr.error(error, 'Error', {
-//                   timeOut: 1500,
-//                 });
-//                 this.showLoginButton = true;
-//               }
-
-//               )
-//           }
-
-//         }).catch((error: any) => {
-//           // Display error message
-//           this.toastr.success('Confirm that the username and password are correct', 'Logged-in Failed', {
-//             timeOut: 1500,
-//           });
-//           this.showLoginButton = true;
-//         })
-//     }
-
+      }).catch((error: any) => {
+        // Display error message
+        console.log(error)
+        this.toastr.error('Confirm that the username and password are correct', 'Logged-in Failed', {
+          timeOut: 1500,
+        });
+        this.showLoginButton = true;
+      })
   }
+
+
 
 
 

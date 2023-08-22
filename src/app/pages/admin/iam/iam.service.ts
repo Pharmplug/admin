@@ -1,57 +1,97 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import { LoginAllow } from 'src/app/models/loginAllow.models';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IamService {
-  private dbPath = '/loginAllow';
-  userRef: AngularFirestoreCollection<LoginAllow>;
 
-  constructor(public db: AngularFirestore, ) {
-    this.userRef = db.collection(this.dbPath);
-  }
-  getAll(): AngularFirestoreCollection<any> {
-    //return this.userRef;
 
-    let data= this.db.collection('/loginAllow');
-    return data;
+  constructor( public http: HttpClient ) {
 
   }
-  getLoginAllowData(): Observable<LoginAllow[]> {
-    return this.userRef.valueChanges();
+  async getAllAdmin(): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.get(`${environment.baseUrl}all-admins`, { headers }).toPromise();
+      console.log(res); // You can directly log the response here
+      return res; // Return the response
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
   }
 
-  createCollection(){
-    this.db.collection('loginAllow');
+  async update(payload: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.put(`${environment.baseUrl}update-admin`, payload, { headers }).toPromise();
+      
+      if (typeof res.data === 'object') {
+        console.log({status:true,data: res.data})
+        return{status:true,data: res.data}
+      } else  {
+        console.log({status:false,data: res.data})
+        return{status:false,data: res.data}
+      } 
+   
+    } catch (error) {
+      console.error('Error:', error);
+      return{status:false,data: error}
+    }
   }
-  addLoginAllowData(loginAllow: LoginAllow): Promise<any> {
-    return this.userRef.add(loginAllow);
-  }
-  update(id: string, data: any): Promise<void> {
-    return this.userRef.doc(id).update(data);
-  }
-  deleteUser(id: string): Promise<void> {
-    return this.userRef.doc(id).delete();
+
+
+  async addAdmin(payload: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.post(`${environment.baseUrl}add-admin`, payload, { headers }).toPromise();
+      
+      if (typeof res.data === 'object') {
+        console.log({status:true,data: res.data})
+        return{status:true,data: res.data}
+      } else  {
+        console.log({status:false,data: res.data})
+        return{status:false,data: res.data}
+      } 
+   
+    } catch (error) {
+      console.error('Error:', error);
+      return{status:false,data: error}
+    }
   }
   
-  emptyCollection(): Promise<void> {
-    return new Promise<void>((resolve, reject) => {
-      this.userRef.get().subscribe(querySnapshot => {
-        const batch = this.db.firestore.batch();
-        querySnapshot.forEach(doc => {
-          batch.delete(doc.ref);
-        });
-        batch.commit().then(() => {
-          resolve();
-        }).catch(error => {
-          reject(error);
-        });
-      });
-    });
-  }
+
+  async deleteAdmin(id: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
   
+    try {
+      const res: any = await this.http.post(`${environment.baseUrl}delete-admin`, id,{headers}).toPromise();
+   
+      if (typeof res.data === 'object') {
+        console.log({status:true,data: res.data})
+        return{status:true,data: res.data}
+      } else  {
+        console.log({status:false,data: res.data})
+        return{status:false,data: res.data}
+      } 
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
+  }
+
 }

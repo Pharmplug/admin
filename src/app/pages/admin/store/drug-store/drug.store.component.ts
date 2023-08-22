@@ -5,10 +5,8 @@ import { DrugService } from '../drug.service'
 import Drugs from 'src/app/models/drugs.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { LoginAllow } from 'src/app/models/loginAllow.models';
 import AdminModel from 'src/app/models/super.admin.mode';
 
-import { map } from 'rxjs';
 
 
 @Component({
@@ -20,17 +18,9 @@ export class DrugDetailsComponent implements OnInit {
   parsedDrugDetails: any;
   drugInfoString: any = '';
   drugInfo!: Drugs;
-
-
-
-
-  baseURL = 'gmail.com'
-
-  rolesData!: LoginAllow;
   updateDrugForm!: FormGroup;
   loginData!: any;
-  loginAllowList!: LoginAllow[];
-  filteredRoles!: LoginAllow[];
+ 
   imageurl!: string;
   price!: string;
   category!: string;

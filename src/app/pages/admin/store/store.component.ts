@@ -27,7 +27,7 @@ export class StoreComponent implements OnInit {
   searchTerm = '';
 
   constructor(public dialog: Dialog,
-    public router: Router, public http: HttpClient,) {
+    public router: Router, public http: HttpClient, private drugService:DrugService) {
 
 
   }
@@ -42,32 +42,23 @@ export class StoreComponent implements OnInit {
 
 
 
-
-  _fetchData() {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-    try {
-      const res: any = this.http.get(`${environment.baseUrl}get-all-products-without-limit`, { headers }).toPromise();
-      res.then((value: any) => {
-        console.log(value['products'])
-
-        this.drugsList = value['products']
-        this.filteredDrugsList = value['products']
-      })
-
-
-    } catch (error) {
-      console.error(error);
-    }
-  }
   setSymbol(sym: any) {
     let data = currencySymbol.symbol(sym)
     return data;
 
   }
 
+  // This function fetches all the data from the collection and subscribes to the changes
+  _fetchData() {
 
+    this.drugService.getStore()
+      .then((result) => {
+        this.drugsList = result 
+        this.filteredDrugsList =result 
+      })
+
+
+  }
 
 
   /**

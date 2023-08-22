@@ -50,14 +50,14 @@ export class RequestComponent implements OnInit {
   private subscription!: Subscription;
   messages: string[] = [];
   constructor(
-    public router: Router, public http: HttpClient,private requestService:RequestService) {
+    public router: Router, public http: HttpClient, private requestService: RequestService) {
 
 
   }
 
   ngOnInit() {
     this._fetchData()
-   
+
     this.requestUpdate;
 
     this._filterRequest('all');
@@ -66,13 +66,13 @@ export class RequestComponent implements OnInit {
 
 
 
- async _fetchData() {
+  async _fetchData() {
 
     var value = await this.requestService.getAll()
     console.log(value)
     this.requestUpdate = value['request']
     this.filteredRequest = value['request']
-   
+
   }
 
 
@@ -81,29 +81,29 @@ export class RequestComponent implements OnInit {
 
 
   _filterRequest(type: string) {
-    this.filteredRequest =[];
+    this.filteredRequest = [];
     if (type === 'all') {
-      this.filteredRequest =[];
+      this.filteredRequest = [];
       console.log(type);
       this.filteredRequest = this.requestUpdate;
     } else if (type === 'pending' || type === 'new') {
       console.log(type);
-      this.filteredRequest = this.requestUpdate.filter(request => 
+      this.filteredRequest = this.requestUpdate.filter(request =>
         request.status.toLowerCase() === 'new' || request.status.toLowerCase() === 'pending'
       );
     } else if (type === 'ready') {
       console.log(type);
-      this.filteredRequest = this.requestUpdate.filter(request => 
+      this.filteredRequest = this.requestUpdate.filter(request =>
         request.status.toLowerCase() === type
       );
-    }else if (type === 'delivered') {
+    } else if (type === 'delivered') {
       console.log(type);
-      this.filteredRequest = this.requestUpdate.filter(request => 
+      this.filteredRequest = this.requestUpdate.filter(request =>
         request.status.toLowerCase() === type
       );
     }
   }
-  
+
   /**
    * Filters transactions by a custom date range.
    */
