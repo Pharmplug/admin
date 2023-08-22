@@ -81,16 +81,16 @@ export class StoreComponent implements OnInit {
    */
   searchDrug() {
     if (this.searchTerm.trim() !== '') {
-      const mitems = this.drugsList!.filter((drug) =>
-        (drug.productname && drug.productname.toLowerCase() && drug.productname.toUpperCase().includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
-        (drug.price && drug.price.toString().toLowerCase()&& drug.price.toString().toUpperCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (drug.created_at && drug.created_at.toLowerCase()&& drug.created_at.toUpperCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (drug.companyname && drug.companyname.toLowerCase()&& drug.companyname.toUpperCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
+      const mitems = this.filteredDrugsList!.filter((drug) =>
+        (drug.productname && drug.productname.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
+        (drug.price && drug.price.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+        (drug.created_at && drug.created_at.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+        (drug.companyname && drug.companyname.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
       );
       this.filteredDrugsList = mitems
     } else {
       // Reset the items array when the search term is empty
-      this.drugsList;
+      this.filteredDrugsList=this.drugsList
     }
   }
 
@@ -112,13 +112,15 @@ export class StoreComponent implements OnInit {
   onTableDataChange(event: any) {
     this.filteredDrugsList= []
     this.page = event;
-    this._fetchData()
+    this.filteredDrugsList
+   // this._fetchData()
   }
 
   onTableSizeChange(event: any) {
     this.tableSize = event?.target.value;
     this.page = 1;
-    this._fetchData()
+      this.filteredDrugsList
+   // this._fetchData()
   }
 
   get drugData() { return this.storeForm.controls; }
