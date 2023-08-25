@@ -5,7 +5,7 @@ import { map } from 'rxjs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const currencySymbol = require('currency-symbol');
 
-import { UserService } from './customers.service';
+import { PharmService } from './pharmacy.service';
 
 import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
@@ -13,19 +13,18 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import PharmacyModel from 'src/app/models/wallets.model';
-import Customer from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-pages-transactions',
-  templateUrl: './customers.component.html',
-  providers: [UserService]
+  templateUrl: './pharmacy.component.html',
+  providers: [PharmService]
 })
-export class CustomersComponent implements OnInit {
+export class PharmacyComponent implements OnInit {
   @ViewChild(MatSort)
 
 
-  usersList: Customer[] = [];
-  filteredUsersList: Customer[] = [];
+  pharmacyList: PharmacyModel[] = [];
+  filteredPharmacyList: PharmacyModel[] = [];
   searchTerm = '';
   page: number = 1;
   count: number = 0;
@@ -34,7 +33,7 @@ export class CustomersComponent implements OnInit {
   showLoginButton: boolean = true;
   storeForm!: FormGroup;
   constructor(public dialog: Dialog,
-    public router: Router, public http: HttpClient,private toastr: ToastrService, private pharmService:UserService,private formBuilder: FormBuilder,) {
+    public router: Router, public http: HttpClient,private toastr: ToastrService, private pharmService:PharmService,private formBuilder: FormBuilder,) {
 
 
   }
@@ -66,10 +65,10 @@ export class CustomersComponent implements OnInit {
   // This function fetches all the data from the collection and subscribes to the changes
   _fetchData() {
 
-    this.pharmService.getUsers()
+    this.pharmService.getStore()
       .then((result) => {
-        this.usersList = result 
-        this.filteredUsersList =result 
+        this.pharmacyList = result 
+        this.filteredPharmacyList =result 
       })
 
 
@@ -79,50 +78,24 @@ export class CustomersComponent implements OnInit {
   /**
    * Filters transactions based on a search term entered by the item.
    */
-  searchUsers() {
+  searchPharm() {
     if (this.searchTerm.trim() !== '') {
-      const mitems =  this.filteredUsersList!.filter((item) =>
-        (item.firstName && item.firstName.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
-        (item.firstName && item.firstName.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+      const mitems =  this.filteredPharmacyList!.filter((item) =>
+        (item.name && item.name.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
+        (item.state && item.state.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
         (item.created_at && item.created_at.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (item.lastName && item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (item.lastName && item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
+        (item.address && item.address.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+        (item.city && item.city.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
       );
-       this.filteredUsersList = mitems
+       this.filteredPharmacyList = mitems
     } else {
       // Reset the items array when the search term is empty
-       this.filteredUsersList=this.usersList
+       this.filteredPharmacyList=this.pharmacyList
     }
   }
 
 
-  isEmail(email: string) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const result = emailRegex.test(email);
-    if (result) {
-      return email;
-      
-    }else{
-      return ""
-    }
-  
-  }
 
- isPhoneNumber(input: string) {
-    // Remove any non-digit characters from the input
-    const cleanInput = input.replace(/\D/g, '');
-  
-    // Check if the cleaned input has exactly 10 digits
-   const result= cleanInput.length === 11;
-    if (result) {
-      return input;
-      
-    }else{
-      return ""
-    }
-
-  }
-  
 
 
 
@@ -137,17 +110,17 @@ export class CustomersComponent implements OnInit {
   }
 
   onTableDataChange(event: any) {
-    // this.filteredUsersList= []
+    // this.filteredPharmacyList= []
     this.page = event;
    // this._fetchData()
-     this.filteredUsersList
+     this.filteredPharmacyList
   }
 
   onTableSizeChange(event: any) {
     this.tableSize = event?.target.value;
     this.page = 1;
    // this._fetchData()
-     this.filteredUsersList
+     this.filteredPharmacyList
   }
 
   get itemData() { return this.storeForm.controls; }

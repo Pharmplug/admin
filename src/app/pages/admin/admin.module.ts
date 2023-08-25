@@ -21,8 +21,8 @@ import { RequestInfoComponent } from './request/request-info/requests.info.compo
 import { MaterialModule } from 'src/app/material';
 import { Base64Pipe } from '../../shared/convert-base64-img.pipe';
 import { PaginationComponent } from 'src/app/_components';
-import { CustomersReportDialog } from './customers/report/report.customers';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { PharmacyComponent } from './pharmacy/pharmacy.component';
 
 
 
@@ -45,7 +45,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     IamComponent,
     UserOutflowComponent,
     Base64Pipe,
-    CustomersReportDialog,
+    PharmacyComponent,
    
  
 

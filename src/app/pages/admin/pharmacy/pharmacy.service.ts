@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class PharmService {
   private dbPath = '/transactions';
 
 
 
-  constructor(public http: HttpClient,) {
+  constructor(private db: AngularFirestore,public http: HttpClient,) {
   
   }
-  async getUsers(): Promise<any> {
+  async getStore(): Promise<any> {
     const headers = {
       'Content-Type': 'application/json',
     };
   
     try {
-      const res: any = await this.http.get(`${environment.baseUrl}users/get-users`, { headers }).toPromise();
+      const res: any = await this.http.get(`${environment.baseUrl}pharmacy/get-all`, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res['data']
     } catch (error) {

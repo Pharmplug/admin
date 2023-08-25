@@ -16,6 +16,7 @@ import { IamComponent } from './iam/iam.component';
 import { AuthGuard } from 'src/app/auth.guard';
 import { DevAccessGuard } from 'src/app/access-control.guard';
 import { CommonModule } from '@angular/common';
+import { PharmacyComponent } from './pharmacy/pharmacy.component';
 
 
 
@@ -25,7 +26,9 @@ const routes: Routes = [
   { path: 'request', component: RequestComponent, },
   { path: 'store', component: StoreComponent, },
   { path: 'drug-details', component: DrugDetailsComponent, },
+  { path: 'pharmacy-details', component: DrugDetailsComponent, },
   { path: 'requests', component: RequestComponent,},
+  { path: 'pharmacies', component: PharmacyComponent},
   { path: 'edit-request', component: RequestInfoComponent,},
   { path: 'settings-iam', component: IamComponent,},
   { path: 'customers', component: CustomersComponent,},
