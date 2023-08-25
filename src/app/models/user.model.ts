@@ -5,5 +5,6 @@ export default class Customer {
   loginCred:string="";
   created_at:string=''
   status:boolean=false
+  imageurl:string=''
 
 }

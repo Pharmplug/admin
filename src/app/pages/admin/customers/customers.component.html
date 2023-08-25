@@ -92,7 +92,7 @@
                       style="cursor: pointer"
                       onclick="viewUser()"
                       *ngFor="let user of filteredUsersList; let i = index"
-                      (click)="showInfo(i)"
+                      (click)="showInfo(user)"
                     >
                       <td class="table-body text-center">
                         {{ i + 1 }}

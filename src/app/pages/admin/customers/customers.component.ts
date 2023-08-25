@@ -132,7 +132,7 @@ export class CustomersComponent implements OnInit {
       // Stringify selected user 
       const stringifieditem = JSON.stringify(selecteditem);
       // route to customer details screen and pass stringified user as arguement
-      this.router.navigate(['/admin/pharmacy-details', { itemInfo: stringifieditem }]);
+      this.router.navigate(['/admin/customer-details', { itemInfo: stringifieditem }]);
     
   }
 
