@@ -7,6 +7,7 @@
 
 export const environment = {
   baseUrl:'https://pharmplug-api.onrender.com/api/',
+  localhost:'http://localhost:9000/api/',
   production: false,
   defaultauth: 'firebase',
   firebaseConfig : {

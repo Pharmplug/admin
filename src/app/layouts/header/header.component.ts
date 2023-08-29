@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, JsonpClientBackend } from "@angular/common/http";
 
 import { ToastrService } from 'ngx-toastr'
 import { AuthService } from 'src/app/pages/auth/auth-utils/authUtils';
@@ -10,6 +10,8 @@ import Customer from 'src/app/models/user.model';
 import { Router } from '@angular/router';
 import { DashboardService } from 'src/app/pages/admin/dashboard/dashboard.service';
 import Recipient from 'src/app/models/request.model';
+import { SseService } from './request.sse';
+import { SharedService } from 'src/app/shared/shared_service';
 
 @Component({
   selector: 'app-header',
@@ -28,14 +30,22 @@ export class HeaderComponent implements OnInit {
   notificationCount!: String;
   http!: HttpClient;
   authService!: AuthService;
-  totalLength: any 
+  totalLength: any
   requestUpdate: Recipient[] = [];
-   private subscription!: Subscription;
-  constructor(@Inject(DOCUMENT) private document: Document, private router: Router) { }
+  request!: Recipient;
+
+
+  constructor(@Inject(DOCUMENT) private document: Document, private onSharedService: SharedService, private toastr: ToastrService, private router: Router, private sseService: SseService) { }
 
   ngOnInit() {
-  // this. _fetchRealTimeRequest()
-//localStorage.clear()
+    this.sseService.getServerSentEvents().subscribe((message) => {
+      const resData = JSON.parse(message)
+      this.request = resData;
+      this.toastr.warning(` New order of  ${this.request.price} from ${this.request.customername}`, `Alert`, {
+        timeOut: 3000,
+      });
+      console.log(this.request.price)
+    });
     const currentUser = JSON.parse(localStorage.getItem('user')!);
 
     this.admin = currentUser.email
@@ -75,20 +85,20 @@ export class HeaderComponent implements OnInit {
   }
 
 
- 
+
 
 
   // _fetchRealTimeRequest() {
   //   this.subscription = this.dashboardService.connect().subscribe(
   //     (event: MessageEvent) => {
   //       const data2obj = JSON.parse(event.data.trim());
-  
+
   //       if (data2obj['request']['ref'] === null || data2obj['request']['ref'] === undefined || data2obj['request']['ref'] === 0) {
   //         // Do nothing if the incoming request's 'ref' is null, undefined, or 0
   //       } else {
   //         // Check if a request with the same 'ref' value already exists in the array
   //         const existingRequest = this.requestUpdate.find(item => item.ref === data2obj['request']['ref']);
-          
+
   //         if (!existingRequest) {
   //           // If no existing request with the same 'ref' value, push the new request to the array
   //           this.requestUpdate.push(data2obj['request']);

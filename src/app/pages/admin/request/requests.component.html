@@ -9,8 +9,8 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search transactions"
-            aria-label="Search transactions"
+            placeholder="Search request"
+            aria-label="Search request"
             [(ngModel)]="searchTerm"
             (click)="searchTransactions()"
           />
@@ -242,10 +242,15 @@
                             <tbody>
                               <tr
                                 *ngFor="
-                                  let request of filteredRequest;
+                                  let request of filteredRequest  | paginate
+                                  : {
+                                      itemsPerPage: tableSize,
+                                      currentPage: page,
+                                      totalItems: count
+                                    };;
                                   let i = index
                                 "
-                                (click)="showRequest(i)"
+                                (click)="showRequest(request)"
                                 style="cursor: pointer"
                               >
                                 <td
@@ -260,7 +265,7 @@
                                 <td
                                   data-bs-toggle="tooltip"
                                   data-bs-placement="right"
-                                  title="view customer transaction details"
+                                  title="view request details"
                                 >
                                   <a class="text-primary">{{
                                     request.customername
@@ -269,7 +274,7 @@
                                 <td
                                   data-bs-toggle="tooltip"
                                   data-bs-placement="right"
-                                  title="view customer transaction details"
+                                  title="view request details"
                                 >
                                   <a class="text-primary">{{
                                     request.items.length
@@ -278,7 +283,7 @@
                                 <td
                                   data-bs-toggle="tooltip"
                                   data-bs-placement="right"
-                                  title="view customer transaction details"
+                                  title="view request details"
                                 >
                                   <a class="text-primary">{{
                                     request.customerlocation
@@ -287,7 +292,7 @@
                                 <td
                                   data-bs-toggle="tooltip"
                                   data-bs-placement="right"
-                                  title="view customer transaction details"
+                                  title="view request details"
                                 >
                                   <a class="text-primary">{{
                                     request.deliverytype
@@ -314,8 +319,27 @@
                               </tr>
                             </tbody>
                           </table>
+                          <!-- <div
+                          *ngIf="filteredRequest.length === 0"
+                          class="flex items-center justify-center h-full"
+                        >
+                          <img
+                            src="assets/img/loading.gif"
+                            class="img"
+                            alt=""
+                          />
+                          <p class="ml-2">loading Store Items.</p>
+                        </div> -->
                         </div>
                       </div>
+                    </div>
+                    <div class="card-footer pb-0 pt-3">
+                      <pagination-controls
+                        previousLabel="Prev"
+                        nextLabel="Next"
+                        (pageChange)="onTableDataChange($event)"
+                      >
+                      </pagination-controls>
                     </div>
                   </div>
                 </div>

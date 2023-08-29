@@ -39,7 +39,10 @@ export class RequestComponent implements OnInit {
   feeSum: any;
   amountSum: any
   fxSum: any
-
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [5, 10, 15, 20];
   startDate!: string;
   endDate!: string;
   showCustomFilter = false;
@@ -70,8 +73,8 @@ export class RequestComponent implements OnInit {
 
     var value = await this.requestService.getAll()
     console.log(value)
-    this.requestUpdate = value['request']
-    this.filteredRequest = value['request']
+    this.requestUpdate = value['data']
+    this.filteredRequest = value['data']
 
   }
 
@@ -129,13 +132,17 @@ export class RequestComponent implements OnInit {
   }
 
 
-  showRequest(index: number) {
-    if (this.requestUpdate.length > 0) {
-      this.selectedRequest = this.filteredRequest[index];
-      const stringifiedRequest = JSON.stringify(this.selectedRequest);
-      this.router.navigate(['/admin/edit-request', { requestInfo: stringifiedRequest }]);
-    }
-  }
+
+
+  showRequest(requestData:any) {
+  
+  
+    // Stringify selected user 
+    const stringifiedRequest = JSON.stringify(requestData);
+    // route to customer details screen and pass stringified user as arguement
+    this.router.navigate(['/admin/edit-request', { requestInfo: stringifiedRequest }]);
+  
+}
 
   sortTable(columnName: string) {
     if (this.sortColumn === columnName) {
@@ -147,5 +154,20 @@ export class RequestComponent implements OnInit {
       this.sortDirection = 'asc';
     }
 
+  }
+
+
+  onTableDataChange(event: any) {
+    //this.filteredDrugsList= []
+    this.page = event;
+   // this._fetchData()
+   this.filteredRequest
+  }
+
+  onTableSizeChange(event: any) {
+    this.tableSize = event?.target.value;
+    this.page = 1;
+   // this._fetchData()
+   this.filteredRequest
   }
 }

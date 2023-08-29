@@ -36,6 +36,7 @@ export class DashboardComponent implements OnInit {
   total_withdrawal: any = 0;
   kyc_count: number = 0;
 request_count: number = 0;
+user_count: number = 0;
   kyc: any
   totalWithdraw!: any
   totalDeposit!: any
@@ -54,7 +55,7 @@ request_count: number = 0;
   sortDirection: string = 'asc'; // Default sorting direction
   requestUpdate: Recipient[] = [];
 
-
+  usersList: Customer[] = [];
 
   constructor(private router: Router, private userService: UserService, private elementRef: ElementRef, private db: AngularFirestore,  public http: HttpClient,private requestService:RequestService) { }
 
@@ -67,6 +68,7 @@ request_count: number = 0;
     //this.fetchAch()
   
     this. _fetchRequest()
+    this._fetchUsers()
     this.switchToDay('all');
    this. request_count
    
@@ -129,10 +131,19 @@ request_count: number = 0;
 
     var value = await this.requestService.getAll()
     console.log(value)
-    this.requestUpdate = value['request']
+    this.requestUpdate = value['data']
     console.log(this.request_count)
     this.request_count=this.requestUpdate.length
     console.log(this.request_count)
+  }
+
+  async _fetchUsers() {
+
+    this.userService.getUsers()
+    .then((result) => {
+      this.usersList = result 
+      this.user_count=this.usersList.length
+    })
   }
 
   sortTable(columnName: string) {

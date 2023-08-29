@@ -21,7 +21,7 @@ export class RequestService {
     };
   
     try {
-      const res: any = await this.http.put(`${environment.baseUrl}update-request`, payload, { headers }).toPromise();
+      const res: any = await this.http.put(`${environment.baseUrl}requests/update-request`, payload, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error) {
@@ -38,7 +38,7 @@ export class RequestService {
     };
   
     try {
-      const res: any = await this.http.get(`${environment.baseUrl}all-request`, { headers }).toPromise();
+      const res: any = await this.http.get(`${environment.baseUrl}requests/all-request`, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error) {
