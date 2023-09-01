@@ -50,7 +50,7 @@ export class RequestInfoComponent implements OnInit {
 
     this.pickedUser = this.userRequestInfo
     console.log(this.pickedUser)
-    this.requestedDrugsArray = JSON.parse(this.pickedUser.items);
+    this.requestedDrugsArray = JSON.parse(this.pickedUser.items!);
 
     console.log(this.requestedDrugsArray);
 
@@ -128,22 +128,22 @@ export class RequestInfoComponent implements OnInit {
         timeOut: 3000,
       });
 
-      const payload = {
-        "deliveryContactAddress": this.requestData['customerlocation'].value,
-        "deliveryContactName": "Adereti Christiana",
-        "deliveryContactPhone": "08035601258",
-        "deliveryContactCity": "Ikoyi",
-        "deliveryContactState": "Lagos",
-        "productPrice": "70000",
-        "pickUpContactAddress": "4 Onisiwo Rd, Ikoyi 106104, Lagos",
-        "pickUpContactPhone": "08106437244",
-        "pickUpContactName": "Dellyman Operations",
-        "pickUpContactCity": "Ikoyi",
-        "pickUpContactState": "Lagos",
-        "ref": "Pharm001"
-      }
-      var bookingResult = await this.requestService.book(payload)
-      console.log(bookingResult)
+      // const payload = {
+      //   "deliveryContactAddress": this.requestData['customerlocation'].value,
+      //   "deliveryContactName": "Adereti Christiana",
+      //   "deliveryContactPhone": "08035601258",
+      //   "deliveryContactCity": "Ikoyi",
+      //   "deliveryContactState": "Lagos",
+      //   "productPrice": "70000",
+      //   "pickUpContactAddress": "4 Onisiwo Rd, Ikoyi 106104, Lagos",
+      //   "pickUpContactPhone": "08106437244",
+      //   "pickUpContactName": "Dellyman Operations",
+      //   "pickUpContactCity": "Ikoyi",
+      //   "pickUpContactState": "Lagos",
+      //   "ref": "Pharm001"
+      // }
+      // var bookingResult = await this.requestService.book(payload)
+      // console.log(bookingResult)
 
     }
   }
