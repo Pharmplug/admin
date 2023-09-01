@@ -29,6 +29,22 @@ export class RequestService {
       throw error; // Rethrow the error to be caught by the caller
     }
   }
+
+  async book(payload: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+
+    };
+  
+    try {
+      const res: any = await this.http.post(`${environment.baseUrl}delivery/book-order`, payload, { headers }).toPromise();
+      console.log(res); // You can directly log the response here
+      return res; // Return the response
+    } catch (error) {
+      console.error(error);
+      throw error; // Rethrow the error to be caught by the caller
+    }
+  }
   
 
 

@@ -10,7 +10,7 @@ export class SseService {
 
   getServerSentEvents(): Observable<any> {
     return new Observable((observer) => {
-      const eventSource = new EventSource(`${environment.localhost}requests/sse`); // Replace with your server's URL
+      const eventSource = new EventSource(`${environment.baseUrl}requests/sse`); // Replace with your server's URL
       eventSource.onmessage = (event) => {
         observer.next(event.data); // Directly pass the data without parsing
       };

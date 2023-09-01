@@ -8,7 +8,6 @@ import { Observable, Subscription, forkJoin, map } from 'rxjs';
 import { UserService } from 'src/app/pages/admin/customers/customers.service';
 import Customer from 'src/app/models/user.model';
 import { Router } from '@angular/router';
-import { DashboardService } from 'src/app/pages/admin/dashboard/dashboard.service';
 import Recipient from 'src/app/models/request.model';
 import { SseService } from './request.sse';
 import { SharedService } from 'src/app/shared/shared_service';

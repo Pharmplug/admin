@@ -1,12 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import Ach from 'src/app/models/ach.model';
 import { UserService } from '../customers/customers.service';
 import Customer from 'src/app/models/user.model';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { DashboardService } from './dashboard.service';
 import { HttpClient } from '@angular/common/http';
 import Recipient from 'src/app/models/request.model';
 import { RequestService } from '../request/request.service';
