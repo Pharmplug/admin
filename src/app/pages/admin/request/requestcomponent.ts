@@ -155,7 +155,10 @@ export class RequestComponent implements OnInit {
     }
 
   }
-
+getcartCount(cartItem:any){
+ var data= JSON.parse(cartItem);
+ return data.length
+}
 
   onTableDataChange(event: any) {
     //this.filteredDrugsList= []

@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
   login = async () => {
 
 
-    this.showLoginButton = false;
+
 
     let getEmail = `${this.formData['email'].value}`
     let userPassword = `${this.formData['password'].value}`
@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
       return
     }
 
-
+    this.showLoginButton = false;
 
     // Find user by email
     // const user = this.loginAllowList.find((user: LoginAllow) => user.email === getEmail);
