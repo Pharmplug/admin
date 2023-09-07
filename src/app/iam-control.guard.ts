@@ -5,14 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class DevAccessGuard implements CanActivate {
+export class IAMAccessGuard implements CanActivate {
   constructor(private router:Router) { }
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot)
   : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-   
   // Check if user is authenticated
   if (localStorage.getItem('role')!=null) {
-
     // If user is authenticated, restrict access based on their role
     const isPermitted = this.restrict();
     if (isPermitted) {
@@ -39,15 +37,9 @@ export class DevAccessGuard implements CanActivate {
     console.log(role)
     if (role ==="Super Admin") {
      return isPermitted = true;
-    } else if (role === 'Admin' || role === 'Operations' || role==="Marketing") {
-    return  isPermitted = false;
-    } else if (role ==="Admin") {
-      console.log(isPermitted)
-     return isPermitted = true;
-
-    }
+    } 
   
-    return isPermitted;
+return isPermitted;
   }
   
 }

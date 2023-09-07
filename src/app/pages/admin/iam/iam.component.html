@@ -619,8 +619,8 @@
                               >
                                 <option selected value="0">Admin</option>
                                 <option value="1">Marketing</option>
-                                <option value="2">Operations</option>
-                                <option value="3">Super Admin</option>
+                              
+                                <option value="2">Super Admin</option>
                               </select>
                               <label for="floatingSelect">Select a role</label>
                             </div>
@@ -651,9 +651,19 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">.</label>
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">
+                            <button  *ngIf="showLoginButton" type="submit" class="btn btn-primary">
                               Add
                             </button>
+                            <button  *ngIf="!showLoginButton" type="submit" class="btn btn-primary">
+                              
+                              <span
+                              class="spinner-grow spinner-grow-sm"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            Connecting...
+                            </button>
+                           
                           </div>
                         </div>
                       </form>

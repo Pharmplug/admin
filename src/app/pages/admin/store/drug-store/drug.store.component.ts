@@ -20,7 +20,7 @@ export class DrugDetailsComponent implements OnInit {
   drugInfo!: Drugs;
   updateDrugForm!: FormGroup;
   loginData!: any;
- 
+  showLoadingButton: boolean = true;
   imageurl!: string;
   price!: string;
   category!: string;
@@ -86,6 +86,7 @@ export class DrugDetailsComponent implements OnInit {
     // Create a new email object with email, password, role, and isActive properties
     const updateDrug = data
     console.log(data)
+    this.showLoadingButton=false
     // Call the addLoginAllowData method from the iamService with the newEmail object
     var result = await this.drugService.update(updateDrug)
 
@@ -93,7 +94,7 @@ export class DrugDetailsComponent implements OnInit {
     this.toastr.success(`${result['data']['productname']} has been updated`, 'Success', {
       timeOut: 3000,
     });
-
+    this.showLoadingButton=true
   }
 
 

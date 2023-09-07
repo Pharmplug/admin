@@ -16,6 +16,7 @@ import { NgSwitchCase } from '@angular/common';
 export class IamComponent implements OnInit {
   baseURL = 'gmail.com'
   adminForm!: FormGroup;
+  showLoginButton: boolean = true;
   rolesData!: LoginAllow;
   updateAdminRoleForm!: FormGroup;
   loginData!: any;
@@ -231,8 +232,8 @@ export class IamComponent implements OnInit {
         username: this.pickedUser.email,
         password: this.pickedUser.password,
         role: this.pickedUser.role,
-        firstName: this.pickedUser.firstName,
-        lastName: this.pickedUser.lastName,
+        firstName: this.pickedUser.name,
+        lastName: this.pickedUser.surname,
         id: this.pickedUser.id,
         status: this.pickedUser.status
       });
@@ -331,11 +332,8 @@ export class IamComponent implements OnInit {
         selectedRole = "Marketing"
         // Add your code for handling Type B here
         break;
+      
       case '2':
-        selectedRole = "Operations"
-        // Add your code for handling Type C here
-        break;
-      case '3':
         selectedRole = "Super Admin"
         // Add your code for handling Type C here
         break;
@@ -361,9 +359,9 @@ export class IamComponent implements OnInit {
     }
 
     // Create a new email object with email, password, role, and isActive properties
-    const newAdmin = { email: this.userEmail, password: this.password, confirmPassword: this.password, firstName: this.firstName, lastName: this.lastName, role: selectedRole, status: isActive };
+    const newAdmin = { email: this.userEmail, password: this.password, confirmPassword: this.password, name: this.firstName, surname: this.lastName, role: selectedRole, status: isActive };
     console.log(newAdmin)
-
+    this.showLoginButton = false;
     // Call the addLoginAllowData method from the iamService with the newEmail object
     this.iamService.addAdmin(newAdmin)
       .then((value) => {
@@ -375,6 +373,7 @@ export class IamComponent implements OnInit {
         // Reset the form after the success message is shown
         this.adminForm.reset();
         this._fetchData()
+        this.showLoginButton = true;
       })
       .catch(error => console.log(error));
   }

@@ -79,7 +79,7 @@ export class IamService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.baseUrl}add-admin`, id, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}delete-admin`, id, { headers }).toPromise();
    
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})
