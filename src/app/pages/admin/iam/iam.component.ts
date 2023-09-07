@@ -30,6 +30,7 @@ export class IamComponent implements OnInit {
   userId!: any;
   admin!: LoginAllow
   pickedUser: any
+  showUpdateButton:boolean=true
   public showPassword: boolean = false;
 
   constructor(private formBuilder: FormBuilder, private toastr: ToastrService, private iamService: IamService) { }
@@ -61,6 +62,7 @@ export class IamComponent implements OnInit {
   }
 
   update() {
+    console.log(this.pickedUser)
     // Check if the form is invalid
     if (this.updateAdminRoleForm.invalid) {
       // Show error message if form is invalid
@@ -81,8 +83,8 @@ export class IamComponent implements OnInit {
     var nlastName = this.adminRoleData['lastName'].value;
 
     if (nfirstName === null || nlastName === null) {
-      this.firstName = this.pickedUser.firstName;
-      this.lastName = this.pickedUser.lastName
+      this.firstName = this.pickedUser.name;
+      this.lastName = this.pickedUser.surname
     } else {
       this.firstName = nfirstName;
       this.lastName = nlastName
@@ -131,11 +133,12 @@ export class IamComponent implements OnInit {
     }
 
 
-
+    this.showUpdateButton=false
 
     // Create a new email object with email, password, role, and isActive properties
-    const updateUser = { id: this.pickedUser.id, email: this.pickedUser.email, password: this.password, role: selectedRole, status: isActive, firstName: this.firstName, lastName: this.lastName };
+    const updateUser = { id: this.pickedUser.id, email: this.pickedUser.email, password: this.password, role: selectedRole, status: isActive, name: this.firstName, surname: this.lastName };
     // Call the addLoginAllowData method from the iamService with the newEmail object
+    console.log(updateUser)
     this.iamService.update(updateUser)
       .then((value) => {
 
@@ -144,14 +147,16 @@ export class IamComponent implements OnInit {
           this.toastr.error(value.data, "Error", {
             timeOut: 3000,
           });
+          this.showUpdateButton=true
         } else {
           // Show success message if admin is added successfully
-          this.toastr.success(`${value.data.fullname} now assigned to ${value.data.role}`, `Success `, {
+          this.toastr.success(`${value.data.name} ${value.data.surname} now assigned to ${value.data.role}`, `Success`, {
             timeOut: 3000,
           });
           this._fetchData()
           // Reset the form after the success message is shown
           this.adminForm.reset();
+          this.showUpdateButton=true
         }
 
       })
@@ -222,12 +227,12 @@ export class IamComponent implements OnInit {
 
 
   getUserInfo(index: any) {
-    if (this.filteredRoles.length > 0) {
+   
       this.showUserEdit = false;
-      this.userEmail = this.filteredRoles[index].email;
-      this.userId = this.filteredRoles[index].id;
-      this.pickedUser = this.filteredRoles[index]
-      console.log(this.filteredRoles[index])
+      this.userEmail = index.email;
+      this.userId = index.id;
+      this.pickedUser = index
+      
       this.updateAdminRoleForm = this.formBuilder.group({
         username: this.pickedUser.email,
         password: this.pickedUser.password,
@@ -237,7 +242,7 @@ export class IamComponent implements OnInit {
         id: this.pickedUser.id,
         status: this.pickedUser.status
       });
-    }
+    
   }
 
   get adminData() { return this.adminForm.controls; }

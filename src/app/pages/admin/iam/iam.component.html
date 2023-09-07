@@ -248,7 +248,7 @@
                             *ngFor="let item of filteredRoles; let i = index"
                           >
                             <span
-                              (click)="getUserInfo(i)"
+                              (click)="getUserInfo(item)"
                               style="
                                 cursor: pointer;
                                 color: #455372;
@@ -439,7 +439,7 @@
                                     <option value="3">Super Admin</option>
                                   </select>
                                   <label for="floatingSelect"
-                                    >Select a role</label
+                                    >Change admin role</label
                                   >
                                 </div>
                               </div>
@@ -449,7 +449,7 @@
 
                             <div class="row mb-3">
                               <label class="col-sm-2 col-form-label"
-                                >Set Admin status</label
+                                >Change Admin status</label
                               >
                               <div class="col-md-4">
                                 <div class="form-floating mb-4">
@@ -476,15 +476,17 @@
                               <label class="col-sm-2 col-form-label">.</label>
                               <div class="col-sm-10 mr-12">
                                 <div class="text-center">
-                                  <button type="submit" class="btn btn-primary mr-12">
-                                    Submit
+                                  <button *ngIf="showUpdateButton" type="submit" class="btn btn-primary mr-12">
+                                    Update
                                   </button>
-                                  <button
-                                    type="reset"
-                                    class="btn btn-secondary"
-                                    (click)="close()"
-                                  >
-                                    Cancel
+                                  <button *ngIf="!showUpdateButton" type="submit" class="btn btn-primary mr-12">
+                                    <span
+                                    class="spinner-grow spinner-grow-sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                  ></span>
+                                  Updating...
+                                  
                                   </button>
                                 </div>
                               </div>

@@ -127,9 +127,16 @@ export class LoginComponent implements OnInit {
         console.log(result)
         if (!result.status) {
           this.showLoginButton = true;
-          this.toastr.warning(`Error`, `${result.data}`, {
-            timeOut: 1500,
-          });
+          if (result.data===null) {
+            this.toastr.warning(`Error`, '', {
+              timeOut: 1500,
+            });
+          } else {
+            this.toastr.warning(`Error`, `${result.data}`, {
+              timeOut: 1500,
+            });
+          }
+         
         }
 
         else {

@@ -33,7 +33,7 @@ export class IamService {
     };
   
     try {
-      const res: any = await this.http.put(`${environment.baseUrl}update-admin`, payload, { headers }).toPromise();
+      const res: any = await this.http.put(`${environment.localhost}update-admin`, payload, { headers }).toPromise();
       
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})
