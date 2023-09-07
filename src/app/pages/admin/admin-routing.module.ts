@@ -17,26 +17,30 @@ import { AuthGuard } from 'src/app/auth.guard';
 import { DevAccessGuard } from 'src/app/access-control.guard';
 import { CommonModule } from '@angular/common';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
+import { CoverageComponent } from './coverage/coverage.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent,},
-  { path: 'customer-details',component: CustomerDetailsComponent, },
-  { path: 'request', component: RequestComponent, },
-  { path: 'store', component: StoreComponent, },
-  { path: 'drug-details', component: DrugDetailsComponent, },
-  { path: 'pharmacy-details', component: DrugDetailsComponent, },
-  { path: 'requests', component: RequestComponent,},
-  { path: 'pharmacies', component: PharmacyComponent},
-  { path: 'edit-request', component: RequestInfoComponent,},
-  { path: 'settings-iam', component: IamComponent,},
-  { path: 'customers', component: CustomersComponent,},
+  { path: '', component: DashboardComponent, canActivate: [AuthGuard],},
+  { path: 'customer-details',component: CustomerDetailsComponent, canActivate: [AuthGuard,DevAccessGuard] },
+  { path: 'request', component: RequestComponent, canActivate: [AuthGuard,DevAccessGuard] },
+  { path: 'store', component: StoreComponent,  canActivate: [AuthGuard,DevAccessGuard]},
+  { path: 'drug-details', component: DrugDetailsComponent, canActivate: [AuthGuard,DevAccessGuard] },
+  { path: 'pharmacy-details', component: DrugDetailsComponent, canActivate: [AuthGuard,DevAccessGuard] },
+  { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard,DevAccessGuard] },
+  { path: 'requests', component: RequestComponent, canActivate: [AuthGuard,DevAccessGuard]},
+  { path: 'pharmacies', component: PharmacyComponent, canActivate: [AuthGuard]},
+  { path: 'edit-request', component: RequestInfoComponent, canActivate: [AuthGuard,DevAccessGuard]},
+  { path: 'settings-iam', component: IamComponent, canActivate: [AuthGuard,DevAccessGuard]},
+  { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard,DevAccessGuard]},
+  { path: 'coverage', component: CoverageComponent, canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'outflow', component: OutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'user-outflow-transaction', component: UserOutflowComponent,canActivate: [AuthGuard,DevAccessGuard]},
   { path: 'error404', component: PagesError404Component },
   { path: 'blank', component: PagesBlankComponent },
-  { path: 'user-profile', component: UsersProfileComponent,},
+  { path: 'user-profile', component: UsersProfileComponent, canActivate: [AuthGuard,DevAccessGuard]},
 ];
 
 @NgModule({

@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     // Check if user is authenticated, if yes, allow access
-    if (localStorage.getItem('user')!) {
+    if (localStorage.getItem('user')!==null) {
      
       return true;
     } else {

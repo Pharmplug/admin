@@ -23,6 +23,8 @@ import { Base64Pipe } from '../../shared/convert-base64-img.pipe';
 import { PaginationComponent } from 'src/app/_components';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
+import { CoverageComponent } from './coverage/coverage.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 
 
@@ -46,6 +48,8 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
     UserOutflowComponent,
     Base64Pipe,
     PharmacyComponent,
+    CoverageComponent,
+    PaymentsComponent
    
  
 

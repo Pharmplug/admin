@@ -1,10 +1,11 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const currencySymbol = require('currency-symbol');
 
-
+import { UserService } from './payments.service';
 
 import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
@@ -13,14 +14,13 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import PharmacyModel from 'src/app/models/wallets.model';
 import Customer from 'src/app/models/user.model';
-import { UserService } from '../customers/customers.service';
 
 @Component({
   selector: 'app-pages-transactions',
-  templateUrl: './coverage.component.html',
+  templateUrl: './payments.component.html',
   providers: [UserService]
 })
-export class CoverageComponent implements OnInit {
+export class PaymentsComponent implements OnInit {
   @ViewChild(MatSort)
 
 

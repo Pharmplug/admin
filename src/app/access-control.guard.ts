@@ -35,16 +35,17 @@ export class DevAccessGuard implements CanActivate {
     let isPermitted=false;
     console.log(isPermitted)
     console.log(role)
-    if (role === '0') {
-      isPermitted = true;
-    } else if (role === '1' || role === '2') {
-      isPermitted = false;
-    } else if (role === '3') {
-      isPermitted = true;
+    if (role ==="Super Admin") {
+     return isPermitted = true;
+    } else if (role === 'Admin' || role === 'Operations' || role==="Marketing") {
+    return  isPermitted = false;
+    } else if (role ==="Super Admin") {
       console.log(isPermitted)
+     return isPermitted = true;
+
     }
   
-    return true;
+    return isPermitted;
   }
   
 }
