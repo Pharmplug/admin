@@ -18,7 +18,7 @@ export class IamService {
     };
   
     try {
-      const res: any = await this.http.get(`${environment.baseUrl}all-admins`, { headers }).toPromise();
+      const res: any = await this.http.get(`${environment.baseUrl}admin/all-admins`, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error) {
@@ -33,7 +33,7 @@ export class IamService {
     };
   
     try {
-      const res: any = await this.http.put(`${environment.baseUrl}update-admin`, payload, { headers }).toPromise();
+      const res: any = await this.http.put(`${environment.baseUrl}admin/update-admin`, payload, { headers }).toPromise();
       
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})
@@ -56,7 +56,7 @@ export class IamService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.baseUrl}add-admin`, payload, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}admin/add-admin`, payload, { headers }).toPromise();
       
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})
@@ -79,7 +79,7 @@ export class IamService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.baseUrl}delete-admin`, id, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}admin/delete-admin`, id, { headers }).toPromise();
    
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})

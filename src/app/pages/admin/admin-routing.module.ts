@@ -20,6 +20,7 @@ import { CoverageComponent } from './coverage/coverage.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { IAMAccessGuard } from 'src/app/iam-control.guard';
 import { AdminAccessGuard } from 'src/app/admin-control.guard';
+import { OperationsAccessGuard } from 'src/app/operations-control.guard';
 
 
 
@@ -32,9 +33,9 @@ const routes: Routes = [
   { path: 'drug-details', component: DrugDetailsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
   { path: 'pharmacy-details', component: DrugDetailsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
   { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
-  { path: 'requests', component: RequestComponent, canActivate: [AuthGuard,AdminAccessGuard]},
+  { path: 'requests', component: RequestComponent, canActivate: [AuthGuard,AdminAccessGuard,OperationsAccessGuard]},
   { path: 'pharmacies', component: PharmacyComponent, canActivate: [AuthGuard]},
-  { path: 'edit-request', component: RequestInfoComponent, canActivate: [AuthGuard,AdminAccessGuard]},
+  { path: 'edit-request', component: RequestInfoComponent, canActivate: [AuthGuard,AdminAccessGuard,OperationsAccessGuard]},
   { path: 'settings-iam', component: IamComponent, canActivate: [AuthGuard,IAMAccessGuard]},
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard]},
   { path: 'coverage', component: CoverageComponent, canActivate: [AuthGuard]},

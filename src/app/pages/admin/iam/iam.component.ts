@@ -169,8 +169,8 @@ export class IamComponent implements OnInit {
 
   // This function deletes a user with the specified id
   deleteUser() {
-    console.log(this.userId)
-    const data = { "id": this.userId.toString().trim() }
+    console.log(this.pickedUser.id)
+    const data = { "id": this.pickedUser.id }
     this.iamService.deleteAdmin(data).then((result) => {
 
 
@@ -180,7 +180,7 @@ export class IamComponent implements OnInit {
         });
         this._fetchData()
       } else {
-        this.toastr.success(`${result.data.fullname} has been deleted`, 'Success', {
+        this.toastr.success(`${result.data.name} has been deleted`, 'Success', {
           timeOut: 3000,
         });
         this._fetchData()

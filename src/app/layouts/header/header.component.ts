@@ -37,14 +37,7 @@ export class HeaderComponent implements OnInit {
   constructor(@Inject(DOCUMENT) private document: Document, private onSharedService: SharedService, private toastr: ToastrService, private router: Router, private sseService: SseService) { }
 
   ngOnInit() {
-    this.sseService.getServerSentEvents().subscribe((message) => {
-      const resData = JSON.parse(message)
-      this.request = resData;
-      this.toastr.warning(` New order of  ${this.request.price} from ${this.request.customername}`, `Alert`, {
-        timeOut: 3000,
-      });
-      console.log(this.request.price)
-    });
+
     const currentUser = JSON.parse(localStorage.getItem('user')!);
 
     this.admin = currentUser.email
