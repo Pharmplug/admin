@@ -70,6 +70,15 @@ export class DrugDetailsComponent implements OnInit {
       });
       return; // exit function early
     }
+
+
+    if ( this.drugData['drugprice'].value===""||this.drugData['drugcategory'].value===""|| this.drugData['drugname'].value===""||this.drugData['drugid'].value===""|| this.drugData['drugdosageform'].value===""||  this.drugData['drugcompanyname'].value===""|| this.drugData['drugimageurl'].value===""|| this.drugData['drugproductcode'].value===""|| this.drugData['drugpacksize'].value==="") {
+      // Show error message if form is invalid
+      this.toastr.error('All fields must be provided', 'Error', {
+        timeOut: 3000,
+      });
+      return; // exit function early
+    }
     // Construct email address from form data and baseURL
     const data = {
       "price": this.drugData['drugprice'].value,
@@ -86,7 +95,7 @@ export class DrugDetailsComponent implements OnInit {
     // Create a new email object with email, password, role, and isActive properties
     const updateDrug = data
     console.log(data)
-    this.showLoadingButton=false
+    this.showLoadingButton = false
     // Call the addLoginAllowData method from the iamService with the newEmail object
     var result = await this.drugService.update(updateDrug)
 
@@ -94,7 +103,7 @@ export class DrugDetailsComponent implements OnInit {
     this.toastr.success(`${result['data']['productname']} has been updated`, 'Success', {
       timeOut: 3000,
     });
-    this.showLoadingButton=true
+    this.showLoadingButton = true
   }
 
 
