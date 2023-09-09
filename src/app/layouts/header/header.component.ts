@@ -42,16 +42,7 @@ export class HeaderComponent implements OnInit {
 
     this.admin = currentUser.email
     this.role = currentUser.role
-    this.username = currentUser.email.split("@")[0];
-    if (this.role === "0") {
-      this.role = "Admin"
-    } else if (this.role === "1") {
-      this.role = "Marketing"
-    } else if (this.role === "2") {
-      this.role = "Operations"
-    } else if (this.role === "3") {
-      this.role = "Super Admin"
-    }
+    console.log(this.role)
 
 
 

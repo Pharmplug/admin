@@ -35,7 +35,7 @@ export class AuthService {
     };
   
     try {
-      const res: any = await this.http.get(`${environment.baseUrl}all-admins`, { headers }).toPromise();
+      const res: any = await this.http.get(`${environment.baseUrl}admin/all-admins`, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error) {
@@ -50,7 +50,7 @@ export class AuthService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.baseUrl}login-admin`,payload, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}admin/login-admin`,payload, { headers }).toPromise();
       console.log(res); // You can directly log the response here
 
       if(res.data==='Admin not found') return{status:false,data: 'Admin not found'}

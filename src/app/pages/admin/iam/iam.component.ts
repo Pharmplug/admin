@@ -100,17 +100,14 @@ export class IamComponent implements OnInit {
         // Add your code for handling Type A here
         break;
       case '1':
-        selectedRole = "Marketing"
+        selectedRole = "Operations"
         // Add your code for handling Type B here
         break;
       case '2':
-        selectedRole = "Operations"
-        // Add your code for handling Type C here
-        break;
-      case '3':
         selectedRole = "Super Admin"
         // Add your code for handling Type C here
         break;
+      
       default:
         selectedRole = this.pickedUser.role
       // Add your code for handling unknown types here
@@ -334,7 +331,7 @@ export class IamComponent implements OnInit {
         // Add your code for handling Type A here
         break;
       case '1':
-        selectedRole = "Marketing"
+        selectedRole = "Operations"
         // Add your code for handling Type B here
         break;
       
@@ -372,7 +369,7 @@ export class IamComponent implements OnInit {
       .then((value) => {
 
         // Show success message if admin is added successfully
-        this.toastr.success(`${value.data.fullname} has been added as ${value.data.role}`, `Success `, {
+        this.toastr.success(`${value.data.name} has been added with role ${value.data.role}`, `Success `, {
           timeOut: 3000,
         });
         // Reset the form after the success message is shown
