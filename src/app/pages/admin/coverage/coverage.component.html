@@ -60,22 +60,9 @@
                       >
                         Registered Date <i class="bi bi-chevron-expand"></i>
                       </th>
-                      <th scope="col" class="text-center">First Name</th>
-                      <th scope="col" class="text-center">Last Name</th>
-                      <th
-                        scope="col"
-                        class="text-center"
-                       
-                      >
-                        Email <i class="bi bi-chevron-expand"></i>
-                      </th>
-                      <th
-                        scope="col"
-                        class="text-center"
-                       
-                      >
-                        Phone
-                      </th>
+                      <th scope="col" class="text-center">City</th>
+                      <th scope="col" class="text-center">State</th>
+                    
                    
                       <th
                         scope="col"
@@ -91,7 +78,7 @@
                     <tr
                       style="cursor: pointer"
                       onclick="viewUser()"
-                      *ngFor="let user of filteredUsersList; let i = index"
+                      *ngFor="let user of filteredAreaList; let i = index"
                       (click)="showInfo(user)"
                     >
                       <td class="table-body text-center">
@@ -99,12 +86,11 @@
                       </td>
                       <td class="user-photo text-center">
                         <img
-                          class="rounded-circle"
-                          src="assets/img/admin.png"
+                          class="imgIcon"
+                          src="assets/img/route.png"
                           alt=""
                         />
                       </td>
-
                       <td class="table-body text-center">
                         {{
                           user.created_at
@@ -112,24 +98,25 @@
                         }}
                       </td>
                       <td class="table-body text-center">
-                        {{ user.firstName }}
+                        {{ user.id }}
                       </td>
                       <td class="table-body text-center">
-                        {{ user.lastName }}
+                        {{ user.city }}
                       </td>
-                      <td class="table-body text-center">{{isEmail( user.email)}}</td>
-                      <td class="table-body text-center">{{ isPhoneNumber( user.phone)}}</td>
+                      <td class="table-body text-center">
+                        {{ user.state}}
+                      </td>
                     
                       <td class="table-body text-center">
                         <span
                           class="badge {{
-                            user.status
+                            user.isactive
                               ? 'status-verified'
                               : 'status-invalid'
                           }}"
                         >
                           {{
-                            user.status ? "Verified" : "Not Verified"
+                            user.isactive? "Verified" : "Not Verified"
                           }}
                         </span>
                       </td>

@@ -14,6 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 import PharmacyModel from 'src/app/models/wallets.model';
 import Customer from 'src/app/models/user.model';
 import { UserService } from '../customers/customers.service';
+import { CoverageService } from './coverage.service';
+import CoverageModel from 'src/app/models/coverage.model';
 
 @Component({
   selector: 'app-pages-transactions',
@@ -24,8 +26,8 @@ export class CoverageComponent implements OnInit {
   @ViewChild(MatSort)
 
 
-  usersList: Customer[] = [];
-  filteredUsersList: Customer[] = [];
+  areaList: CoverageModel[] = [];
+  filteredAreaList: CoverageModel[] = [];
   searchTerm = '';
   page: number = 1;
   count: number = 0;
@@ -34,7 +36,7 @@ export class CoverageComponent implements OnInit {
   showLoginButton: boolean = true;
   storeForm!: FormGroup;
   constructor(public dialog: Dialog,
-    public router: Router, public http: HttpClient,private toastr: ToastrService, private pharmService:UserService,private formBuilder: FormBuilder,) {
+    public router: Router, public http: HttpClient,private toastr: ToastrService, private coverageService:CoverageService,private formBuilder: FormBuilder,) {
 
 
   }
@@ -66,10 +68,10 @@ export class CoverageComponent implements OnInit {
   // This function fetches all the data from the collection and subscribes to the changes
   _fetchData() {
 
-    this.pharmService.getUsers()
+    this.coverageService.getAll()
       .then((result) => {
-        this.usersList = result 
-        this.filteredUsersList =result 
+        this.areaList = result 
+        this.filteredAreaList =result 
       })
 
 
@@ -81,17 +83,17 @@ export class CoverageComponent implements OnInit {
    */
   searchUsers() {
     if (this.searchTerm.trim() !== '') {
-      const mitems =  this.filteredUsersList!.filter((item) =>
-        (item.firstName && item.firstName.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
-        (item.firstName && item.firstName.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+      const mitems =  this.filteredAreaList!.filter((item) =>
+        (item.city && item.city.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
+        (item.state && item.state.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
         (item.created_at && item.created_at.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (item.lastName && item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (item.lastName && item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
+  
+        (item.id && item.id.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
       );
-       this.filteredUsersList = mitems
+       this.filteredAreaList = mitems
     } else {
       // Reset the items array when the search term is empty
-       this.filteredUsersList=this.usersList
+       this.filteredAreaList=this.areaList
     }
   }
 
@@ -137,17 +139,17 @@ export class CoverageComponent implements OnInit {
   }
 
   onTableDataChange(event: any) {
-    // this.filteredUsersList= []
+    // this.filteredareaList= []
     this.page = event;
    // this._fetchData()
-     this.filteredUsersList
+     this.filteredAreaList
   }
 
   onTableSizeChange(event: any) {
     this.tableSize = event?.target.value;
     this.page = 1;
    // this._fetchData()
-     this.filteredUsersList
+     this.filteredAreaList
   }
 
   get itemData() { return this.storeForm.controls; }

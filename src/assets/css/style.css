@@ -1388,7 +1388,14 @@ h6 {
 	box-shadow: 0 0 10px rgba(209, 248, 209, 0.5);
 	/* Gives a soft green shadow */
 }
-
+.imgIcon {
+	transform: scale(1.1);
+	border-radius: 5%;
+	font-size: 20px;
+	/* Makes the image round */
+	box-shadow: 0 0 10px rgba(209, 248, 209, 0.5);
+	/* Gives a soft green shadow */
+}
 .kyc-info {
 	font-size: 20px;
 	font-weight: 600;
