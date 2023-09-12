@@ -1,6 +1,7 @@
 export default class Recipient {
   id: number=0;
-  customername: string='';
+  name: string='';
+  surname: string='';
   phone: string='';
   items: any={};
   customerlocation: string='';

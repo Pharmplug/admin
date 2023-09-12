@@ -5,7 +5,7 @@ import { map } from 'rxjs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const currencySymbol = require('currency-symbol');
 
-import { UserService } from './payments.service';
+import { PaymentService} from './payments.service';
 
 import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
@@ -14,18 +14,20 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import PharmacyModel from 'src/app/models/wallets.model';
 import Customer from 'src/app/models/user.model';
+import Purchase from 'src/app/models/payment.model';
+import PurchaseModel from 'src/app/models/payment.model';
 
 @Component({
   selector: 'app-pages-transactions',
   templateUrl: './payments.component.html',
-  providers: [UserService]
+  providers: [PaymentService]
 })
 export class PaymentsComponent implements OnInit {
   @ViewChild(MatSort)
 
 
-  usersList: Customer[] = [];
-  filteredUsersList: Customer[] = [];
+  paymentList: PurchaseModel[] = [];
+  filteredPaymentList: PurchaseModel[] = [];
   searchTerm = '';
   page: number = 1;
   count: number = 0;
@@ -34,7 +36,7 @@ export class PaymentsComponent implements OnInit {
   showLoginButton: boolean = true;
   storeForm!: FormGroup;
   constructor(public dialog: Dialog,
-    public router: Router, public http: HttpClient,private toastr: ToastrService, private pharmService:UserService,private formBuilder: FormBuilder,) {
+    public router: Router, public http: HttpClient,private toastr: ToastrService, private paymentService:PaymentService,private formBuilder: FormBuilder,) {
 
 
   }
@@ -66,10 +68,10 @@ export class PaymentsComponent implements OnInit {
   // This function fetches all the data from the collection and subscribes to the changes
   _fetchData() {
 
-    this.pharmService.getUsers()
+    this. paymentService.getPayments()
       .then((result) => {
-        this.usersList = result 
-        this.filteredUsersList =result 
+        this.paymentList = result 
+        this.filteredPaymentList =result 
       })
 
 
@@ -81,17 +83,17 @@ export class PaymentsComponent implements OnInit {
    */
   searchUsers() {
     if (this.searchTerm.trim() !== '') {
-      const mitems =  this.filteredUsersList!.filter((item) =>
-        (item.firstName && item.firstName.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
-        (item.firstName && item.firstName.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+      const mitems =  this.filteredPaymentList!.filter((item) =>
+        (item.reference && item.reference.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
+        (item.customercode && item.customercode.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
         (item.created_at && item.created_at.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (item.lastName && item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (item.lastName && item.lastName.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
+        (item.currency && item.currency.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
+        (item.amount && item.amount.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
       );
-       this.filteredUsersList = mitems
+       this.filteredPaymentList = mitems
     } else {
       // Reset the items array when the search term is empty
-       this.filteredUsersList=this.usersList
+       this.filteredPaymentList=this.paymentList
     }
   }
 
@@ -137,24 +139,27 @@ export class PaymentsComponent implements OnInit {
   }
 
   onTableDataChange(event: any) {
-    // this.filteredUsersList= []
+    // this.filteredpaymentList= []
     this.page = event;
    // this._fetchData()
-     this.filteredUsersList
+     this.filteredPaymentList
   }
 
   onTableSizeChange(event: any) {
     this.tableSize = event?.target.value;
     this.page = 1;
    // this._fetchData()
-     this.filteredUsersList
+     this.filteredPaymentList
   }
 
   get itemData() { return this.storeForm.controls; }
 
 
-
-
+convertToInt(value:any)
+{
+ const res= parseInt(value)/100
+ return res.toString()
+}
   onSubmit() {
     this.showLoginButton = false;
     // Check if the form is invalid
@@ -198,7 +203,7 @@ export class PaymentsComponent implements OnInit {
 };
 
     // Call the addLoginAllowData method from the iamService with the newEmail object
-    // this.pharmService.additem(newitem)
+    // this. paymentService.additem(newitem)
     //   .then((value) => {
 
     //     // Show success message if admin is added successfully

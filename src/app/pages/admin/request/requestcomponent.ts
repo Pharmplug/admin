@@ -89,10 +89,10 @@ export class RequestComponent implements OnInit {
       this.filteredRequest = [];
       console.log(type);
       this.filteredRequest = this.requestUpdate;
-    } else if (type === 'pending' || type === 'new') {
+    } else if (type === 'pending') {
       console.log(type);
       this.filteredRequest = this.requestUpdate.filter(request =>
-        request.status.toLowerCase() === 'new' || request.status.toLowerCase() === 'pending'
+        request.status.toLowerCase() === 'pending'
       );
     } else if (type === 'ready') {
       console.log(type);

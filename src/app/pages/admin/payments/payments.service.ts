@@ -4,7 +4,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class PaymentService {
   private dbPath = '/transactions';
 
 
@@ -12,14 +12,14 @@ export class UserService {
   constructor(public http: HttpClient,) {
   
   }
-  async getUsers(): Promise<any> {
+  async getPayments(): Promise<any> {
     const headers = {
       'Content-Type': 'application/json',
     };
   
     try {
-      const res: any = await this.http.get(`${environment.baseUrl}users/get-users`, { headers }).toPromise();
-      console.log(res); // You can directly log the response here
+      const res: any = await this.http.get(`${environment.baseUrl}payments/get-all`, { headers }).toPromise();
+      console.log(res['data']); // You can directly log the response here
       return res['data']
     } catch (error) {
       console.error(error);
@@ -27,44 +27,8 @@ export class UserService {
     }
   }
 
-  async update(payload: any): Promise<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
   
-    try {
-      const res: any = await this.http.put(`${environment.baseUrl}update-one-product`, payload, { headers }).toPromise();
-      console.log(res); // You can directly log the response here
-      return res; // Return the response
-    } catch (error:any) {
-      console.error(error);
-      return error['error']['message']; // Rethrow the error to be caught by the caller
-    }
-  }
-  
-  
-  async addDrug(payload: any): Promise<any> {
-    const headers = {
-      'Content-Type': 'application/json',
-    };
-  
-    try {
-      const res: any = await this.http.post(`${environment.baseUrl}add-product`, payload, { headers }).toPromise();
-      
-      if (typeof res.data === 'object') {
-        console.log({status:true,data: res.data})
-        return{status:true,data: res.data}
-      } else  {
-        console.log({status:false,data: res.data})
-        return{status:false,data: res.data}
-      } 
-   
-    } catch (error) {
-      console.error('Error:', error);
-      return{status:false,data: error}
-    }
-  }
-  
+
 
   delete(id: string) {
   

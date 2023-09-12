@@ -56,7 +56,8 @@ export class RequestInfoComponent implements OnInit {
 
     this.updateRequestForm = this.formBuilder.group({
       status: this.pickedUser.status,
-      customername: this.pickedUser.customername,
+      name: this.pickedUser.name,
+      surname: this.pickedUser.surname,
       phone: this.pickedUser.phone,
       items: this.pickedUser.items,
       price: this.pickedUser.price,
@@ -84,20 +85,18 @@ export class RequestInfoComponent implements OnInit {
 
     let getStatus = this.requestData['status'].value
     switch (parseInt(this.requestData['status'].value)) {
+     
       case 0:
-        getStatus = "new";
-        break;
-      case 1:
         getStatus = "pending";
         break;
-      case 2:
+      case 1:
         getStatus = "ready";
         break;
-      case 3:
+      case 2:
         getStatus = "delivered";
         break;
       default:
-        getStatus = "new";
+        getStatus = "pending";
     }
     const data = {
 

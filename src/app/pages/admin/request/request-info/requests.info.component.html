@@ -1,16 +1,16 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>
-      {{ userRequestInfo.customername.toString() }}
+      {{ userRequestInfo.name.toString() }}  {{ userRequestInfo.surname.toString() }}
       {{ userRequestInfo.status }} Details
     </h1>
     <nav>
       <ol style="cursor: pointer" class="breadcrumb">
         <li class="breadcrumb-item">
-          <a routerLink="/admin/request">Request Details</a>
+          <a routerLink="/admin/requests">Request Details</a>
         </li>
         <li class="breadcrumb-item active">
-          {{ userRequestInfo.customername.toLowerCase() }}
+          {{ userRequestInfo.name.toLowerCase() }}
         </li>
       </ol>
     </nav>
@@ -28,11 +28,11 @@
               <ol class="breadcrumb userDetails">
                 <li class="breadcrumb-item">
                   {{
-                    userRequestInfo.customername
+                    userRequestInfo.name
                       .toString()
                       .charAt(0)
                       .toUpperCase()
-                  }}{{ userRequestInfo.customername.slice(1).toLowerCase() }}
+                  }}{{ userRequestInfo.name.slice(1).toLowerCase() }}
                 </li>
               </ol>
             </nav>
@@ -56,7 +56,7 @@
               <div class="col-lg-3 col-md-4 label">Email:</div>
               <ol class="breadcrumb userDetails">
                 <li class="breadcrumb-item">
-                  {{ userRequestInfo.customername }}
+                  {{ userRequestInfo.name }}
                 </li>
               </ol>
             </nav>
@@ -120,10 +120,11 @@
                         aria-label="Floating label select example"
                         formControlName=status
                       >
-                        <option value="0" selected>New</option>
-                        <option value="1">In-progress</option>
-                        <option value="2">Ready</option>
-                        <option value="3">Delivered</option>
+                      
+                        <option value="0">In-progress</option>
+                        <option value="1">Ready</option>
+                        <option value="2">Delivered</option>
+                        <option value="3" disabled>{{userRequestInfo.status}}</option>
                       </select>
                     </div>
                     <div class="row mb-3 mt-4">

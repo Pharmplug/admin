@@ -212,6 +212,7 @@
                     <div class="col-12">
                       <div class="card recent-sales overflow-auto">
                         <div class="card-body">
+                         
                           <table class="table table-borderless">
                             <thead>
                               <tr>
@@ -268,7 +269,9 @@
                                   title="view request details"
                                 >
                                   <a class="text-primary">{{
-                                    request.customername
+                                    request.name
+                                  }}</a> <a class="text-primary">{{
+                                    request.surname
                                   }}</a>
                                 </td>
                                 <td
@@ -319,6 +322,13 @@
                               </tr>
                             </tbody>
                           </table>
+                          <li
+                          *ngIf="filteredRequest.length === 0"
+                          class="list-group-item text-center"
+                        >
+                          <i class="bi bi-exclamation-circle"></i> No request
+                          found yet
+                        </li>
                           <!-- <div
                           *ngIf="filteredRequest.length === 0"
                           class="flex items-center justify-center h-full"

@@ -9,7 +9,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search customers"
+            placeholder="Search customer payments"
             aria-label="Search customers"
             (input)="searchUsers()"
             [(ngModel)]="searchTerm"
@@ -45,36 +45,29 @@
                       >
                         s/n <i class="bi bi-chevron-expand"></i>
                       </th>
-                      <th
-                        scope="col"
-                        class="text-center"
-                       
-                      >
-                        Preview
-                      </th>
+                     
 
                       <th
                         scope="col"
                         class="text-center"
                        
                       >
-                        Registered Date <i class="bi bi-chevron-expand"></i>
+                         Date <i class="bi bi-chevron-expand"></i>
                       </th>
-                      <th scope="col" class="text-center">First Name</th>
-                      <th scope="col" class="text-center">Last Name</th>
+                     
                       <th
                         scope="col"
                         class="text-center"
                        
                       >
-                        Email <i class="bi bi-chevron-expand"></i>
+                        Customer ID <i class="bi bi-chevron-expand"></i>
                       </th>
                       <th
                         scope="col"
                         class="text-center"
                        
                       >
-                        Phone
+                        Currency
                       </th>
                    
                       <th
@@ -82,7 +75,21 @@
                         class="text-center"
                        
                       >
-                        Status <i class="bi bi-chevron-expand"></i>
+                       Amount <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                       Transaction Date <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                       Status <i class="bi bi-chevron-expand"></i>
                       </th>
                      
                     </tr>
@@ -91,45 +98,43 @@
                     <tr
                       style="cursor: pointer"
                       onclick="viewUser()"
-                      *ngFor="let user of filteredUsersList; let i = index"
-                      (click)="showInfo(user)"
+                      *ngFor="let item of filteredPaymentList; let i = index"
+                      (click)="showInfo(item)"
                     >
                       <td class="table-body text-center">
                         {{ i + 1 }}
                       </td>
-                      <td class="user-photo text-center">
-                        <img
-                          class="rounded-circle"
-                          src="assets/img/admin.png"
-                          alt=""
-                        />
-                      </td>
+                    
 
                       <td class="table-body text-center">
                         {{
-                          user.created_at
+                          item.created_at
                             | date : "dd-MMMM-yyyy h:mm:ss a"
                         }}
                       </td>
                       <td class="table-body text-center">
-                        {{ user.firstName }}
+                        {{ item.customercode }}
                       </td>
+                      <td class="table-body text-center">{{ item.currency}}</td>
+                      <td class="table-body text-center">{{convertToInt(item.amount) | currency:'NGN':'symbol-narrow'}}</td>
+                     
                       <td class="table-body text-center">
-                        {{ user.lastName }}
+                        {{
+                          item.transaction_date
+                            | date : "dd-MMMM-yyyy h:mm:ss a"
+                        }}
                       </td>
-                      <td class="table-body text-center">{{isEmail( user.email)}}</td>
-                      <td class="table-body text-center">{{ isPhoneNumber( user.phone)}}</td>
                     
                       <td class="table-body text-center">
                         <span
                           class="badge {{
-                            user.status
+                            item.status
                               ? 'status-verified'
                               : 'status-invalid'
                           }}"
                         >
                           {{
-                            user.status ? "Verified" : "Not Verified"
+                            item.status ? "Verified" : "Not Verified"
                           }}
                         </span>
                       </td>
@@ -137,7 +142,13 @@
                     </tr>
                   </tbody>
                 </table>
-
+                <li
+                *ngIf="filteredPaymentList.length === 0"
+                class="list-group-item text-center"
+              >
+                <i class="bi bi-exclamation-circle"></i> No payments
+                found yet
+              </li>
                 <div class="card-footer pb-0 pt-3">
                   <pagination-controls
                     previousLabel="Prev"
