@@ -1,8 +1,8 @@
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>
-      {{ userRequestInfo.name.toString() }}  {{ userRequestInfo.surname.toString() }}
-      {{ userRequestInfo.status }} Details
+      {{ userRequestInfo.name}}  {{ userRequestInfo.surname }}
+    
     </h1>
     <nav>
       <ol style="cursor: pointer" class="breadcrumb">
@@ -32,8 +32,13 @@
                       .toString()
                       .charAt(0)
                       .toUpperCase()
-                  }}{{ userRequestInfo.name.slice(1).toLowerCase() }}
-                </li>
+                  }}{{ userRequestInfo.name.slice(1).toLowerCase() }}     {{
+                    userRequestInfo.surname
+                      .toString()
+                      .charAt(0)
+                      .toUpperCase()
+                  }}{{ userRequestInfo.surname.slice(1).toLowerCase() }}
+                </li>   
               </ol>
             </nav>
             <nav style="color: #798eb3">
@@ -41,6 +46,14 @@
               <ol class="breadcrumb userDetails">
                 <li class="breadcrumb-item">
                   {{ userRequestInfo.customerlocation.toLowerCase() }}
+                </li>
+              </ol>
+            </nav>
+            <nav style="color: #798eb3">
+              <div class="col-lg-3 col-md-4 label">PickUp Location:</div>
+              <ol class="breadcrumb userDetails">
+                <li class="breadcrumb-item">
+                  {{ userRequestInfo.pickuplocation.toLowerCase() }}
                 </li>
               </ol>
             </nav>
@@ -64,7 +77,7 @@
               <div class="col-lg-3 col-md-4 label">Customer ID:</div>
               <ol class="breadcrumb userDetails">
                 <li class="breadcrumb-item">
-                  {{ userRequestInfo.id }}
+                  {{ userRequestInfo.customercode }}
                 </li>
               </ol>
             </nav>

@@ -10,5 +10,9 @@ export default class Recipient {
   status: string='';
   created_at:string='';
   ref:string='';
+  customercode: string='';
+  pickuplocation:string='';
+  state:string='';
+  city:string='';
   }
   

@@ -5,9 +5,6 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PaymentService {
-  private dbPath = '/transactions';
-
-
 
   constructor(public http: HttpClient,) {
   
