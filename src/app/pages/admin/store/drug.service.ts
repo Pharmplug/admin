@@ -20,7 +20,7 @@ export class DrugService {
     };
   
     try {
-      const res: any = await this.http.get(`${environment.baseUrl}get-all-products-without-limit`, { headers }).toPromise();
+      const res: any = await this.http.get(`${environment.baseUrl}store/get-all-products-without-limit`, { headers }).toPromise();
       console.log(res['products']); // You can directly log the response here
       return res['products']
     } catch (error) {
@@ -35,7 +35,7 @@ export class DrugService {
     };
   
     try {
-      const res: any = await this.http.put(`${environment.baseUrl}update-one-product`, payload, { headers }).toPromise();
+      const res: any = await this.http.put(`${environment.baseUrl}store/update-one-product`, payload, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error:any) {
@@ -44,6 +44,20 @@ export class DrugService {
     }
   }
   
+  async deleteProduct(id: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const res: any = await this.http.post(`${environment.baseUrl}store/delete-product`, {"id":id}, { headers }).toPromise();
+      console.log(res); // You can directly log the response here
+      return res; // Return the response
+    } catch (error:any) {
+      console.error(error);
+      return error['error']['message']; // Rethrow the error to be caught by the caller
+    }
+  }
   
   async addDrug(payload: any): Promise<any> {
     const headers = {
@@ -51,7 +65,7 @@ export class DrugService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.baseUrl}add-product`, payload, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}store/add-product`, payload, { headers }).toPromise();
       
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})
@@ -68,7 +82,4 @@ export class DrugService {
   }
   
 
-  delete(id: string) {
-  
-  }
 }

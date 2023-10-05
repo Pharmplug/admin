@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { DrugService } from '../drug.service'
 import Drugs from 'src/app/models/drugs.model';
@@ -21,6 +21,7 @@ export class DrugDetailsComponent implements OnInit {
   updateDrugForm!: FormGroup;
   loginData!: any;
   showLoadingButton: boolean = true;
+  showLoadingDeleteButton: boolean = true;
   imageurl!: string;
   price!: string;
   category!: string;
@@ -30,7 +31,7 @@ export class DrugDetailsComponent implements OnInit {
   admin!: AdminModel
   pickedUser!: Drugs
   public showPassword: boolean = false;
-  constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private toastr: ToastrService, private drugService: DrugService) {
+  constructor(private route: ActivatedRoute, public router: Router, private formBuilder: FormBuilder, private toastr: ToastrService, private drugService: DrugService) {
     // initialize the filteredTransactions array with all transactions
 
 
@@ -109,8 +110,19 @@ export class DrugDetailsComponent implements OnInit {
 
 
   // This function deletes a user with the specified id
-  deleteUser() {
+  async deleteProduct() {
 
+    this.showLoadingDeleteButton = false
+    console.log(this.pickedUser.id)
+    // Call the addLoginAllowData method from the iamService with the newEmail object
+    var result= await this.drugService.deleteProduct(this.pickedUser.id)
+
+    console.log(result)
+    this.toastr.success(`${result['data']['productname']} has been deleted`, 'Success', {
+      timeOut: 3000,
+    });
+    this.showLoadingDeleteButton = true
+    this.router.navigate(['/admin/store']);
 
   }
 
@@ -144,9 +156,6 @@ export class DrugDetailsComponent implements OnInit {
 
 
   get drugData() { return this.updateDrugForm.controls; };
-
-
-
 
 
 }
