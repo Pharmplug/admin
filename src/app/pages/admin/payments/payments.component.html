@@ -97,9 +97,14 @@
                   <tbody>
                     <tr
                       style="cursor: pointer"
-                      onclick="viewUser()"
-                      *ngFor="let item of filteredPaymentList; let i = index"
-                      (click)="showInfo(item)"
+                      
+                      *ngFor="let item of filteredPaymentList | paginate
+                      : {
+                          itemsPerPage: tableSize,
+                          currentPage: page,
+                          totalItems: count
+                        }; let i = index"
+                      
                     >
                       <td class="table-body text-center">
                         {{ i + 1 }}
@@ -126,17 +131,19 @@
                       </td>
                     
                       <td class="table-body text-center">
+                       
                         <span
-                          class="badge {{
-                            item.status
-                              ? 'status-verified'
-                              : 'status-invalid'
-                          }}"
-                        >
-                          {{
-                            item.status ? "Verified" : "Not Verified"
-                          }}
-                        </span>
+                        class="badge"
+                        [ngClass]="{
+                          'status-verified':
+                            item.status === 'success',
+                          'status-invalid':
+                            item.status === 'abandoned'
+                        
+                        }"
+                      >
+                        {{ item.status }}
+                      </span>
                       </td>
 
                     </tr>
