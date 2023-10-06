@@ -12,6 +12,7 @@ import Recipient from 'src/app/models/request.model';
 import { SseService } from './request.sse';
 import { SharedService } from 'src/app/shared/shared_service';
 
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -32,7 +33,8 @@ export class HeaderComponent implements OnInit {
   totalLength: any
   requestUpdate: Recipient[] = [];
   request!: Recipient;
-
+  messages: string[] = [];
+  message: string = '';
 
   constructor(@Inject(DOCUMENT) private document: Document, private onSharedService: SharedService, private toastr: ToastrService, private router: Router, private sseService: SseService) { }
 
@@ -48,6 +50,9 @@ export class HeaderComponent implements OnInit {
 
 
   }
+
+
+
 
   // ngOnDestroy() {
   //   this.dashboardService.disconnect();

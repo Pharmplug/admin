@@ -25,8 +25,9 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
 import {  ReactiveFormsModule } from '@angular/forms';
-import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
-const config: SocketIoConfig = { url: `http://localhost:8988`, options: {} };
+
+
+
 
 
 
@@ -43,7 +44,6 @@ const config: SocketIoConfig = { url: `http://localhost:8988`, options: {} };
     AppRoutingModule,
     LayoutsModule,
     BrowserModule,
-    SocketIoModule.forRoot(config),
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,

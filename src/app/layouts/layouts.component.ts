@@ -1,4 +1,5 @@
 import { Component, OnInit,AfterViewInit } from '@angular/core';
+import { WebsocketService } from '../shared/websocket/listener.component';
 
 export const LAYOUT_VERTICAL = 'vertical';
 
@@ -10,18 +11,16 @@ export const LAYOUT_VERTICAL = 'vertical';
 export class LayoutsComponent implements OnInit,AfterViewInit {
 
 
-  constructor() { }
 
-  ngOnInit() {
-    // default settings
- 
-    // listen to event and change the layout, theme, etc
-    //this.eventService.subscribe('changeLayout', (layout) => {
-      //this.layoutType = layout;
-    //});
-  }
 
   ngAfterViewInit() {
   }
+  receivedMessages: string[] = [];
 
+  constructor(private websocketService: WebsocketService) {}
+
+  ngOnInit(): void {
+    this.websocketService.connect();
+  
+  }
 }

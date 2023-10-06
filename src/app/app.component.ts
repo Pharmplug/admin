@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AutoLogoutService } from './shared/autologout';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,7 +9,7 @@ import { AutoLogoutService } from './shared/autologout';
 })
 export class AppComponent implements OnInit, OnDestroy{
   title = 'admindashboard';
-  constructor(private elementRef: ElementRef,  public  _router: Router,private autoLogoutService: AutoLogoutService) { }
+  constructor(private elementRef: ElementRef,public  _router: Router,private autoLogoutService: AutoLogoutService) { }
 
   ngOnInit() {
 
@@ -26,4 +27,6 @@ export class AppComponent implements OnInit, OnDestroy{
      // Clean up the event listeners to avoid memory leaks
   this.autoLogoutService.removeEventListeners();
   }
+
+
 }
