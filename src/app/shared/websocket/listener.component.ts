@@ -29,7 +29,7 @@ export class WebsocketService {
           console.log('Data message received:', parsedMessage);
           this.toastr.warning(`New order ${parsedMessage['deliverytype']
         } order from ${parsedMessage['surname']
-          } of ${parsedMessage['price']} naira`, `Success `, {
+          } of ${parsedMessage['price']} naira`, `New Order Alert`, {
             timeOut: 15000,
           });
 
