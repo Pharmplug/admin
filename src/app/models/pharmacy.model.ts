@@ -7,4 +7,6 @@ export default class PharmacyModel {
     name : string = "";
     state : string = "";
     status : boolean = false
+    lat:string=""
+    lng:string=""
 }

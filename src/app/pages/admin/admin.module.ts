@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomerDetailsComponent } from './customers/customer-details/details-customer.component';
-import { UserOutflowComponent } from './outflow/user-outflow.transaction/user.outflow.transaction.component';
+
 import { PagesBlankComponent } from './pages-blank/pages-blank.component';
 import { PagesError404Component } from './pages-error404/pages-error404.component';
 import { StoreComponent } from './store/store.component';
@@ -25,6 +25,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { CoverageComponent } from './coverage/coverage.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { PharmDetailsComponent } from './pharmacy/pharmacy-details/pharm.details.component';
 
 
 
@@ -45,11 +46,11 @@ import { PaymentsComponent } from './payments/payments.component';
     RequestComponent,
     DrugDetailsComponent,
     IamComponent,
-    UserOutflowComponent,
     Base64Pipe,
     PharmacyComponent,
     CoverageComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    PharmDetailsComponent
    
  
 

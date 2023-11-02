@@ -12,7 +12,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import PharmacyModel from 'src/app/models/wallets.model';
+import PharmacyModel from 'src/app/models/pharmacy.model';
 
 @Component({
   selector: 'app-pages-transactions',
@@ -105,7 +105,7 @@ export class PharmacyComponent implements OnInit {
       // Stringify selected user 
       const stringifieditem = JSON.stringify(selecteditem);
       // route to customer details screen and pass stringified user as arguement
-      this.router.navigate(['/admin/pharmacy-details', { itemInfo: stringifieditem }]);
+      this.router.navigate(['/admin/pharmacy-details', { pharmInfo: stringifieditem }]);
     
   }
 

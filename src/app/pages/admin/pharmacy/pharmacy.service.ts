@@ -35,7 +35,7 @@ export class PharmService {
     };
   
     try {
-      const res: any = await this.http.put(`${environment.baseUrl}update-one-product`, payload, { headers }).toPromise();
+      const res: any = await this.http.put(`${environment.baseUrl}pharmacy/update`, payload, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error:any) {
@@ -51,7 +51,7 @@ export class PharmService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.baseUrl}add-product`, payload, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}pharmacy/add-pharmacy`, payload, { headers }).toPromise();
       
       if (typeof res.data === 'object') {
         console.log({status:true,data: res.data})
@@ -68,7 +68,18 @@ export class PharmService {
   }
   
 
-  delete(id: string) {
+  async deletePharmacy(id: any): Promise<any> {
+    const headers = {
+      'Content-Type': 'application/json',
+    };
   
+    try {
+      const res: any = await this.http.post(`${environment.localhost}pharmacy/delete-pharmacy`, {"id":id}, { headers }).toPromise();
+      console.log(res); // You can directly log the response here
+      return res; // Return the response
+    } catch (error:any) {
+      console.error(error);
+      return error['error']['message']; // Rethrow the error to be caught by the caller
+    }
   }
 }

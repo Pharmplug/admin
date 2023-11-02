@@ -8,9 +8,8 @@ import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { StoreComponent } from './store/store.component';
 import { CustomersComponent } from './customers/customers.component';
 import { RequestComponent } from './request/requestcomponent';
-import { OutflowComponent } from './outflow/outflow.transaction.component';
 import { RequestInfoComponent } from './request/request-info/requests.info.component';
-import { UserOutflowComponent } from './outflow/user-outflow.transaction/user.outflow.transaction.component';
+
 import {DrugDetailsComponent } from './store/drug-store/drug.store.component';
 import { IamComponent } from './iam/iam.component';
 import { AuthGuard } from 'src/app/auth.guard';
@@ -21,6 +20,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { IAMAccessGuard } from 'src/app/iam-control.guard';
 import { AdminAccessGuard } from 'src/app/admin-control.guard';
 import { OperationsAccessGuard } from 'src/app/operations-control.guard';
+import { PharmDetailsComponent } from './pharmacy/pharmacy-details/pharm.details.component';
 
 
 
@@ -30,7 +30,7 @@ const routes: Routes = [
   { path: 'customer-details',component: CustomerDetailsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
   { path: 'store', component: StoreComponent,  canActivate: [AuthGuard,AdminAccessGuard]},
   { path: 'drug-details', component: DrugDetailsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
-  { path: 'pharmacy-details', component: DrugDetailsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
+  { path: 'pharmacy-details', component: PharmDetailsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
   { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard,AdminAccessGuard] },
   { path: 'requests', component: RequestComponent, canActivate: [AuthGuard,OperationsAccessGuard]},
   { path: 'pharmacies', component: PharmacyComponent, canActivate: [AuthGuard,AdminAccessGuard]},
@@ -38,8 +38,6 @@ const routes: Routes = [
   { path: 'settings-iam', component: IamComponent, canActivate: [AuthGuard,IAMAccessGuard]},
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard,AdminAccessGuard]},
   { path: 'coverage', component: CoverageComponent, canActivate: [AuthGuard,AdminAccessGuard]},
-  { path: 'outflow', component: OutflowComponent,canActivate: [AuthGuard,AdminAccessGuard]},
-  { path: 'user-outflow-transaction', component: UserOutflowComponent,canActivate: [AuthGuard,AdminAccessGuard]},
   { path: 'error404', component: PagesError404Component },
   { path: 'blank', component: PagesBlankComponent },
   { path: 'user-profile', component: UsersProfileComponent, canActivate: [AuthGuard,AdminAccessGuard]},

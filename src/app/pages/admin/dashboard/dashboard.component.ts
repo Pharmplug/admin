@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import Ach from 'src/app/models/ach.model';
 import { UserService } from '../customers/customers.service';
 import Customer from 'src/app/models/user.model';
 import { Router } from '@angular/router';
@@ -85,43 +84,6 @@ user_count: number = 0;
     return formattedValue
   }
 
-  getUserTransactions(transactions: Ach[]) {
-    const userTransactions: { [name: string]: UserTransaction } = {};
-
-    transactions.forEach((transaction) => {
-      if (!userTransactions[transaction.firstName]) {
-        userTransactions[transaction.firstName] = { firstName: transaction.firstName, lastName: transaction.lastName, deposit: 0, withdraw: 0 };
-      }
-      if (transaction.transition_type === 'deposit') {
-        userTransactions[transaction.firstName].deposit += transaction.amount_net;
-      } else {
-        userTransactions[transaction.firstName].withdraw += transaction.amount_net;
-      }
-    });
-
-    const result: UserTransactionWithAverage[] = [];
-
-    for (let user in userTransactions) {
-      const userTransaction = userTransactions[user];
-      const average = (userTransaction.deposit - userTransaction.withdraw) / 2;
-
-      // Push the formatted values to the result array
-      result.push({ firstName: userTransaction.firstName, lastName: userTransaction.lastName, deposit: `$${userTransaction.deposit.toFixed(2)}`, withdraw: `$${userTransaction.withdraw.toFixed(2)}`, average: `$${average.toFixed(2)}` });
-    }
-
-    // Sort the result array based on deposit amount in descending order
-    result.sort((a, b) => {
-      if (a.deposit < b.deposit) {
-        return 1; // Return 1 to indicate a should come after b
-      }
-      if (a.deposit > b.deposit) {
-        return -1; // Return -1 to indicate a should come before b
-      }
-      return 0; // Return 0 for equal deposit amounts
-    });
-
-    this.topTransactions = result;
-  }
 
 
   async _fetchRequest() {

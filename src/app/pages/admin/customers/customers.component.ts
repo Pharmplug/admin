@@ -12,7 +12,7 @@ import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import PharmacyModel from 'src/app/models/wallets.model';
+import PharmacyModel from 'src/app/models/pharmacy.model';
 import Customer from 'src/app/models/user.model';
 
 @Component({

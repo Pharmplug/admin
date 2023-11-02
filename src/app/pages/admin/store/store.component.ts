@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 const currencySymbol = require('currency-symbol');
-import Transaction from "../../../models/transaction.model"
+
 import { DrugService } from './drug.service';
 import { PdfGeneratorService } from 'src/app/shared/pdf-generate/pdf-generator.service';
 import jsPDF from 'jspdf';
