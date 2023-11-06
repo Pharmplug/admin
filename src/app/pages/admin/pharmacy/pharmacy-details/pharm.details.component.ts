@@ -20,7 +20,7 @@ export class PharmDetailsComponent implements OnInit {
   pharmInfo!: PharmacyModel;
   updatePharmForm!: FormGroup;
   loginData!: any;
- 
+
   imageurl!: string;
   price!: string;
   category!: string;
@@ -101,16 +101,15 @@ export class PharmDetailsComponent implements OnInit {
   // This function deletes a user with the specified id
   async deleteProduct() {
 
-
     console.log(this.pickedPharm.id)
     // Call the addLoginAllowData method from the iamService with the newEmail object
-    var result= await this.pharmService.deletePharmacy(this.pickedPharm.id)
+    var result = await this.pharmService.deletePharmacy(this.pickedPharm.id)
 
     console.log(result)
     this.toastr.success(`${result['data']['name']} has been deleted`, 'Success', {
       timeOut: 3000,
     });
-  
+
     this.router.navigate(['/admin/pharmacies']);
 
   }
