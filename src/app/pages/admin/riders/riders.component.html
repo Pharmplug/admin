@@ -1,0 +1,157 @@
+<main id="main" class="main">
+  <div class="pagetitle">
+    <div class="row">
+      <div class="col">
+        <h1>Riders</h1>
+      </div>
+      <div class="col search-trans">
+        <div class="input-group mb-0">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search customers"
+            aria-label="Search customers"
+            (input)="searchUsers()"
+            [(ngModel)]="searchTerm"
+          />
+          <div
+            class="text-center text-primary"
+            style="margin-top: 10px; margin-right: 15px"
+          >
+            <i class="bi bi-search"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section dashboard">
+    <div class="row">
+      <div class="col-lg-0">
+        <div class="row">
+          <div class="col-xxl-8 col-md-5"></div>
+
+          <div class="col-12">
+            <div class="card top-selling overflow-auto">
+              <div class="card-body pb-0">
+                <h5 class="card-title"><span></span></h5>
+                <table class="table table-borderless">
+                  <thead>
+                    <tr style="cursor: pointer">
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                        s/n <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                        Preview
+                      </th>
+
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                        Registered Date <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th scope="col" class="text-center">First Name</th>
+                      <th scope="col" class="text-center">Last Name</th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                        Email <i class="bi bi-chevron-expand"></i>
+                      </th>
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                        Phone
+                      </th>
+                   
+                      <th
+                        scope="col"
+                        class="text-center"
+                       
+                      >
+                        Status <i class="bi bi-chevron-expand"></i>
+                      </th>
+                     
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      style="cursor: pointer"
+                      onclick="viewUser()"
+                      *ngFor="let user of filteredUsersList; let i = index"
+                      (click)="showInfo(user)"
+                    >
+                      <td class="table-body text-center">
+                        {{ i + 1 }}
+                      </td>
+                      <td class="user-photo text-center">
+                        <img
+                          class="rounded-circle"
+                          src="assets/img/admin.png"
+                          alt=""
+                        />
+                      </td>
+
+                      <td class="table-body text-center">
+                        {{
+                          user.created_at
+                            | date : "dd-MMMM-yyyy h:mm:ss a"
+                        }}
+                      </td>
+                      <td class="table-body text-center">
+                        {{ user.firstName }}
+                      </td>
+                      <td class="table-body text-center">
+                        {{ user.lastName }}
+                      </td>
+                      <td class="table-body text-center">{{isEmail( user.email)}}</td>
+                      <td class="table-body text-center">{{ isPhoneNumber( user.phone)}}</td>
+                    
+                      <td class="table-body text-center">
+                        <span
+                          class="badge {{
+                            user.status
+                              ? 'status-verified'
+                              : 'status-invalid'
+                          }}"
+                        >
+                          {{
+                            user.status ? "Verified" : "Not Verified"
+                          }}
+                        </span>
+                      </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="card-footer pb-0 pt-3">
+                  <pagination-controls
+                    previousLabel="Prev"
+                    nextLabel="Next"
+                    (pageChange)="onTableDataChange($event)"
+                  >
+                  </pagination-controls>
+                </div>
+             
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>

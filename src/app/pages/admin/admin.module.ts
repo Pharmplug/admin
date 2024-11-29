@@ -26,6 +26,7 @@ import { PharmacyComponent } from './pharmacy/pharmacy.component';
 import { CoverageComponent } from './coverage/coverage.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { PharmDetailsComponent } from './pharmacy/pharmacy-details/pharm.details.component';
+import { RidersComponent } from './riders/riders.component';
 
 
 
@@ -50,7 +51,8 @@ import { PharmDetailsComponent } from './pharmacy/pharmacy-details/pharm.details
     PharmacyComponent,
     CoverageComponent,
     PaymentsComponent,
-    PharmDetailsComponent
+    PharmDetailsComponent,
+    RidersComponent
    
  
 

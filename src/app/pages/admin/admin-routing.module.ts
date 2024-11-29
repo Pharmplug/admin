@@ -21,6 +21,7 @@ import { IAMAccessGuard } from 'src/app/iam-control.guard';
 import { AdminAccessGuard } from 'src/app/admin-control.guard';
 import { OperationsAccessGuard } from 'src/app/operations-control.guard';
 import { PharmDetailsComponent } from './pharmacy/pharmacy-details/pharm.details.component';
+import { RidersComponent } from './riders/riders.component';
 
 
 
@@ -37,6 +38,7 @@ const routes: Routes = [
   { path: 'edit-request', component: RequestInfoComponent, canActivate: [AuthGuard,OperationsAccessGuard]},
   { path: 'settings-iam', component: IamComponent, canActivate: [AuthGuard,IAMAccessGuard]},
   { path: 'customers', component: CustomersComponent, canActivate: [AuthGuard,AdminAccessGuard]},
+  { path: 'riders', component: RidersComponent, canActivate: [AuthGuard,AdminAccessGuard]},
   { path: 'coverage', component: CoverageComponent, canActivate: [AuthGuard,AdminAccessGuard]},
   { path: 'error404', component: PagesError404Component },
   { path: 'blank', component: PagesBlankComponent },

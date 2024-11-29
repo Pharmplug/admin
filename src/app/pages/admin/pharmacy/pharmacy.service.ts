@@ -74,7 +74,7 @@ export class PharmService {
     };
   
     try {
-      const res: any = await this.http.post(`${environment.localhost}pharmacy/delete-pharmacy`, {"id":id}, { headers }).toPromise();
+      const res: any = await this.http.post(`${environment.baseUrl}pharmacy/delete-pharmacy`, {"id":id}, { headers }).toPromise();
       console.log(res); // You can directly log the response here
       return res; // Return the response
     } catch (error:any) {

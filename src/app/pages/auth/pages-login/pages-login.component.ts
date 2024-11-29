@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/pages/auth/auth-utils/authUtils';
 import { LoginAllow } from 'src/app/models/admin.model';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { TokenService } from 'src/app/shared/storage';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder,private tokenService: TokenService,
     private authService: AuthService, private toastr: ToastrService,
     public http: HttpClient
   ) { }
@@ -150,6 +151,8 @@ export class LoginComponent implements OnInit {
             // // Set user in local storage
             localStorage.setItem('user', JSON.stringify(result.data));
             localStorage.setItem('role', result.data.role);
+            console.log(result.data.token)
+            this.tokenService.setToken(result.data.token);
             console.log(localStorage.getItem('role'))
             // const currentUser = JSON.parse(localStorage.getItem('user')!);
             // Display success message and navigate to admin page
