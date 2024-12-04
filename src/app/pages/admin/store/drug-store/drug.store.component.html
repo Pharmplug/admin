@@ -5,7 +5,7 @@
       <ol style="cursor: pointer" class="breadcrumb">
         <li class="breadcrumb-item"><a routerLink="/admin/store">Store</a></li>
         <li class="breadcrumb-item active">
-          {{ drugInfo.productname.toLowerCase() }}
+          {{ drugInfo.product_name.toLowerCase() }}
           {{ drugInfo.category.toLowerCase() }}
         </li>
       </ol>
@@ -17,7 +17,7 @@
 
         <div class=" pt-8 d-flex flex-column align-items-center">
           <!-- Display image, or a placeholder image if imageUrl is null -->
-          <img [src]="pickedUser.imageurl? pickedUser.imageurl : 'assets/img/drug.png'" class="img" />
+          <img [src]="pickedUser.image_url? pickedUser.image_url : 'assets/img/drug.png'" class="img" />
 
           <div>...</div>
 

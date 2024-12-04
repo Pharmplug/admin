@@ -1,13 +1,11 @@
 
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {  Router } from '@angular/router';
+
 const currencySymbol = require('currency-symbol');
 
 import { DrugService } from './drug.service';
-import { PdfGeneratorService } from 'src/app/shared/pdf-generate/pdf-generator.service';
-import jsPDF from 'jspdf';
+
 import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
@@ -45,12 +43,12 @@ export class StoreComponent implements OnInit {
 
     this.storeForm = this.formBuilder.group({
       imageurl: [''],
-      productcode: [''],
+      productCode: [''],
       price: [''],
-      dosageform: [''],
-      companyname: [''],
+      dosageForm: [''],
+      companyName: [''],
       category: [''],
-      packsize: [''],productname: [''],
+      packSize: [''],productName: [''],
     });
   }
 
@@ -82,10 +80,10 @@ export class StoreComponent implements OnInit {
   searchDrug() {
     if (this.searchTerm.trim() !== '') {
       const mitems = this.filteredDrugsList!.filter((drug) =>
-        (drug.productname && drug.productname.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
+        (drug.product_name && drug.product_name.toLowerCase() .includes(this.searchTerm.toLowerCase() || this.searchTerm.toUpperCase())) ||
         (drug.price && drug.price.toString().toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
         (drug.created_at && drug.created_at.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase())) ||
-        (drug.companyname && drug.companyname.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
+        (drug.company_name && drug.company_name.toLowerCase().includes(this.searchTerm.toLowerCase()|| this.searchTerm.toUpperCase()))
       );
       this.filteredDrugsList = mitems
     } else {

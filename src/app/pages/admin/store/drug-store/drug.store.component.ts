@@ -141,15 +141,15 @@ export class DrugDetailsComponent implements OnInit {
     this.pickedUser = this.drugInfo
     console.log(this.pickedUser)
     this.updateDrugForm = this.formBuilder.group({
-      drugname: this.pickedUser.productname,
+      drugname: this.pickedUser.product_name,
       drugcategory: this.pickedUser.category,
       drugprice: this.pickedUser.price,
-      drugimageurl: this.pickedUser.imageurl,
-      drugdosageform: this.pickedUser.dosageform,
-      drugcompanyname: this.pickedUser.companyname,
+      drugimageurl: this.pickedUser.image_url,
+      drugdosageform: this.pickedUser.dosage_form,
+      drugcompanyname: this.pickedUser.company_name,
       drugid: this.pickedUser.id,
-      drugpacksize: this.pickedUser.packsize,
-      drugproductcode: this.pickedUser.productcode,
+      drugpacksize: this.pickedUser.pack_size,
+      drugproductcode: this.pickedUser.product_code,
     });
 
   }

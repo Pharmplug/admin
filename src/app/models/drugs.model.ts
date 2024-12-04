@@ -1,13 +1,14 @@
 export default class Drugs {
     category: string = "";
-    companyname: string = "";
+    company_name: string = "";
     created_at: string = "";
-    dosageform: string = "";
+    dosage_form: string = "";
     id: number = 101;
-    imageurl: string = "";
-    packsize: string = "";
+    image_url: string = "";
+    pack_size: string = "";
     price: number = 0;
-    productcode: string = "";
-    productname: string = "";
+    product_code: string = "";
+    pharmacy_code: string = "";
+    product_name: string = "";
   }
   
