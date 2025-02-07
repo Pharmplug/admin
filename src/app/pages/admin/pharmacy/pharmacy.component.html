@@ -272,10 +272,10 @@
               role="tabpanel"
               aria-labelledby="profile-tab"
             >
-              <div class="col-lg-6">
+              <div class="col-lg-8">
                 <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">General Form Elements</h5>
+                  <div class="card-body pt-3">
+              
                     <form
                       [formGroup]="storeForm"
                       class="needs-validation"
@@ -297,14 +297,28 @@
                       </div>
                       <div class="row mb-3">
                         <label for="inputText" class="col-sm-2 col-form-label"
-                          >Name</label
+                          >Email</label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            type="email"
+                            placeholder="Enter email"
+                            aria-label="staff name"
+                            formControlName="email"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label"
+                          >Pharmacy Name</label
                         >
                         <div class="col-sm-10">
                           <input
                             type="text"
-                            placeholder="Enter product name"
+                            placeholder="Enter pharmacy name"
                             aria-label="staff name"
-                            formControlName="productname"
+                            formControlName="name"
                             class="form-control"
                           />
                         </div>
@@ -330,9 +344,9 @@
                         <div class="col-sm-10">
                           <input
                             type="text"
-                            placeholder="Enter category name"
+                            placeholder="Enter city"
                             aria-label="staff name"
-                            formControlName="category"
+                            formControlName="city"
                             class="form-control"
                           />
                         </div>
@@ -344,9 +358,9 @@
                         <div class="col-sm-10">
                           <input
                             type="text"
-                            placeholder=" Enter company name"
+                            placeholder=" Enter state"
                             aria-label="staff name"
-                            formControlName="companyname"
+                            formControlName="state"
                             class="form-control"
                           />
                         </div>

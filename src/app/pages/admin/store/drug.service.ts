@@ -21,8 +21,8 @@ export class DrugService {
   
     try {
       const res: any = await this.http.get(`${environment.baseUrl}store/get-all-products-without-limit`, { headers }).toPromise();
-      console.log(res['products']); // You can directly log the response here
-      return res['products']
+      console.log(res['data']); // You can directly log the response here
+      return res['data']
     } catch (error) {
       console.error(error);
       throw error; // Rethrow the error to be caught by the caller

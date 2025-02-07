@@ -10,7 +10,6 @@ import { MatSort } from '@angular/material/sort';
 import { Dialog } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
 import Drugs from 'src/app/models/drugs.model';
-import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
