@@ -277,7 +277,7 @@
                   <div class="card-body pt-3">
               
                     <form
-                      [formGroup]="storeForm"
+                      [formGroup]="pharmacyForm"
                       class="needs-validation"
                       (ngSubmit)="onSubmit()"
                     >
@@ -325,14 +325,56 @@
                       </div>
                       <div class="row mb-3">
                         <label for="inputText" class="col-sm-2 col-form-label"
+                          >Pharmacy Phone</label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            type="number"
+                            placeholder="Enter phone"
+                            aria-label="phone"
+                            formControlName="phone"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label"
+                          >Pharmacy Password</label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            type="password"
+                            placeholder="Enter password"
+                            aria-label="password"
+                            formControlName="password"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label"
+                          >Confirm Password</label
+                        >
+                        <div class="col-sm-10">
+                          <input
+                            type="password"
+                            placeholder="Confirm password"
+                            aria-label="password"
+                            formControlName="confirmPassword"
+                            class="form-control"
+                          />
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="inputText" class="col-sm-2 col-form-label"
                           >Address</label
                         >
                         <div class="col-sm-10">
                           <input
                             type="text"
-                            placeholder="Enter category name"
-                            aria-label="staff name"
-                            formControlName="category"
+                            placeholder="Enter address"
+                            aria-label="address"
+                            formControlName="address"
                             class="form-control"
                           />
                         </div>
@@ -345,7 +387,7 @@
                           <input
                             type="text"
                             placeholder="Enter city"
-                            aria-label="staff name"
+                            aria-label="city"
                             formControlName="city"
                             class="form-control"
                           />
@@ -368,10 +410,10 @@
                      
                       <div class="row mb-3 my-16">
                         <div class="col-sm-10">
-                          <button     *ngIf="showLoginButton" type="submit" class="btn btn-primary">
+                          <button     *ngIf="showSubmitButton" type="submit" class="btn btn-primary">
                             Submit Form
                           </button>
-                          <button *ngIf="!showLoginButton"
+                          <button *ngIf="!showSubmitButton"
                           class="btn btn-primary w-100" type="button" disabled>
                             <span
                               class="spinner-grow spinner-grow-sm"

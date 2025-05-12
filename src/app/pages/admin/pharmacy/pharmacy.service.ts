@@ -7,14 +7,14 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class PharmService {
-  private dbPath = '/transactions';
+ 
 
 
 
   constructor(private db: AngularFirestore,public http: HttpClient,) {
   
   }
-  async getStore(): Promise<any> {
+  async getPharmacies(): Promise<any> {
     const headers = {
       'Content-Type': 'application/json',
     };
@@ -45,7 +45,7 @@ export class PharmService {
   }
   
   
-  async addDrug(payload: any): Promise<any> {
+  async addPharmplug(payload: any): Promise<any> {
     const headers = {
       'Content-Type': 'application/json',
     };
